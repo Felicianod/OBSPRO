@@ -3,25 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OBSPRO.Models
 {
-    public class LoginViewModel
+    public class UserLoginViewModel
     {
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "User Name")]
         public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
-        //[Required]
-        //[Display(Name = "Email")]
-        //[EmailAddress]
-        //public string Email { get; set; }
-
-        //[Display(Name = "Remember me?")]
-        //public bool RememberMe { get; set; }
-
     }
 
 }

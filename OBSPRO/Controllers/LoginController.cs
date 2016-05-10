@@ -10,10 +10,8 @@ namespace OBSPRO.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
-
         [HttpGet]
-        public ActionResult OBSLogin() { return View(); } 
-
+        public ActionResult Login(string returnUrl) { ViewBag.ReturnUrl = returnUrl; return View(); }
 
         public ActionResult OBSLogout()
         {
