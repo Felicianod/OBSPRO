@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBSPRO", "WebApplication1\OBSPRO.csproj", "{90562743-29E1-4943-B9F4-DAE65C1A4C89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBSPRO", "OBSPRO\OBSPRO.csproj", "{90562743-29E1-4943-B9F4-DAE65C1A4C89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
