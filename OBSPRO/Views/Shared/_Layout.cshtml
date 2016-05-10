@@ -36,18 +36,18 @@
             text-shadow: 2px 2px 0 #070550;
         }
 
-        .btnAdd:hover {
-            background: #3498db;
-            background: -webkit-linear-gradient(#3d85c6, #3498db 50%, #3d85c6);
-            background: linear-gradient(#3d85c6, #3498db 50%, #3d85c6);
-            font: normal 700 14px/1 "Calibri", sans-serif;
-            color: white;
-        }
+            .btnAdd:hover {
+                background: #3498db;
+                background: -webkit-linear-gradient(#3d85c6, #3498db 50%, #3d85c6);
+                background: linear-gradient(#3d85c6, #3498db 50%, #3d85c6);
+                font: normal 700 14px/1 "Calibri", sans-serif;
+                color: white;
+            }
 
-        .btnAdd:focus {
-            font: normal 700 14px/1 "Calibri", sans-serif;
-            color: white;
-        }
+            .btnAdd:focus {
+                font: normal 700 14px/1 "Calibri", sans-serif;
+                color: white;
+            }
 
         .container-fluid {
             max-width: 1400px;
@@ -68,36 +68,31 @@
     </style>
 
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
+    <div style="text-align:center">
+        @Html.Partial("_NavMenu")
     </div>
-    <div class="container body-content">
+    <div class="container-fluid body-content ">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    </div>
+    <div id="foot">
+        <table style="width:100%">
+            <tr>
+                <td style="text-align:center"></td>
+                <td style="text-align:center">
+                    Questions? &nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:dsclogistics@service-now.com">dsclogistics@service-now.com</a>
+                </td>
+                <td style="text-align:right">
+                    <b>v.Sprint 7 &nbsp;&nbsp;&nbsp;&nbsp;</b>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/jqueryUI")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
