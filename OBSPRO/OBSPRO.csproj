@@ -127,6 +127,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\bgDeleted.png" />
+    <Content Include="Images\Button-Add-icon.png" />
+    <Content Include="Images\DSCHome_Logo.gif" />
+    <Content Include="Images\DSCHOME_Logo.png" />
+    <Content Include="Images\iconNoAvatar.png" />
+    <Content Include="Images\KPogany.jpg" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\LoadingData.gif" />
+    <Content Include="Images\ui-anim_basic_16x16.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\OBSPRO.pubxml" />
@@ -160,6 +169,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Shared\_NavMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

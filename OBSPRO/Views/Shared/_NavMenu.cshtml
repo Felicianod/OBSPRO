@@ -1,22 +1,4 @@
-﻿@{
-    //bool authorized = false;
-    //bool isAdmin = User.IsInRole("Admin");
-    bool authorized = true;
-    //bool isAdmin = true;
-    //try
-    //{
-    //    if (User.IsInRole("Admin") || User.IsInRole("Super User") || User.IsInRole("Editor") || User.IsInRole("Viewer"))
-    //    {
-    //        authorized = true;
-    //    }
-    //}
-    //catch
-    //{
-    //    authorized = false;
-    //}
-}
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
+﻿<nav class="navbar navbar-inverse navbar-fixed-top">
     <a style="position:fixed; top:0; left:0" href="/home">
         <img class="img-responsive" src="~/Images/DSCHOME_Logo.png" />
     </a>
@@ -29,53 +11,21 @@
     </div>
 
     <div class="collapse navbar-collapse" id="myNavbar" style="font-size:large">
-        @if (authorized)
-        {
             <div class="col-md-8 col-md-offset-2">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Reference Data
+                            Observations
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Customers", "Index", "Cust")</li>
-                            <li>@Html.ActionLink("Logistic Center", "Index", "LC")</li>
-                            <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                            <li class="disabled">@Html.ActionLink("Find Observation", "Index", "Cust")</li>
                             @*<li class="disabled">@Html.ActionLink("Observation Types", "Index", "OBSTYPE")</li>
                                 <li class="disabled">@Html.ActionLink("Observation Subtypes", "Index", "OBSsubtype")</li>*@
                         </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" href="#">
-                            Questions Library
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Search", "Index", "Question")</li>
-                            <li>@Html.ActionLink("Add New Question", "QuestionAddUpdate", "Question", new { id = 0 }, null)</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" href="#">
-                            Collection Forms
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Search", "Index", "ColFormTemplate")</li>
-                            <li>@Html.ActionLink("Create New Form", "AddEditForm", "ColFormTemplate", new { id = "0" }, null)</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown disabled"><a data-toggle="tab" href="#">Review Forms</a></li>
+                    </li>                
                 </ul>
             </div>
-
-        }
-        else
-        {
-            <div class="col-md-8 col-md-offset-2">
-            </div>
-        }
         <div class="col-md-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
