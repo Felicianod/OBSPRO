@@ -33,8 +33,8 @@ namespace OBSPRO.Controllers
                 obs.observed_first_name = (string)res["dsc_observed_first_name"];
                 obs.observed_last_name = (string)res["dsc_observed_last_name"];
                 obs.observed_adp_id = (string)res["ObservedADPID"];
-                obs.form_title= (string)res["ColFormTitle"];               
-                obs.obs_start_time = (string)res["ColFormStartDateTime"];
+                obs.form_title= (string)res["ColFormTitle"];
+                obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
                 all_obs.Add(obs);
 
             }
