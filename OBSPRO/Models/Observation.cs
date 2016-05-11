@@ -9,11 +9,6 @@ namespace OBSPRO.Models
     public class Observation
     {
       
-        [Display(Name = "Location")]
-        public string LC { get; set; }
-
-   
-        [Display(Name = "User Name")]
         public string user_name { get; set; }
 
         [Display(Name = "Form Instance Id")]
@@ -29,7 +24,7 @@ namespace OBSPRO.Models
         public string status { set; get; }
 
         [Display(Name = "First Name")]
-        public string observer_first_name { set; get; }
+        public string observed_first_name { set; get; }
 
         [Display(Name = "Last Name")]
         public string observed_last_name { set; get; }
