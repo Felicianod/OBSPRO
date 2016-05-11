@@ -9,15 +9,15 @@ namespace OBSPRO.Controllers
 {
     public class ObservationController : Controller
     {
-        // GET: Observation
+        DataRetrieval api = new DataRetrieval();
         [HttpGet]
         public ActionResult Index()
         {
             Observation obs = new Observation();
-            obs.LC = "Corporate";
-            obs.user_name = User.Identity.Name;
-            DataRetrieval api = new DataRetrieval();
-            obs.LC = api.getLCs();
+            //obs.LC = "Corporate";
+            //obs.user_name = User.Identity.Name;
+            // obs.LC = api.getObserver("Rasul", "Abduguev", "rasul.abduguev@dsc-logistics.com");
+            obs.LC = api.getOpenReadyObservations("468");
             return View(obs);
         }
 
