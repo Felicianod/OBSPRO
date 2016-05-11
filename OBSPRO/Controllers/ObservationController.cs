@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OBSPRO.Models;
-
+using OBSPRO.App_Code;
 namespace OBSPRO.Controllers
 {
     public class ObservationController : Controller
@@ -16,6 +16,8 @@ namespace OBSPRO.Controllers
             Observation obs = new Observation();
             obs.LC = "Corporate";
             obs.user_name = User.Identity.Name;
+            DataRetrieval api = new DataRetrieval();
+            obs.LC = api.getLCs();
             return View(obs);
         }
 
