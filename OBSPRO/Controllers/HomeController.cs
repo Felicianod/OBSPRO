@@ -45,9 +45,6 @@ namespace OBSPRO.Controllers
                         dashboard.user_complete_obs.Add(obs);
                         break;
                 }
-
-
-
             }
             return View(dashboard);
         }
