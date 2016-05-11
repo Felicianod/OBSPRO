@@ -1,11 +1,80 @@
-﻿@model OBSPRO.Models.Observation
+﻿@model List<OBSPRO.Models.Observation>
 @{
     ViewBag.Title = "Observations";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Observations</h2>
+<table class="table table-condensed table-hover" border="1">
+    <tr style="background-color:gainsboro">
+        <th>
+            @Html.DisplayNameFor(model => model.First().form_inst_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().observer_id)
+        </th>
+        <th style="text-align:center; width:9%">
+            @Html.DisplayNameFor(model => model.First().observed_id)
+        </th>
+        <th style="text-align:center; width:9%">
+            @Html.DisplayNameFor(model => model.First().status)
+        </th>
+        <th style="text-align:center; width:5%">
+            @Html.DisplayNameFor(model => model.First().observed_first_name)
+        </th>
+        <th style="text-align:center; width:5%">
+            @Html.DisplayNameFor(model => model.First().observed_last_name)
+        </th>
+        <th style="text-align:center; width:5%">
+            @Html.DisplayNameFor(model => model.First().observed_adp_id)
+        </th>
+        <th style="text-align:center; width:5%">
+            @Html.DisplayNameFor(model => model.First().form_title)
+        </th>
+        <th style="text-align:center; width:5%">
+            @Html.DisplayNameFor(model => model.First().obs_start_time)
+        </th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="14"><font color="red">Employee not found</font></td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.form_inst_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.observer_id)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.observed_id)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.observed_first_name)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.observed_last_name)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.observed_adp_id)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.form_title)
+                </td>
+                <td style="text-align:center">
+                    @Html.DisplayFor(modelItem => item.obs_start_time)
+                </td>
+            </tr>
+        }
+    }
 
-<h4>@Model.LC</h4> <br>
-<h4>@Model.user_name</h4>
+</table>
 
