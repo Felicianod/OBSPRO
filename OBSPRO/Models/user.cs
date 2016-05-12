@@ -6,7 +6,7 @@ using System.Web;
 
 namespace OBSPRO.Models
 {
-    public class user
+    public class User
     {
         public string Username { get; set; }
         public string FirstName { get; set; }
@@ -16,7 +16,7 @@ namespace OBSPRO.Models
         public string role { get; set; }
         public bool isDefined { get; set; }
 
-        public user() {
+        public User() {
             try {
                 Username = HttpContext.Current.Session["first_name"].ToString();
                 LastName = HttpContext.Current.Session["last_name"].ToString();

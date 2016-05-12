@@ -14,10 +14,13 @@ namespace OBSPRO.Controllers
     {
         Dashboard dashboard = new Dashboard();
         DataRetrieval data_retrieval = new DataRetrieval();
+        User usr = new User();
         public ActionResult Index()
         {
-            string raw_data = data_retrieval.getOpenReadyObservations(Session["emp_id"].ToString());
+            usr.setUser();
+            string raw_data = data_retrieval.getOpenReadyObservations(usr.emp_id);
             JObject parsed_result = JObject.Parse(raw_data);
+          
             foreach (var res in parsed_result["resource"])
             {
                 Observation obs = new Observation();

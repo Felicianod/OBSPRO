@@ -13,18 +13,6 @@ namespace OBSPRO.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-     
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
-        [Display(Name = "Email Address")]
-        public string email { get; set; }
-
-        [Display(Name = "Employee ID")]
-        public string emp_id { get; set; }
     }
 
 }
