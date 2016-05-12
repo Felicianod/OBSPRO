@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-
 namespace OBSPRO.Models
 {
     // This class defines and user object and initializes all its properties to empty or to the current Browser Context User
@@ -17,6 +16,7 @@ namespace OBSPRO.Models
         public string role { get; set; }
         public bool isDefined { get; set; }
 
+        // ---- "USER" Class Constructor --------
         public User() {
             try {
                 Username = HttpContext.Current.Session["first_name"].ToString();
@@ -34,7 +34,7 @@ namespace OBSPRO.Models
                 role = "";
                 isDefined = false;
             }
-        }
+        }// --- End of Constructor Definition ---
 
         public void setUser(){
             try
@@ -53,11 +53,10 @@ namespace OBSPRO.Models
                 email = "";
                 emp_id = "";
                 role = "";
-                isDefined = false;
+                isDefined = false;                
             }
         }
+    }//------------------------ END OF "USER" CLASS DEFINITION -----------------------------------
 
-
-    }
 
 }

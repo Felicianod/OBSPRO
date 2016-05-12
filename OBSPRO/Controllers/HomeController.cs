@@ -18,6 +18,11 @@ namespace OBSPRO.Controllers
         public ActionResult Index()
         {
             usr.setUser();
+            if (!usr.isDefined) { 
+                //User is not defined so Session has expired. Kick user back to Login Page
+                return RedirectToAction("Login", "Login", null);
+            }
+
             string raw_data = data_retrieval.getOpenReadyObservations(usr.emp_id);
             JObject parsed_result = JObject.Parse(raw_data);
           

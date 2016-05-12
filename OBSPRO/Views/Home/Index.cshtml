@@ -50,24 +50,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ( var observation in Model.user_open_obs)
-                            {                                
-                                var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy  @ [hh:mm tt]");
+                            @if (Model.user_open_obs.Count() == 0)
+                            { // No records Found
                                 <tr>
-                                    <td>@observation.form_inst_id </td>
-                                    <td>@observation.form_title</td>
-                                    <td>@observation.observed_first_name</td>
-                                    <td>@observation.observed_last_name</td>
-                                    @*<td>@observation.status</td>*@
-                                    <td style="text-align:center">@observation.observed_adp_id</td>
-                                    <td style="text-align:center">@observation.observed_id</td>
-                                    <td style="text-align:center">@dateStarted</td>
+                                    <td colspan="7" style="text-align:center">
+                                        <div class="alert-warning">There are No Forms to Display</div>
+                                    </td>
                                 </tr>
-                                if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
+                            }
+                            else
+                            {
+                                foreach (var observation in Model.user_open_obs)
+                                {
+                                    var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy  @ [hh:mm tt]");
+                                    <tr>
+                                        <td>@observation.form_inst_id </td>
+                                        <td>@observation.form_title</td>
+                                        <td>@observation.observed_first_name</td>
+                                        <td>@observation.observed_last_name</td>
+                                        @*<td>@observation.status</td>*@
+                                        <td style="text-align:center">@observation.observed_adp_id</td>
+                                        <td style="text-align:center">@observation.observed_id</td>
+                                        <td style="text-align:center">@dateStarted</td>
+                                    </tr>
+                                    if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
+                                }
                             }
                         </tbody>
                     </table>
-                    @Html.ActionLink("show More ...", "noaction")
+                    @if (Model.user_open_obs.Count() > 5)
+                    {
+                        // Allow full list Display Option
+                        @Html.ActionLink("show More ...", "noaction")
+                    }
                 </div>
             </div>
         </div> <!-- _______________ END OF COLLAPSIBLE PANEL SECTION ___________________ -->
