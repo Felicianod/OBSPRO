@@ -91,7 +91,7 @@ namespace OBSPRO.Controllers
                     Session.Add("last_name", JsonObject["DSCAuthenticationSrv"]["last_name"]);
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);
-
+                    //localStorage.setItem("lastname", "Smith");
                     return true;  /// Authenticasion was sucessful!!
                 }
                 else
