@@ -9,8 +9,6 @@
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-
     <style>
         #foot {
             position: fixed !important;
@@ -91,7 +89,7 @@
         </table>
     </div>
 
-
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryUI")
     @RenderSection("scripts", required: false)

@@ -41,9 +41,15 @@ namespace OBSPRO.Controllers
             return View(all_obs);
         }
 
-        // GET: Observation/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public ActionResult viewForm(int id = 0)
         {
+            //if (id == null) { return HttpNotFound(); }
+
+            //oInstanceForm selectedColForm = new oInstanceForm(id);
+            //if (selectedColForm == null) { return HttpNotFound(); }
+
+            //return View(selectedColForm);
             return View();
         }
 
