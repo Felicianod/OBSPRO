@@ -41,12 +41,8 @@ namespace OBSPRO.Controllers
 
                 JObject parsed_result = JObject.Parse(data_retrieval.getObserver(Session["first_name"].ToString(), Session["last_name"].ToString(), Session["email"].ToString()));
                 foreach (var res in parsed_result["resource"])
-                {
-                    loginModel.emp_id = (string)res["dsc_observer_emp_id"];
-                    Session.Add("emp_id", loginModel.emp_id);
-                    loginModel.FirstName = Session["first_name"].ToString();
-                    loginModel.LastName = Session["last_name"].ToString();
-                    loginModel.email = Session["email"].ToString();
+                {                  
+                    Session.Add("emp_id", (string)res["dsc_observer_emp_id"]);                    
                 }
                 
                 FormsAuthentication.SetAuthCookie(loginModel.Username, true);

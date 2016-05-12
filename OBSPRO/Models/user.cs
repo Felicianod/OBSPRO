@@ -17,7 +17,7 @@ namespace OBSPRO.Models
         public string role { get; set; }
         public bool isDefined { get; set; }
 
-        public user() {
+        public User() {
             try {
                 Username = HttpContext.Current.Session["first_name"].ToString();
                 LastName = HttpContext.Current.Session["last_name"].ToString();
