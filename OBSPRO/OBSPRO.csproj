@@ -204,6 +204,7 @@
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -241,6 +242,7 @@
     <Content Include="Views\Shared\_NavMenu.cshtml" />
     <Content Include="Views\Observation\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Views\Observation\viewForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
