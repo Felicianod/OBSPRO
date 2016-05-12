@@ -16,7 +16,7 @@ namespace OBSPRO.Controllers
         DataRetrieval data_retrieval = new DataRetrieval();
         public ActionResult Index()
         {
-            string raw_data = data_retrieval.getOpenReadyObservations("468");
+            string raw_data = data_retrieval.getOpenReadyObservations(Session["emp_id"].ToString());
             JObject parsed_result = JObject.Parse(raw_data);
             foreach (var res in parsed_result["resource"])
             {

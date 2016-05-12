@@ -1,4 +1,6 @@
-﻿using OBSPRO.Models;
+﻿using Newtonsoft.Json.Linq;
+using OBSPRO.App_Code;
+using OBSPRO.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,6 +18,7 @@ namespace OBSPRO.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        DataRetrieval data_retrieval = new DataRetrieval();
         [HttpGet]
         public ActionResult Login() { 
             //ViewBag.ReturnUrl = returnUrl;
@@ -33,13 +36,24 @@ namespace OBSPRO.Controllers
             //Model State is Valid. Check Password
             if (isLogonValid(loginModel))
             {  // Is password is Valid, set the Authorization cookie and redirect
-                // the user to the link it came from (Or the Home page is noreturn URL was specified)
+               // the user to the link it came from (Or the Home page is noreturn URL was specified)
+
+                JObject parsed_result = JObject.Parse(data_retrieval.getObserver(Session["first_name"].ToString(), Session["last_name"].ToString(), Session["email"].ToString()));
+                foreach (var res in parsed_result["resource"])
+                {
+                    loginModel.emp_id = (string)res["dsc_observer_emp_id"];
+                    Session.Add("emp_id", loginModel.emp_id);
+                    loginModel.FirstName = Session["first_name"].ToString();
+                    loginModel.LastName = Session["last_name"].ToString();
+                    loginModel.email = Session["email"].ToString();
+                }                  
+                
                 FormsAuthentication.SetAuthCookie(loginModel.Username, true);
                 if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
                     && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
                 { return Redirect(ReturnUrl); }
                 else { return RedirectToAction("Index", "Home"); }
-                //return RedirectToAction("Index", "Home") as default;
+              
             }
             else
             {
@@ -91,7 +105,6 @@ namespace OBSPRO.Controllers
                     Session.Add("last_name", JsonObject["DSCAuthenticationSrv"]["last_name"]);
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);
-
                     return true;  /// Authenticasion was sucessful!!
                 }
                 else
