@@ -71,7 +71,25 @@ namespace OBSPRO.Controllers
         private bool isLogonValid(UserLoginViewModel loginModel)
         {
             if (loginModel.Password.Equals("~~") && (loginModel.Username.Equals("delgado_feliciano") || loginModel.Username.Equals("abduguev_rasul")))
-            { Session.Add("role", "Admin"); return true; }
+            { Session.Add("role", "Admin");
+                if (loginModel.Username.Equals("delgado_feliciano"))
+                {
+                    Session.Add("first_name","Feliciano");
+                    Session.Add("last_name", "Delgado");
+                    Session.Add("username", loginModel.Username);
+                    Session.Add("email", "feliciano.delgado@dsc-logistics.com");
+
+                }
+                else
+                {
+
+                    Session.Add("first_name", "Rasul");
+                    Session.Add("last_name", "Abduguev");
+                    Session.Add("username", loginModel.Username);
+                    Session.Add("email", "rasul.abduguev@dsc-logistics.com");
+                }
+
+                return true; }
             string ldaurl = ConfigurationManager.AppSettings["LDAPURL"];
             WebRequest request = WebRequest.Create(ldaurl);
             request.Method = "POST";

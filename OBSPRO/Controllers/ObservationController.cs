@@ -13,16 +13,15 @@ namespace OBSPRO.Controllers
     public class ObservationController : Controller
     {
         DataRetrieval api = new DataRetrieval();
+        User usr = new User();
         [HttpGet]
         public ActionResult Index()
         {
             
             List<Observation> all_obs = new List<Observation>();
-            //obs.LC = "Corporate";
-            //obs.user_name = User.Identity.Name;
-            // obs.LC = api.getObserver("Rasul", "Abduguev", "rasul.abduguev@dsc-logistics.com");
-            string raw_data = api.getOpenReadyObservations("468");
-            JObject parsed_result = JObject.Parse(raw_data);
+            usr.setUser();
+           // string raw_data = api.getOpenReadyObservations("468");
+            JObject parsed_result = JObject.Parse(api.getOpenReadyObservations(usr.emp_id));
             foreach(var res in parsed_result["resource"])
             {
                 Observation obs = new Observation();
