@@ -6,6 +6,7 @@ using System.Web;
 
 namespace OBSPRO.Models
 {
+    // This class defines and user object and initializes all its properties to empty or to the current Browser Context User
     public class User
     {
         public string Username { get; set; }
@@ -58,4 +59,5 @@ namespace OBSPRO.Models
 
 
     }
+
 }
