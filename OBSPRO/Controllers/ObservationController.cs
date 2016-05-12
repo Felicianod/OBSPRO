@@ -14,10 +14,10 @@ namespace OBSPRO.Controllers
     {
         DataRetrieval api = new DataRetrieval();
         User usr = new User();
+
         [HttpGet]
-        public ActionResult Index()
-        {
-            
+        public ActionResult Index(string frmStatus)
+        {            
             List<Observation> all_obs = new List<Observation>();
             usr.setUser();
            // string raw_data = api.getOpenReadyObservations("468");
@@ -34,8 +34,7 @@ namespace OBSPRO.Controllers
                 obs.observed_adp_id = (string)res["ObservedADPID"];
                 obs.form_title= (string)res["ColFormTitle"];
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
-                all_obs.Add(obs);
-
+                if (String.IsNullOrEmpty(frmStatus) || frmStatus.Equals(obs.status)) { all_obs.Add(obs); }                
             }
             return View(all_obs);
         }

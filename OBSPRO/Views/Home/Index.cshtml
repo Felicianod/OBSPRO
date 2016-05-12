@@ -103,7 +103,7 @@
                 @if (Model.user_open_obs.Count() > 5)
                 {
                     // Allow full list Display Option
-                    @Html.ActionLink("show More ...", "noaction")
+                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "OPEN" }, null)
                 }
             </div>
         </div>
@@ -174,7 +174,7 @@
                 @if (Model.user_ready_obs.Count() > 5)
                 {
                     // Allow full list Display Option
-                    @Html.ActionLink("show More ...", "noaction")
+                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "READY"}, null)
                 }
             </div>
         </div>
@@ -245,7 +245,7 @@
                 @if (Model.user_complete_obs.Count() > 5)
                 {
                     // Allow full list Display Option
-                    @Html.ActionLink("show More ...", "noaction")
+                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "COMPLETE" }, null)
                 }
             </div>
         </div>
