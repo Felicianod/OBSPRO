@@ -69,6 +69,12 @@
 </head>
 
 <body>
+    @try {
+        var sessionActive = Session["emp_id"].ToString();
+    }
+    catch {
+        Html.Action("OBSLogout", "Login");
+    }
     <div style="text-align:center">
         @Html.Partial("_NavMenu")
     </div>

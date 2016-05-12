@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 
+
 namespace OBSPRO.Controllers
 {
     [AllowAnonymous]
@@ -32,7 +33,7 @@ namespace OBSPRO.Controllers
         public ActionResult login(UserLoginViewModel loginModel, string ReturnUrl)
         {
             if (!ModelState.IsValid) { return View(loginModel); }
-
+            
             //Model State is Valid. Check Password
             if (isLogonValid(loginModel))
             {  // Is password is Valid, set the Authorization cookie and redirect
@@ -46,7 +47,7 @@ namespace OBSPRO.Controllers
                     loginModel.FirstName = Session["first_name"].ToString();
                     loginModel.LastName = Session["last_name"].ToString();
                     loginModel.email = Session["email"].ToString();
-                }                  
+                }
                 
                 FormsAuthentication.SetAuthCookie(loginModel.Username, true);
                 if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
@@ -104,8 +105,7 @@ namespace OBSPRO.Controllers
                     Session.Add("first_name", JsonObject["DSCAuthenticationSrv"]["first_name"]);
                     Session.Add("last_name", JsonObject["DSCAuthenticationSrv"]["last_name"]);
                     Session.Add("username", loginModel.Username);
-                    Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);
-                    //localStorage.setItem("lastname", "Smith");
+                    Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);                    
                     return true;  /// Authenticasion was sucessful!!
                 }
                 else
