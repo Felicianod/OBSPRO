@@ -7,6 +7,7 @@ using OBSPRO.App_Code;
 using OBSPRO.Models;
 using Newtonsoft.Json.Linq;
 
+
 namespace OBSPRO.Controllers
 {
     public class HomeController : Controller
@@ -15,10 +16,6 @@ namespace OBSPRO.Controllers
         DataRetrieval data_retrieval = new DataRetrieval();
         public ActionResult Index()
         {
-
-            //obs.LC = "Corporate";
-            //obs.user_name = User.Identity.Name;
-            // obs.LC = api.getObserver("Rasul", "Abduguev", "rasul.abduguev@dsc-logistics.com");
             string raw_data = data_retrieval.getOpenReadyObservations("468");
             JObject parsed_result = JObject.Parse(raw_data);
             foreach (var res in parsed_result["resource"])
@@ -32,7 +29,7 @@ namespace OBSPRO.Controllers
                 obs.observed_last_name = (string)res["dsc_observed_last_name"];
                 obs.observed_adp_id = (string)res["ObservedADPID"];
                 obs.form_title = (string)res["ColFormTitle"];
-                obs.obs_start_time = (string)res["ColFormStartDateTime"];
+                obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
                 switch (obs.status)
                 {
                     case "OPEN":

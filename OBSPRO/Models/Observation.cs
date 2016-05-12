@@ -8,11 +8,11 @@ namespace OBSPRO.Models
 {
     public class Observation
     {
-      
+
         public string user_name { get; set; }
 
         [Display(Name = "Form Instance Id")]
-        public string form_inst_id { set; get; } 
+        public string form_inst_id { set; get; }
 
         [Display(Name = "Observer Id")]
         public string observer_id { set; get; }
@@ -38,7 +38,8 @@ namespace OBSPRO.Models
         public string form_title { set; get; }
 
         [Display(Name = "Observation Start Time")]
-        public string obs_start_time { set; get; }
+        [DisplayFormat(DataFormatString = "{0:MMM-dd-yyyy H:mm tt}")]
+        public DateTime obs_start_time { set; get; }
 
     }
 }
