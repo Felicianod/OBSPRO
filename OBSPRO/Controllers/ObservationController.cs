@@ -43,6 +43,8 @@ namespace OBSPRO.Controllers
         [HttpGet]
         public ActionResult viewForm(int id = 0)
         {
+            ViewData["formInsId"] = id.ToString();
+            ViewBag.Title = "Form Instance Details";
             //if (id == null) { return HttpNotFound(); }
 
             //oInstanceForm selectedColForm = new oInstanceForm(id);
