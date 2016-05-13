@@ -7,7 +7,7 @@ namespace OBSPRO.Models
 {
     public class OBSCollectionForm
     {
-        public string ErrorMessage = String.Empty;
+        public string ErrorMessage = String.Empty; 
         public string observedEmployeeId { set; get; }
         public string observerEmployeeId { set; get; }
         public DateTime hidedDate { set; get; }
