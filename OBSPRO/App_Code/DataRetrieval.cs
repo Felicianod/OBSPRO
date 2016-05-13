@@ -94,14 +94,14 @@ namespace OBSPRO.App_Code
             }
         }
         //this method retrieves the saved obs form instances with submitted answers
-        public string getObsCollForm(string form_inst_id)
+        public string getObsCollForm(int form_inst_id)
         {
             string endPoint = "obs_getCollform";
             WebRequest request = WebRequest.Create(api_url + endPoint);
             request.Method = "POST";
             request.ContentType = "application/json";
             ASCIIEncoding encoding = new ASCIIEncoding();
-            string parsedContent = "{\"ObsColFormInstID\":\"" + form_inst_id + "\"}";
+            string parsedContent = "{\"ObsColFormInstID\":" + form_inst_id + "}";
             Byte[] bytes = encoding.GetBytes(parsedContent);
             string JsonString = String.Empty;
             try

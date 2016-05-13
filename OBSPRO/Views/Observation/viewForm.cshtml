@@ -1,4 +1,6 @@
-﻿@{
+﻿@model OBSPRO.Models.OBSCollectionForm
+
+@{
     ViewBag.Title = "viewForm";
 }
 
@@ -6,5 +8,7 @@
 
 
 This is a place holder to Display Form Id "@ViewData["formInsId"]"
-
+<h4>@Model.observedEmployeeId</h4><br>
+<h4>@Model.dBColFormStatus</h4><br>
+<h4>@Model.colFormStatus</h4><br>
 

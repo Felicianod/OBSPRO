@@ -7,10 +7,10 @@ namespace OBSPRO.Models
 {
     public class Answer
     {
-        public string answerId { set; get; }
-        public string cfiqid { set; get; }
-        public string obscolanswgt { set; get; }
-        public string answerOrder { set; get; }
+        public int answerId { set; get; }
+        public int cfiqid { set; get; }
+        public int obscolanswgt { set; get; }
+        public int answerOrder { set; get; }
         public string answerText { set; get; }
     }
 }
