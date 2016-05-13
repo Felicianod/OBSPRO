@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace OBSPRO
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
