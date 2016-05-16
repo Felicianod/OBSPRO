@@ -20,7 +20,6 @@ namespace OBSPRO.Controllers
         {            
             List<Observation> all_obs = new List<Observation>();
             usr.setUser();
-           // string raw_data = api.getOpenReadyObservations("468");
             JObject parsed_result = JObject.Parse(api.getOpenReadyObservations(usr.emp_id));
             foreach(var res in parsed_result["resource"])
             {
