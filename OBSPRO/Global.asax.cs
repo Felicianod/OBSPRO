@@ -12,7 +12,7 @@ using System.Web.SessionState;
 
 namespace OBSPRO
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class Global : System.Web.HttpApplication
     {
 
         protected void Application_Start(object sender, EventArgs e)
