@@ -15,7 +15,7 @@
         <br />
         <span @*class="glyphicon glyphicon-dashboard"*@ style="width:80%; font-weight:bold; font-size:larger; vertical-align:bottom">[&nbsp; USER DASHBOARD &nbsp;]</span><br />
     </div>
-    <div id="userDIV" class="col-sm-5 jumbotron" style="border: 1px solid black; margin:0px; padding:5px 0px">
+    <div id="userDIV" class="col-sm-5 jumbotron" style="border: 1px solid black; margin:0px; padding:5px 20px; margin-bottom:4px">
         <div class="row">
             <div class="col-sm-4">
                 <span style="font-weight:bold;">User Name:</span>
@@ -74,8 +74,8 @@
                         @if (Model.user_open_obs.Count() == 0)
                         { // No records Found
                             <tr>
-                                <td colspan="7" style="text-align:center">
-                                    <div class="alert-warning" style="padding:10px; font-size:large">There are No Forms to Display</div>
+                                <td colspan="7" style="text-align:center;">
+                                    <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
                                 </td>
                             </tr>
                         }
@@ -145,8 +145,8 @@
                         @if (Model.user_ready_obs.Count() == 0)
                         { // No records Found
                             <tr>
-                                <td colspan="7" style="text-align:center">
-                                    <div class="alert-warning" style="padding:10px; font-size:large">There are No Forms to Display</div>
+                                <td colspan="7" style="text-align:center;">
+                                    <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
                                 </td>
                             </tr>
                         }
@@ -216,8 +216,8 @@
                         @if (Model.user_complete_obs.Count() == 0)
                         { // No records Found
                             <tr>
-                                <td colspan="7" style="text-align:center">
-                                    <div class="alert-warning" style="padding:10px; font-size:large">There are No Forms to Display</div>
+                                <td colspan="7" style="text-align:center;">
+                                    <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
                                 </td>
                             </tr>
                         }
