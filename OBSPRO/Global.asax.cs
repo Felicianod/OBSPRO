@@ -1,17 +1,21 @@
 ﻿using System;
-using System.Security.Principal;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
-//using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Web.SessionState;
+using System.Web.Security;
+using System.Security.Principal;
+using System.Web.Optimization;
 
 namespace OBSPRO
 {
-    public class MvcApplication : HttpApplication
+    public class Global : System.Web.HttpApplication
     {
-        protected void Application_Start()
+
+        protected void Application_Start(object sender, EventArgs e)
         {
             AreaRegistration.RegisterAllAreas();
             //GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -20,6 +24,12 @@ namespace OBSPRO
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
             ViewEngines.Engines.Add(new RazorViewEngine());
+
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -30,9 +40,10 @@ namespace OBSPRO
             {
                 context.Response.SuppressFormsAuthenticationRedirect = true;
             }
+
         }
 
-        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
             HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
             if (authCookie == null || authCookie.Value == "")
@@ -54,7 +65,22 @@ namespace OBSPRO
             if (Context.User != null)
                 Context.User = new GenericPrincipal(Context.User.Identity, roles);
             //Valid Roles are: "Admin", "Super User", "Editor", "Viewer"
+
         }
 
+        protected void Application_Error(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Application_End(object sender, EventArgs e)
+        {
+
+        }
     }
 }
