@@ -47,9 +47,10 @@ namespace OBSPRO.Controllers
             JObject parsed_result = JObject.Parse(api.getObsCollForm(id));
             Section current_section = new Section();
             current_section.sectionName = String.Empty;       
-            obsColForm.observedEmployeeId = (string)parsed_result["observationsColFormData"]["ObserverEmployeeID"];
+            obsColForm.observedEmployeeId = (string)parsed_result["observationsColFormData"]["ObservedEmployeeID"];
             obsColForm.observerEmployeeId = (string)parsed_result["observationsColFormData"]["ObserverEmployeeID"];
-            obsColForm.hidedDate = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["hiredDate"]);
+            try { obsColForm.hiredDate = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["hiredDate"]); }
+            catch { }
             obsColForm.lc_id = (string)parsed_result["observationsColFormData"]["DSC_LC_ID"];
             obsColForm.customer_id = (string)parsed_result["observationsColFormData"]["customer"];
             obsColForm.obsColFormId = (int)parsed_result["observationsColFormData"]["OBSColFormID"];
@@ -112,7 +113,17 @@ namespace OBSPRO.Controllers
                         answer_value.obscolanswgt = (int)ans_val["obscolanswgt"];
                         answer_value.answerOrder = (int)ans_val["answerOrder"];
                         answer_value.answerText = (string)ans_val["answerText"];
-                        formQuestion.answers.Add(answer_value);
+                        formQuestion.naSelected = answer_value.answerText.Equals("n/a")?true:false;
+                        if (!formQuestion.naSelected)
+                        {
+                            var selected_answer = formQuestion.answers.FirstOrDefault(x => x.answerText == answer_value.answerText);
+                            if (selected_answer!=null)
+                            {
+                                selected_answer.isSelected = true;
+                            }
+                        }
+                        formQuestion.answerValues.Add(answer_value);
+                        
                     }
                 }
                 

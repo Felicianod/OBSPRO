@@ -1,14 +1,205 @@
 ﻿@model OBSPRO.Models.OBSCollectionForm
-
 @{
     ViewBag.Title = "viewForm";
 }
-
 <h2>viewForm</h2>
-
-
-This is a place holder to Display Form Id "@ViewData["formInsId"]"
-<h4>@Model.observedEmployeeId</h4><br>
-<h4>@Model.dBColFormStatus</h4><br>
-<h4>@Model.colFormStatus</h4><br>
+<div class="panel panel-default">
+    @*--------------------------- PANEL HEADER SECTION --------------------------------------*@
+    <div class="panel-heading header">
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <h3 class="panel-title" style="text-align:center"><b>COLLECTION FORM: </b><span style="color:cadetblue; font-size:x-large; font-weight:bold">"@Model.colFormTitle"</span></h3>
+                    @if (!String.IsNullOrEmpty(Model.colFormSubtitle))
+                    {<h5> Subtitle: @Model.colFormSubtitle </h5>}
+            else { <h5> </h5>}
+                </td>
+                <td style="text-align:right; vertical-align:top">
+                    <span class="badge" data-toggle="tooltip" title="Form ID:  Number/Version: ">
+                        ID: @Model.obsColFormInstId<text></text>@Model.colFormVersion
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:8%"><b>CUSTOMER: </b></td>
+                            <td style="width:15%">@Model.customer_id</td>
+                            <td style="width:3%"><b>LC: </b></td>
+                            <td style="width:15%">@Model.lc_id</td>
+                            <td style="width:4%"><b>DB Status: </b></td>
+                            <td style="width:35%">@Model.dBColFormStatus</td>
+                            <td style="width:10%; text-align:right"><span class="badge">@Model.colFormStatus</span>
+                            <td style="width:10%; text-align:right">
+                                <span class="badge">@Model.colFormStartDateTime</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    @*--------------------------- PANEL BODY SECTION --------------------------------------*@
+    <div class="panel-body content">
+        <div class="row">
+            <table style="width:100%">
+                <tr>
+                    <td style="text-align:center; width:10%"><button type="button" class="btn-link" id="collapseall">Collapse All</button></td>
+                    <td style="text-align:center; width:10%"><button type="button" class="btn-link " id="showall">Show All</button></td>
+                    <td style="text-align:right">@Html.ActionLink("Back to List", "Index") &nbsp;&nbsp;</td>
+                </tr>
+            </table>
+        </div>
+        @* - - - - - Loop Once for each Question Section - - - - - *@
+        <div class="panel-group" id="accordion">
+            @foreach (var fSection in Model.sections)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            @* If we need to autoclose all section when one is opened use <a>property ->  'data-parent="#accordion"' *@
+                            <a class="accordion-toggle" data-toggle="collapse" href="#@fSection.sectionName">
+                                <span class="glyphicon glyphicon-minus">&nbsp;</span>
+                                @*<span class="glyphicon glyphicon-collapse-up">&nbsp;</span>*@
+                                @*<span class="caret">&nbsp;</span>*@
+                                @fSection.sectionName
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse collapse in">
+                        <ul class="list-group">
+                            @foreach (var fQuestion in fSection.questions)
+                            {
+                                <li class="list-group-item">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <td>@fQuestion.questionText</td>
+                                            <td style="width:8%; text-align:right">
+                                                <span class="label label-primary">@fQuestion.answerType</span>
+                                            </td>
+                                        </tr>
+                                        @if (fQuestion.answerType.Contains("YES_NO"))
+                                        {
+                                            <tr>
+                                                <td style="width:5%"></td>
+                                                <td colspan="2">
+                                                    <span class="badge">Y</span>
+                                                    <span class="badge">N</span>
+                                                    @if (!fQuestion.answerType.Contains("COM"))
+                                                    {<TEXT>&nbsp; [No comment is Required]</TEXT> }
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if (fQuestion.answerType.Contains("3_VAL"))
+                                        {
+                                            <tr>
+                                                <td style="width:5%"></td>
+                                                <td colspan="2">
+                                                    <br />
+                                                    @*<div class="btn-group" role="group" aria-label="...">
+                                                        @foreach (var qAnswer in fQuestion.cfq_SelectableAnswers)
+                                                        {
+                                                           <button type="button" class="btn btn-default">@qAnswer</button>
+                                                        }
+                                                        </div>
+                                                        <br />*@
+                                                    @{int aCounter = 1;}
+                                                    <ul class="nav nav-pills">
+                                                        @foreach (var qAnswer in fQuestion.answers)
+                                                        {
+                                                            string rangeBtnId = "#qRange" + fQuestion.questionId.ToString("00") + aCounter.ToString("00");
+                                                            <li><a data-toggle="pill" href="@rangeBtnId">@qAnswer.answerText</a></li>
+                                                            aCounter++;
+                                                        }
+                                                    </ul>
+                                                    @{aCounter = 1;}
+                                                    <br />
+                                                    <div class="tab-content">
+                                                        @foreach (var qAnswer in fQuestion.answers)
+                                                        {
+                                                            string rangeBtnId = "qRange" + fQuestion.questionId.ToString("00") + aCounter.ToString("00");
+                                                            <div id="@rangeBtnId" class="tab-pane fade">
+                                                                @if (aCounter == 1)
+                                                                {
+                                                                    <textarea class="form-control has-feedback" cols="400" rows="2" style="max-width: 100%; width:80%; background-color:#E5E4E2" placeholder="This Selection requires a mandatory comment!"></textarea>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <br />
+                                                </td>
+                                            </tr>
+                                                        }
+                                                        @*
+                                                            @if (fQuestion.cfq_AT.Contains("Range"))
+                                                            {
+                                                               <tr>
+                                                                 <td style="width:5%"></td>
+                                                                 <td colspan="2">
+                                                                    <table style="width:80%">
+                                                                      <tr>
+                                                                        @foreach (var qAnswer in fQuestion.cfq_SelectableAnswers)
+                                                                        {
+                                                                           <td style="width:20%">
+                                                                              <h5><span class="label label-default">@qAnswer</span></h5>
+                                                                           </td>
+                                                                        }
+                                                                      </tr>
+                                                                    </table>
+                                                                 </td>
+                                                               </tr>
+                                                            }*@
+                                        else
+                                        {//Loop through the Question Selectable answers List and create a new table row for each of them
+                                            <tr>
+                                                <td style="width:5%"></td>
+                                                <td colspan="2">
+                                                    <table class="table table-condensed table-hover">
+                                                        <tbody>
+                                                            @foreach (var qAnswer in fQuestion.answers)
+                                                            {
+                                                                int counter = 1;
+                                                                string controlName = "checkbox" + counter.ToString("00");
+                                                                <tr>
+                                                                    <td>
+                                                                        @if (fQuestion.answerType.Contains("MULTI_SLCT_COM"))
+                                                                        {
+                                                                            <input id="@controlName" class="icon-checkbox" type="checkbox" />
+                                                                        }
+                                                                        else if (fQuestion.answerType.Contains("SNGL_SLCT") || fQuestion.answerType.Contains("VAL"))
+                                                                        {
+                                                                            <input type="radio" name="options1" id="option1" autocomplete="off" checked> @*<span class="glyphicon glyphicon-unchecked unchecked"></span> <span class="glyphicon glyphicon-check checked"></span>*@
+                                                                        }
+                                                                        <text>&nbsp;</text>
+                                                                        @qAnswer.answerText
+                                                                    </td>
+                                                                </tr>
+                                                                counter++;
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if ((fQuestion.answerType.Contains("COM") || fQuestion.answerType.Contains("FREE_TXT")) && !fQuestion.answerType.Contains("3"))
+                                        {
+                                            <tr>
+                                                <td style="width:5%"></td>
+                                                <td colspan="2">
+                                                    <textarea class="form-control has-feedback" cols="400" rows="2" style="max-width: 100%; width:80%; background-color:#E5E4E2" placeholder=@fQuestion.comments></textarea>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </li>
+                                                        }
+                        </ul>
+                        @*<div class="panel-footer">Footer</div>*@
+                    </div>
+                </div>
+                                                        }
+        </div>
+    </div>
+</div>
 
