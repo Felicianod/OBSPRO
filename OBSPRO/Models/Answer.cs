@@ -12,5 +12,7 @@ namespace OBSPRO.Models
         public int obscolanswgt { set; get; }
         public int answerOrder { set; get; }
         public string answerText { set; get; }
+
+        public bool isSelected = false;
     }
 }
