@@ -92,7 +92,7 @@
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
                                     <td style="text-align:center">@observation.observed_id</td>
-                                    <td style="text-align:center">@dateStarted</td>
+                                    <td style="text-align:center">@observation.obs_start_time</td>
                                 </tr>
                                 loopCounter++;
                                 if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
@@ -163,7 +163,7 @@
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
                                     <td style="text-align:center">@observation.observed_id</td>
-                                    <td style="text-align:center">@dateStarted</td>
+                                    <td style="text-align:center">@observation.obs_start_time</td>
                                 </tr>
                                 loopCounter++;
                                 if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
@@ -234,7 +234,7 @@
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
                                     <td style="text-align:center">@observation.observed_id</td>
-                                    <td style="text-align:center">@dateStarted</td>
+                                    <td style="text-align:center">@observation.obs_start_time</td>
                                 </tr>
                                 loopCounter++;
                                 if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
