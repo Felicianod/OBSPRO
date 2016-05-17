@@ -18,7 +18,7 @@ namespace OBSPRO.App_Code
 
         public obsGetOpenReady() {
             apiName = "obsGetOpenReady";
-            apiURL = common.ReadSetting("apiBaseURL") + apiName;
+            apiURL = Common.ReadSetting("apiBaseURL") + apiName;
         }
 
         private class payload {

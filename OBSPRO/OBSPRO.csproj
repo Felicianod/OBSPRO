@@ -118,7 +118,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\APIclasses.cs" />
-    <Compile Include="App_Code\common.cs" />
+    <Content Include="App_Code\APIDataParcer.cs" />
+    <Compile Include="App_Code\Common.cs" />
     <Compile Include="App_Code\DataRetrieval.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
