@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 using System.Text;
 
 namespace OBSPRO.App_Code
@@ -17,7 +16,7 @@ namespace OBSPRO.App_Code
 
         public obsGetOpenReady() {
             apiName = "obsGetOpenReady";
-            apiURL = common.ReadSetting("apiBaseURL") + apiName;
+            apiURL = CommonClass.ReadSetting("apiBaseURL") + apiName;
         }
 
         private class payload {

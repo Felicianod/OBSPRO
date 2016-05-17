@@ -6,7 +6,7 @@ using System.Web;
 
 namespace OBSPRO.App_Code
 {
-    public class common
+    public class CommonClass
     {
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
         // This function reads the current Server Webconfig File and retrieves the value of the Appsetting Variable passed as a parameter "key"
