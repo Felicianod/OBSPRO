@@ -23,9 +23,10 @@ namespace OBSPRO.Models
         public string obsInstId { set; get; }
         public string obsColFormInstId { set; get; }
         public DateTime colFormStartDateTime { set; get; }
+        public DateTime colFormSubmittedDateTime { set; get; }
         public string dBColFormStatus { set; get; }
         public string colFormStatus { set; get; }
-
+        
         public List<Section> sections = new List<Section>();
 
     }
