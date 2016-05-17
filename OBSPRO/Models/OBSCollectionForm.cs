@@ -9,9 +9,12 @@ namespace OBSPRO.Models
     {
         public string ErrorMessage = String.Empty;
         public string observedEmployeeId { set; get; }
+        public string observedEmployeeFullName { set; get; }
         public string observerEmployeeId { set; get; }
+        public string observerEmployeeFullName { set; get; }
         public DateTime hiredDate { set; get; }
         public string lc_id { set; get; }
+        public string lc_Name { set; get; }
         public string customer_id { set; get; }
         public  int obsColFormId { set; get; }
         public string colFormTitle { set; get; }
