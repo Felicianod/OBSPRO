@@ -11,7 +11,7 @@ namespace OBSPRO.App_Code
 {
     public class DataRetrieval
     {
-        private string api_url = CommonClass.ReadSetting("apiBaseURL");
+        private string api_url = Common.ReadSetting("apiBaseURL");
 
         public  string getLCs()
         {
