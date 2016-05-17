@@ -5,15 +5,17 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using OBSPRO.App_Code;
 
 namespace OBSPRO.App_Code
 {
     public class DataRetrieval
     {
-        private string api_url = "http://dscapidev.dsccorp.net/dscrest/api/v1/getobsemp/";
+        private string api_url = common.ReadSetting("apiBaseURL");
 
         public  string getLCs()
         {
+
             string endPoint = "obs_getLC";
             WebRequest request = WebRequest.Create(api_url+endPoint);
             request.Method = "GET";
