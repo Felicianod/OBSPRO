@@ -67,9 +67,21 @@ namespace OBSPRO
 
         }
 
-        protected void Application_Error(object sender, EventArgs e)
+        protected void Application_Error(Object sender, EventArgs e)
         {
+            var raisedException = Server.GetLastError();
+            string errorMessage = raisedException.Message;
+            // Process exception...
 
+            //// We've handled the error, so clear it from the Server. 
+            ////Leaving the server in an error state can cause unintended side effects as the server continues its attempts to handle the error.
+            //Server.ClearError();
+
+            //// Possible that a partially rendered page has already been written to response buffer before encountering error, so clear it.
+            //Response.Clear();
+
+            //// Finally redirect, transfer, or render a error view
+            //Response.Redirect("~/Error/Index?ErroMsg=" + errorMessage);
         }
 
         protected void Session_End(object sender, EventArgs e)
@@ -81,5 +93,6 @@ namespace OBSPRO
         {
 
         }
+
     }
 }
