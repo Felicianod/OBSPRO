@@ -118,7 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\APIclasses.cs" />
-    <Content Include="App_Code\APIDataParcer.cs" />
+    <Compile Include="App_Code\APIDataParcer.cs" />
     <Compile Include="App_Code\Common.cs" />
     <Compile Include="App_Code\DataRetrieval.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -269,7 +269,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54031</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
