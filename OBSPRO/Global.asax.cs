@@ -22,8 +22,8 @@ namespace OBSPRO
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
-            ViewEngines.Engines.Add(new RazorViewEngine());
-
+            GlobalFilters.Filters.Add(new HandleErrorAttribute());
+            ViewEngines.Engines.Add(new RazorViewEngine());            
         }
 
         protected void Session_Start(object sender, EventArgs e)

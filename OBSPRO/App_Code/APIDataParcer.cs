@@ -63,6 +63,8 @@ namespace OBSPRO.App_Code
             obsColForm.obsInstId = (string)parsed_result["observationsColFormData"]["OBSInstID"];
             obsColForm.obsColFormInstId = (string)parsed_result["observationsColFormData"]["OBSColFormInstID"];
             obsColForm.colFormStartDateTime = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["ColFormStartDateTime"]);
+            obsColForm.strColFormStartDateTime = obsColForm.colFormStartDateTime.ToString("MMM dd, yyyy hh:mm tt");
+            obsColForm.strColFormSubmittedDateTime = "";
             obsColForm.dBColFormStatus = (string)parsed_result["observationsColFormData"]["DBColFormStatus"];
             obsColForm.colFormStatus = (string)parsed_result["observationsColFormData"]["ColFormStatus"];
             JArray questions = (JArray)parsed_result["observationsColFormData"]["questions"];
