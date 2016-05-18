@@ -63,6 +63,7 @@
         </div>
     </section>
     <section id="formBody" style="overflow-y:auto" @*class="container-fluid"*@>
+        <br /><br /><br /><br /><br /><br />
         @foreach (var sec in Model.sections)
         {
             <div class="panel panel-default" style="margin:0px 0px;">
@@ -73,12 +74,12 @@
                 </div>
                 <div class="panel-body content">
                     @foreach (var quest in sec.questions)
-                {
+                    {
                         <div style="border-bottom:solid 1px #d6d6d6; margin-top: 1px">
                             <div class="row" style="font-weight:bold;margin-left:5px; margin-top: 1px">
                                 <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
                             </div>
-                            <div class="row" style="margin-left:20px">
+                            <div class="row" style="margin-left:20px; margin-bottom:0px">
                                 <div class="col-lg-9">
                                     <ul class="list-inline">
                                         @foreach (var ans in quest.answers)
@@ -98,8 +99,14 @@
                                     @if (quest.naSelected)
                                     {
                                         <span class="badge" style="padding:6px">N/A</span>
-                                    }                                  
+                                    }
                                 </div>
+                            </div>
+                            <div class="row" style="margin-left:20px">
+                                @if (!String.IsNullOrEmpty(quest.comments) ) 
+                                { 
+                                    <textarea class="form-control" readonly style="margin-bottom:3px; min-width:70%">@quest.comments</textarea>
+                                }
                             </div>
                         </div>
                         qcounter += 1;
