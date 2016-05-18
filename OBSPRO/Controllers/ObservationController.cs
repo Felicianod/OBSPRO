@@ -23,7 +23,7 @@ namespace OBSPRO.Controllers
         }
 
         [HttpGet]
-        public ActionResult viewForm(int id = 10280)
+        public ActionResult viewForm(int id)
         {
             return View(apiParcer.getFormInstance(id));
         }

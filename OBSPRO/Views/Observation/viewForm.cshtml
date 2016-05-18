@@ -6,22 +6,23 @@
     var qcounter = 1;
 }
 <style>
-   .nomargin {
+    .nomargin {
         margin: 0px 0px;
         padding: 2px 2px;
+    }
 
-   }
-   .affix {
-      top: 75px;
-      width: 100%;
-  }
-  .affix + .container-fluid {
-      padding-top: 400px;
-  }
+    .affix {
+        top: 75px;
+        width: 100%;
+    }
+
+        .affix + .container-fluid {
+            padding-top: 400px;
+        }
 </style>
 <div style="max-width:1100px; margin:0 auto;">
     <section id="formHeader" style="position:fixed; top:71px; z-index:999; border:1px solid black; min-width:1100px" @*data-spy="affix" data-offset-top="10"*@>
-        <div class="panel panel-info nomargin" >
+        <div class="panel panel-info nomargin">
             <div class="panel-heading header" style="background-color:#b62525; color:white; padding:5px">
                 <div class="row" style="text-align:center;font-size:large;font-weight:bold">
                     <div>Observation Collection Form</div>
@@ -73,33 +74,36 @@
                 <div class="panel-body content">
                     @foreach (var quest in sec.questions)
                 {
-                    <div style="border-bottom:solid 1px #d6d6d6; margin-top: 1px">
-                        <div class="row" style="font-weight:bold;margin-left:5px; margin-top: 1px">
-                            <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
-                        </div>
-                        <div class="row" style="margin-left:20px">
-                            <div class="col-lg-9">
-                                <ul class="list-inline">
-                                    @foreach (var ans in quest.answers)
+                        <div style="border-bottom:solid 1px #d6d6d6; margin-top: 1px">
+                            <div class="row" style="font-weight:bold;margin-left:5px; margin-top: 1px">
+                                <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
+                            </div>
+                            <div class="row" style="margin-left:20px">
+                                <div class="col-lg-9">
+                                    <ul class="list-inline">
+                                        @foreach (var ans in quest.answers)
+                                        {
+                                            if (ans.isSelected)
+                                            {
+                                                <li><span class="badge" style="padding:6px">@ans.answerText</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li>@ans.answerText</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="col-sm-2">
+                                    @if (quest.naSelected)
                                     {
-                                        if (ans.isSelected)
-                                        {
-                                    <li><span class="badge" style="padding:6px">@ans.answerText</span></li>
-                                        }
-                                        else
-                                        {
-                                    <li>@ans.answerText</li>
-                                        }
-                                    }
-                                </ul>
-                            </div>
-                            <div class="col-sm-2">
-                                N/A
+                                        <span class="badge" style="padding:6px">N/A</span>
+                                    }                                  
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    qcounter += 1;
-                }
+                        qcounter += 1;
+                    }
                 </div>
 
 
