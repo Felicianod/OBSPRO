@@ -37,33 +37,37 @@
                 </div>
             </div>
             <div class="panel-body content " style="background-color:#292222;color:white; padding:4px">
-                <div class="form-group row nomargin">
-                    <div class="col-md-12">
-                        <span style="float:left"><b>Location: </b> Corporate</span>
-                        <span style="float:right;"><button class="glyphicon glyphicon-print" style="background-color: black; color:white; font-weight:bold; padding:5px">&nbsp;Print</button></span>
+                <div class="row">
+                    <div class="col-sm-11">
+                        <div class="form-group row nomargin">
+                            <div class="col-md-4">
+                                <span style="float:left"><b>Location: </b> Corporate</span>
+                            </div>
+                            <div class="col-md-4">
+                                <b>Start Date: </b> @Model.strColFormStartDateTime
+                            </div>
+                            <div class="col-md-4">
+                                <b>Submit Date: </b> @Model.strColFormSubmittedDateTime
+                            </div>
+                        </div>
+                        <div class="form-group row nomargin">
+                            <div class="col-md-4">
+                                <b>Observer: </b> @Model.observerEmployeeFullName
+                            </div>
+                            <div class="col-md-4">
+                                <b>Employee Observed: </b> @Model.observedEmployeeFullName
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row nomargin">
-                    <div class="col-md-4">
-                        <b>Start Date: </b> @Model.strColFormStartDateTime
-                    </div>
-                    <div class="col-md-4">
-                        <b>Submit Date: </b> @Model.strColFormSubmittedDateTime
-                    </div>
-                </div>
-                <div class="form-group row nomargin">
-                    <div class="col-md-4">
-                        <b>Observer Name: </b> @Model.observerEmployeeFullName
-                    </div>
-                    <div class="col-md-4">
-                        <b>Observed Employee: </b> @Model.observedEmployeeFullName
+                    <div class="col-sm-1">
+                        <span style="float:right;"><button class="glyphicon glyphicon-print" id="btnPrintForm" type="button" style="background-color: black; color:white; font-weight:bold; padding:5px">&nbsp;Print</button></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <section id="formBody" style="overflow-y:auto" @*class="container-fluid"*@>
-        <div style="font-size:medium; margin-bottom:15px" ><br /><br /><br /><br /><br />  </div>
+        <div style="font-size:medium; margin-bottom:5px" ><br /><br /><br /><br /> </div>
         @foreach (var sec in Model.sections)
         {
             <div class="panel panel-default" style="margin:0px 0px; ">
@@ -120,3 +124,12 @@
         }
     </section>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#btnPrintForm").click(function () {
+            alert("Printing is not enabled yet");
+        });
+
+    });
+</script>
