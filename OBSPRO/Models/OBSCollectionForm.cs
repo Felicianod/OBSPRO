@@ -8,9 +8,9 @@ namespace OBSPRO.Models
     public class OBSCollectionForm
     {
         public string ErrorMessage = String.Empty;
-        public string observedEmployeeId { set; get; }
+        public int observedEmployeeId { set; get; }
         public string observedEmployeeFullName { set; get; }
-        public string observerEmployeeId { set; get; }
+        public int observerEmployeeId { set; get; }
         public string observerEmployeeFullName { set; get; }
         public DateTime hiredDate { set; get; }
         public string lc_id { set; get; }
