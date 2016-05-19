@@ -3,78 +3,71 @@
     ViewBag.Title = "Observations";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<table class="table table-condensed table-hover" border="1">
-    <tr style="background-color:gainsboro">
-        <th>
-            @Html.DisplayNameFor(model => model.First().form_inst_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.First().observer_id)
-        </th>
-        <th style="text-align:center; width:9%">
-            @Html.DisplayNameFor(model => model.First().observed_id)
-        </th>
-        <th style="text-align:center; width:9%">
-            @Html.DisplayNameFor(model => model.First().status)
-        </th>
-        <th style="text-align:center; width:5%">
-            @Html.DisplayNameFor(model => model.First().observed_first_name)
-        </th>
-        <th style="text-align:center; width:5%">
-            @Html.DisplayNameFor(model => model.First().observed_last_name)
-        </th>
-        <th style="text-align:center; width:5%">
-            @Html.DisplayNameFor(model => model.First().observed_adp_id)
-        </th>
-        <th style="text-align:center; width:5%">
-            @Html.DisplayNameFor(model => model.First().form_title)
-        </th>
-        <th style="text-align:center; width:5%">
-            @Html.DisplayNameFor(model => model.First().obs_start_time)
-        </th>
-    </tr>
-    @if (Model.Count() == 0)
-    {
-        <tr>
-            <td colspan="14"><font color="red">Employee not found</font></td>
-        </tr>
+<style>
+    .personal-info {
+        margin: 0px;
     }
-    else
-    {
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.form_inst_id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.observer_id)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.observed_id)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.status)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.observed_first_name)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.observed_last_name)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.observed_adp_id)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.form_title)
-                </td>
-                <td style="text-align:center">
-                    @Html.DisplayFor(modelItem => item.obs_start_time)
-                </td>
-            </tr>
-        }
-    }
+</style>
 
-</table>
-
+<br />
+<div class="row personal-info">
+    <div class="panel panel-info">
+        <!-- PANEL HEADER-->
+        <div class="panel-heading">
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <b>@Model.First().status OBSERVATIONS</b>
+                        @*<a class="accordion-toggle" data-toggle="collapse" href="#panelSection01">
+                            <span class="glyphicon glyphicon-minus">&nbsp;</span>
+                            <b>OBSERVATION INSTANCES</b>
+                        </a>*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- PANEL BODY -->
+        <div class="panel-body collapse in" id="panelSection01">
+            <table class="table table-condensed table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Form Id</th>
+                        @*<th>Observer</th>*@
+                        <th>FORM TITLE</th>
+                        <th>EMPLOYEE OBSERVED</th>
+                        @*<th>OBS Status</th>*@
+                        <th style="text-align:center">ADP Id</th>
+                        <th style="text-align:center">Observation Started</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() == 0)
+                    { // No records Found
+                        <tr>
+                            <td colspan="7" style="text-align:center;">
+                                <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var observation in Model)
+                        {
+                            var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy  @ [hh:mm tt]");
+                            <tr>
+                                <td>@observation.form_inst_id </td>
+                                @*<td>@observation.observer_id</td>*@
+                                <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
+                                <td>@observation.observed_first_name @observation.observed_last_name</td>
+                                @*<td>@observation.status</td>*@
+                                <td style="text-align:center">@observation.observed_adp_id</td>
+                                @*<td style="text-align:center">@observation.observed_id</td>*@
+                                <td style="text-align:center">@observation.obs_start_time</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> <!-- _______________ END OF COLLAPSIBLE PANEL SECTION ___________________ -->

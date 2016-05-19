@@ -64,7 +64,6 @@ namespace OBSPRO
             if (Context.User != null)
                 Context.User = new GenericPrincipal(Context.User.Identity, roles);
             //Valid Roles are: "Admin", "Super User", "Editor", "Viewer"
-
         }
 
         protected void Application_Error(Object sender, EventArgs e)

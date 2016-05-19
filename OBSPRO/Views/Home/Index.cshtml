@@ -11,28 +11,25 @@
     }
 </style>
 <div class="row" style="margin:0px; ">
-    <div id="dashboardTitle" class="col-sm-7" style=" margin:0px; padding:0px; ">
+    <div id="dashboardTitle" class="col-sm-8" style=" margin:0px; padding:0px; ">
         <br />
         <span @*class="glyphicon glyphicon-dashboard"*@ style="width:80%; font-weight:bold; font-size:larger; vertical-align:bottom">[&nbsp; USER DASHBOARD &nbsp;]</span><br />
     </div>
-    <div id="userDIV" class="col-sm-5 jumbotron" style="border: 1px solid black; margin:0px; padding:5px 20px; margin-bottom:4px">
+    <div id="userDIV" class="col-sm-4 jumbotron" style="border: 1px solid black; margin:0px; padding:5px 20px; margin-bottom:4px">
         <div class="row">
-            <div class="col-sm-4">
-                <span style="font-weight:bold;">User Name:</span>
-            </div>
-            <div class="col-sm-8">
-                @User.Identity.Name
+            <div class="col-sm-12">
+                <span style="font-weight:bold; ">User Name:</span>
+                &nbsp;&nbsp;&nbsp; 
+                <span>@User.Identity.Name</span>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-12">
                 <span style="font-weight:bold;">Other Info:</span>
-            </div>
-            <div class="col-sm-8">
-                TEST DATA
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>TEST DATA</span>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -62,12 +59,10 @@
                         <tr>
                             <th>Form Id</th>
                             <th>FORM TITLE</th>
-                            <th>FIRST NAME</th>
-                            <th>LAST NAME</th>
+                            <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
                             <th style="text-align:center">ADP Id</th>
-                            <th style="text-align:center">Local Id</th>
-                            <th style="text-align:center">Observation Started Date/Time</th>
+                            <th style="text-align:center">Observation Started</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,11 +82,10 @@
                                 <tr>
                                     <td>@observation.form_inst_id </td>
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                    <td>@observation.observed_first_name</td>
-                                    <td>@observation.observed_last_name</td>
+                                    <td>@observation.observed_first_name @observation.observed_last_name</td>
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
-                                    <td style="text-align:center">@observation.observed_id</td>
+                                    @*<td style="text-align:center">@observation.observed_id</td>*@
                                     <td style="text-align:center">@observation.obs_start_time</td>
                                 </tr>
                                 loopCounter++;
@@ -133,12 +127,11 @@
                         <tr>
                             <th>Form Id</th>
                             <th>FORM TITLE</th>
-                            <th>FIRST NAME</th>
-                            <th>LAST NAME</th>
+                            <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
                             <th style="text-align:center">ADP Id</th>
-                            <th style="text-align:center">Local Id</th>
-                            <th style="text-align:center">Observation Started Date/Time</th>
+                            @*<th style="text-align:center">Local Id</th>*@
+                            <th style="text-align:center">Observation Started</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,11 +151,9 @@
                                 <tr>
                                     <td>@observation.form_inst_id </td>
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                    <td>@observation.observed_first_name</td>
-                                    <td>@observation.observed_last_name</td>
+                                    <td>@observation.observed_first_name @observation.observed_last_name</td>
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
-                                    <td style="text-align:center">@observation.observed_id</td>
                                     <td style="text-align:center">@observation.obs_start_time</td>
                                 </tr>
                                 loopCounter++;
@@ -204,12 +195,11 @@
                         <tr>
                             <th>Form Id</th>
                             <th>FORM TITLE</th>
-                            <th>FIRST NAME</th>
-                            <th>LAST NAME</th>
+                            <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
                             <th style="text-align:center">ADP Id</th>
-                            <th style="text-align:center">Local Id</th>
-                            <th style="text-align:center">Observation Started Date/Time</th>
+                            @*<th style="text-align:center">Local Id</th>*@
+                            <th style="text-align:center">Observation Started</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -229,11 +219,9 @@
                                 <tr>
                                     <td>@observation.form_inst_id</td>
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                    <td>@observation.observed_first_name</td>
-                                    <td>@observation.observed_last_name</td>
+                                    <td>@observation.observed_first_name @observation.observed_last_name</td>
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
-                                    <td style="text-align:center">@observation.observed_id</td>
                                     <td style="text-align:center">@observation.obs_start_time</td>
                                 </tr>
                                 loopCounter++;
