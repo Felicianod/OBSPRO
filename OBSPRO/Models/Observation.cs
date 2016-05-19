@@ -28,7 +28,11 @@ namespace OBSPRO.Models
 
         [Display(Name = "Last Name")]
         public string observed_last_name { set; get; }
+        [Display(Name = "First Name")]
+        public string observer_first_name { set; get; }
 
+        [Display(Name = "Last Name")]
+        public string observer_last_name { set; get; }
 
         [Display(Name = "ADP ID")]
         public string observed_adp_id { set; get; }
@@ -40,6 +44,10 @@ namespace OBSPRO.Models
         [Display(Name = "Observation Start Time")]
         [DisplayFormat(DataFormatString = "{0:MMM-dd-yyyy H:mm tt}")]
         public DateTime obs_start_time { set; get; }
+
+        [Display(Name = "Observation Complete Time")]
+        [DisplayFormat(DataFormatString = "{0:MMM-dd-yyyy H:mm tt}")]
+        public String obs_compl_time { set; get; }
 
     }
 }

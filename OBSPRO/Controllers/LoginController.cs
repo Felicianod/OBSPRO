@@ -20,6 +20,7 @@ namespace OBSPRO.Controllers
     public class LoginController : Controller
     {
         DataRetrieval data_retrieval = new DataRetrieval();
+        DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
         [HttpGet]
         public ActionResult Login() { 
             //ViewBag.ReturnUrl = returnUrl;
@@ -44,7 +45,7 @@ namespace OBSPRO.Controllers
                 {                  
                     Session.Add("emp_id", (string)res["dsc_observer_emp_id"]);                    
                 }
-                
+                setUserRoles(loginModel.Username, new string[] { Session["role"].ToString() });
                 FormsAuthentication.SetAuthCookie(loginModel.Username, true);
                 if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
                     && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
@@ -119,7 +120,23 @@ namespace OBSPRO.Controllers
                     Session.Add("first_name", JsonObject["DSCAuthenticationSrv"]["first_name"]);
                     Session.Add("last_name", JsonObject["DSCAuthenticationSrv"]["last_name"]);
                     Session.Add("username", loginModel.Username);
-                    Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);                    
+                    Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);
+                    string role = (from r in db.OBS_ROLE
+                                   join ur in db.OBS_USER_ROLE
+                                   on r.obs_role_id equals ur.obs_role_id
+                                   join ua in db.OBS_USER_AUTH
+                                    on ur.obs_user_auth_id equals ua.obs_user_auth_id
+                                   where ua.obs_user_auth_dsc_ad_name == loginModel.Username && r.obs_role_active_yn == "Y"
+                                   && ua.obs_user_auth_active_yn == "Y" && ur.obs_user_role_eff_start_dt <= DateTime.Now && ur.obs_user_role_eff_end_dt > DateTime.Now
+                                   select r.obs_role_name).FirstOrDefault();
+                    if (!String.IsNullOrEmpty(role))
+                    {
+                        Session.Add("role", role);
+                    }
+                    else
+                    {
+                        Session.Add("role", "Not Authorized");
+                    }
                     return true;  /// Authenticasion was sucessful!!
                 }
                 else

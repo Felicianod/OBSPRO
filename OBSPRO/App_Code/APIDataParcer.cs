@@ -12,6 +12,8 @@ namespace OBSPRO.App_Code
         DataRetrieval api = new DataRetrieval();
         User usr = new User();
         DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
+
+        //This method returns dashboard data for the specific observer 
         public Dashboard getDashboard(string emp_id)
         {
             Dashboard dashboard = new Dashboard();
@@ -44,6 +46,64 @@ namespace OBSPRO.App_Code
                 }
             }
             
+            return dashboard;
+        }
+        //This method returns dashboard data for super user 
+        public Dashboard getDashboard()
+        {
+            Dashboard dashboard = new Dashboard();
+            var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
+                               join g in db.OBS_COLLECT_FORM_TMPLT on j.obs_cft_id equals g.obs_cft_id
+                               join k in db.OBS_INST on j.obs_inst_id equals k.obs_inst_id
+                               join m in db.DSC_EMPLOYEE on k.dsc_observed_emp_id equals m.dsc_emp_id
+                               join n in db.DSC_EMPLOYEE on j.dsc_observer_emp_id equals n.dsc_emp_id
+                               select new
+                               {
+                                   observed_id = k.dsc_observed_emp_id,
+                                   observed_first_name = m.dsc_emp_first_name,
+                                   observed_last_name = m.dsc_emp_last_name,
+                                   observed_adp_id = m.dsc_emp_adp_id,
+                                   observer_id = j.dsc_observer_emp_id,
+                                   observer_first_name = n.dsc_emp_first_name,
+                                   observer_last_name = n.dsc_emp_last_name,
+                                   lc_id = k.dsc_lc_id,
+                                   customer_id = k.dsc_cust_id,
+                                   cft_id = j.obs_cft_id,
+                                   form_title = g.obs_cft_title,
+                                   inst_id = j.obs_inst_id,
+                                   cfi_id = j.obs_cfi_id,
+                                   start_date = j.obs_cfi_start_dt,
+                                   compl_date = j.obs_cfi_comp_date,
+                                   status = k.obs_inst_status=="COLLECTING"?"OPEN": "READY TO VERIFY"
+                               }).ToList();
+            foreach(var inst in all_obs_ins)
+            {
+                Observation obs = new Observation();
+                obs.form_inst_id = inst.cfi_id.ToString();
+                obs.form_title = inst.form_title;
+                obs.observer_id = inst.observer_id;
+                obs.observed_adp_id = inst.observed_adp_id;
+                obs.observer_first_name = inst.observer_first_name;
+                obs.observer_last_name = inst.observer_last_name;
+                obs.observed_id = (int)inst.observed_id;
+                obs.observed_first_name = inst.observed_first_name;
+                obs.observed_last_name = inst.observed_last_name;
+                obs.obs_start_time = inst.start_date;
+                obs.obs_compl_time = inst.compl_date.ToString();
+                obs.status = inst.status;
+                switch (obs.status)
+                {
+                    case "OPEN":
+                        dashboard.user_open_obs.Add(obs);
+                        break;
+                    case "READY TO VERIFY":
+                        dashboard.user_ready_obs.Add(obs);
+                        break;
+                    case "COMPLETE":
+                        dashboard.user_complete_obs.Add(obs);
+                        break;
+                }
+            }
             return dashboard;
         }
         public OBSCollectionForm getFormInstance(int formId)

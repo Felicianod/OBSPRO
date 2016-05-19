@@ -20,8 +20,23 @@ namespace OBSPRO.Controllers
             if (!usr.isDefined) { 
                 //User is not defined so Session has expired. Kick user back to Login Page
                 return RedirectToAction("Login", "Login", null);
-            }           
-            return View(apiParcer.getDashboard(usr.emp_id));
+            }
+            try
+            {
+                if (User.IsInRole("Admin") || User.IsInRole("Super User") || User.IsInRole("Editor") || User.IsInRole("Viewer"))
+                {
+                    return View(apiParcer.getDashboard());
+                }
+                else
+                {
+                    return View(apiParcer.getDashboard());
+                }
+            }
+            catch
+            {
+                return View(apiParcer.getDashboard(usr.emp_id));
+            }
+            
         }
     }
 
