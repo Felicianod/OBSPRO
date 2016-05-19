@@ -52,6 +52,7 @@ namespace OBSPRO.App_Code
         public Dashboard getDashboard()
         {
             Dashboard dashboard = new Dashboard();
+            dashboard.isSuperUser = true;
             var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
                                join g in db.OBS_COLLECT_FORM_TMPLT on j.obs_cft_id equals g.obs_cft_id
                                join k in db.OBS_INST on j.obs_inst_id equals k.obs_inst_id
