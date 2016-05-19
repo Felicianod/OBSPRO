@@ -22,13 +22,14 @@
 <div style="max-width:1100px; margin:0 auto;">
     <section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" @*data-spy="affix" data-offset-top="10"*@>
         <div class="panel panel-info" style="margin:0px 0px; padding:2px 2px 10px 2px; z-index:998; border:none">
-            <div class="panel-heading header" style="background-color:#b62525; color:white; padding:5px">
-                <div class="row" style="text-align:center; border:1px solid black">
+            <div class="panel-heading header" style="background-color:#b62525; color:white; padding:0px">
+                <div class="row" style="text-align:center; margin:0px">
                     <div class="col-sm-2">
                         <span style="float:left"></span>
                     </div>
-                    <div class="col-sm-7" style="margin:0 auto; padding:0px">
-                        <h4><b>@Model.colFormTitle</b></h4>
+                    <div class="col-sm-7" style="margin:0 auto; padding:5px">
+                        <h4 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h4>
+                        @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
                     </div>
                     <div class="col-sm-3">
                         <span style=" float:right; margin-right:20px; color:yellow"><b>Status: </b> << @Model.colFormStatus >> </span>
@@ -37,9 +38,6 @@
             </div>
             <div class="panel-body content " style="background-color:#766d6d;color:white; padding:4px">
                 <div class="form-group row nomargin">
-                    <div class="col-md-4">
-                        <b>Form Subtitle: </b> 
-                    </div>
                     <div class="col-md-4">
                         <b>Location: </b> Corporate
                     </div>
@@ -64,7 +62,7 @@
         </div>
     </section>
     <section id="formBody" style="overflow-y:auto" @*class="container-fluid"*@>
-        <div style="font-size:medium; margin-bottom:10px" ><br /><br /><br /><br /><br />  </div>
+        <div style="font-size:medium; margin-bottom:15px" ><br /><br /><br /><br /><br />  </div>
         @foreach (var sec in Model.sections)
         {
             <div class="panel panel-default" style="margin:0px 0px; ">
