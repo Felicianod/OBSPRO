@@ -36,6 +36,36 @@
     .btnOBS:focus { 
         color: white;
     }
+
+    html, body {
+    height:100%
+}
+
+
+#overlay { 
+    position:absolute;
+    z-index:10;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color:#f00;
+    filter:alpha(opacity=10);
+    -moz-opacity:0.1;
+    opacity:0.1;
+    cursor:pointer;
+
+} 
+
+.dialog {
+    position:absolute;
+    border:2px solid #3366CC;
+    width:250px;
+    height:120px;
+    background-color:#ffffff;
+    z-index:12;
+}
+
 </style>
 <div style="max-width:1100px; margin:0 auto;">
     <section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" @*data-spy="affix" data-offset-top="10"*@>
@@ -152,4 +182,41 @@
         });
 
     });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () { init() })
+
+    function init() {
+        $('#overlay').click(function () { closeDialog(); })
+    }
+
+    function openDialog(element) {
+        //this is the general dialog handler.
+        //pass the element name and this will copy
+        //the contents of the element to the dialog box
+
+        $('#overlay').css('height', $(document.body).height() + 'px')
+        $('#overlay').show()
+        $('#dialog').html($(element).html())
+        centerMe('#dialog')
+        $('#dialog').show();
+    }
+
+    function closeDialog() {
+        $('#overlay').hide();
+        $('#dialog').hide().html('');
+    }
+
+    function centerMe(element) {
+        //pass element name to be centered on screen
+        var pWidth = $(window).width();
+        var pTop = $(window).scrollTop()
+        var eWidth = $(element).width()
+        var height = $(element).height()
+        $(element).css('top', '130px')
+        //$(element).css('top',pTop+100+'px')
+        $(element).css('left', parseInt((pWidth / 2) - (eWidth / 2)) + 'px')
+    }
+
+
 </script>
