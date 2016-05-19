@@ -11,6 +11,7 @@ namespace OBSPRO.App_Code
     {
         DataRetrieval api = new DataRetrieval();
         User usr = new User();
+        DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
         public Dashboard getDashboard(string emp_id)
         {
             Dashboard dashboard = new Dashboard();
@@ -21,8 +22,8 @@ namespace OBSPRO.App_Code
             {
                 Observation obs = new Observation();
                 obs.form_inst_id = (string)res["ObsColFormInstID"];
-                obs.observed_id = (string)res["dsc_observed_emp_id"];
-                obs.observer_id = (string)res["dsc_observer_emp_id"];
+                obs.observed_id = (int)res["dsc_observed_emp_id"];
+                obs.observer_id = (int)res["dsc_observer_emp_id"];
                 obs.status = (string)res["obs_inst_status"];
                 obs.observed_first_name = (string)res["dsc_observed_first_name"];
                 obs.observed_last_name = (string)res["dsc_observed_last_name"];
@@ -42,16 +43,25 @@ namespace OBSPRO.App_Code
                         break;
                 }
             }
+            
             return dashboard;
         }
         public OBSCollectionForm getFormInstance(int formId)
         {
             OBSCollectionForm obsColForm = new OBSCollectionForm();
+
+
             JObject parsed_result = JObject.Parse(api.getObsCollForm(formId));
             Section current_section = new Section();
             current_section.sectionName = String.Empty;
-            obsColForm.observedEmployeeId = (string)parsed_result["observationsColFormData"]["ObservedEmployeeID"];
-            obsColForm.observerEmployeeId = (string)parsed_result["observationsColFormData"]["ObserverEmployeeID"];
+            obsColForm.observedEmployeeId = (int)parsed_result["observationsColFormData"]["ObservedEmployeeId"];
+            obsColForm.observerEmployeeId = (int)parsed_result["observationsColFormData"]["ObserverEmployeeID"];
+            obsColForm.observerEmployeeFullName = (from emp in db.DSC_EMPLOYEE
+                                                   where emp.dsc_emp_id == obsColForm.observerEmployeeId
+                                                   select emp.dsc_emp_first_name + " " + emp.dsc_emp_last_name).First().ToString();
+            obsColForm.observedEmployeeFullName = (from emp in db.DSC_EMPLOYEE
+                                                   where emp.dsc_emp_id == obsColForm.observedEmployeeId
+                                                   select emp.dsc_emp_first_name + " " + emp.dsc_emp_last_name).First().ToString();
             try { obsColForm.hiredDate = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["hiredDate"]); }
             catch { }
             obsColForm.lc_id = (string)parsed_result["observationsColFormData"]["DSC_LC_ID"];
@@ -156,8 +166,8 @@ namespace OBSPRO.App_Code
             {
                 Observation obs = new Observation();
                 obs.form_inst_id = (string)res["ObsColFormInstID"];
-                obs.observed_id = (string)res["dsc_observed_emp_id"];
-                obs.observer_id = (string)res["dsc_observer_emp_id"];
+                obs.observed_id = (int)res["dsc_observed_emp_id"];
+                obs.observer_id = (int)res["dsc_observer_emp_id"];
                 obs.status = (string)res["obs_inst_status"];
                 obs.observed_first_name = (string)res["dsc_observed_first_name"];
                 obs.observed_last_name = (string)res["dsc_observed_last_name"];

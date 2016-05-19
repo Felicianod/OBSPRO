@@ -15,10 +15,10 @@ namespace OBSPRO.Models
         public string form_inst_id { set; get; }
 
         [Display(Name = "Observer Id")]
-        public string observer_id { set; get; }
+        public int observer_id { set; get; }
 
         [Display(Name = "Observed Id")]
-        public string observed_id { set; get; }
+        public int observed_id { set; get; }
 
         [Display(Name = "Status")]
         public string status { set; get; }
