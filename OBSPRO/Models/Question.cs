@@ -19,10 +19,9 @@ namespace OBSPRO.Models
         public string mustAddComment { set; get; }
         public string answerChanged { set; get; }
         public int obscolformquestwgt { set; get; }
-        public string comments { set; get; }        
+        public string comments { set; get; }
+        public string responseClass { set; get; }
         public List<Answer> answers = new List<Answer>();
         public List<Answer> answerValues = new List<Answer>();
-
-
     }
 }

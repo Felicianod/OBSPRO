@@ -80,6 +80,7 @@ namespace OBSPRO.App_Code
             JArray questions = (JArray)parsed_result["observationsColFormData"]["questions"];
             foreach (var quest in questions)
             {
+                var answersFound = 0;
                 if (current_section.sectionName != (string)quest["SectionName"])
                 {
 
@@ -129,6 +130,7 @@ namespace OBSPRO.App_Code
                         answer_value.answerOrder = (int)ans_val["answerOrder"];
                         answer_value.answerText = (string)ans_val["answerText"];
                         formQuestion.naSelected = answer_value.answerText.Equals("n/a") ? true : false;
+                        if (!answer_value.answerText.Equals("n/a")) { answersFound++; }
                         if (!formQuestion.naSelected)
                         {
                             var selected_answer = formQuestion.answers.FirstOrDefault(x => x.answerText == answer_value.answerText);
@@ -140,8 +142,16 @@ namespace OBSPRO.App_Code
                         formQuestion.answerValues.Add(answer_value);
 
                     }
+                    formQuestion.responseClass = "answered";
                 }
-
+                else { 
+                    formQuestion.responseClass = "unanswered";
+                }
+                if (formQuestion.answerType.Equals("FREE_TXT") && !(String.IsNullOrEmpty(formQuestion.comments)))
+                {
+                    formQuestion.responseClass = "answered";
+                }
+                
                 current_section.questions.Add(formQuestion);
             }
             obsColForm.sections.Add(current_section);

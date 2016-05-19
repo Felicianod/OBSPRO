@@ -10,32 +10,34 @@
         margin: 0px 0px;
         padding: 2px 2px;
     }
-
-    .affix {
-        top: 75px;
-        width: 100%;
+    .answered {
+       border-bottom:solid 1px #d6d6d6;
     }
-
-        .affix + .container-fluid {
-            padding-top: 400px;
-        }
+    .unanswered {
+        border: 1px dashed orange;
+        border-radius: 8px;
+        background-color: #fbf1f1;
+    }
 </style>
 <div style="max-width:1100px; margin:0 auto;">
-    <section id="formHeader" style="position:fixed; top:71px; z-index:999; border:1px solid black; min-width:1100px" @*data-spy="affix" data-offset-top="10"*@>
-        <div class="panel panel-info nomargin">
-            <div class="panel-heading header" style="background-color:#b62525; color:white; padding:5px">
-                <div class="row" style="text-align:center;font-size:large;font-weight:bold">
-                    <div>Observation Collection Form</div>
+    <section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" @*data-spy="affix" data-offset-top="10"*@>
+        <div class="panel panel-info" style="margin:0px 0px; padding:2px 2px 10px 2px; z-index:998; border:none">
+            <div class="panel-heading header" style="background-color:#b62525; color:white; padding:0px">
+                <div class="row" style="text-align:center; margin:0px">
+                    <div class="col-sm-2">
+                        <span style="float:left"></span>
+                    </div>
+                    <div class="col-sm-7" style="margin:0 auto; padding:5px">
+                        <h4 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h4>
+                        @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
+                    </div>
+                    <div class="col-sm-3">
+                        <span style=" float:right; margin-right:20px; color:yellow"><b>Status: </b> << @Model.colFormStatus >> </span>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body content " style="background-color:#292222;color:white; padding:4px">
+            <div class="panel-body content " style="background-color:#766d6d;color:white; padding:4px">
                 <div class="form-group row nomargin">
-                    <div class="col-md-4">
-                        <b>Form Title: </b> @Model.colFormTitle
-                    </div>
-                    <div class="col-md-4">
-                        <b>Form Subtitle: </b> @Model.colFormSubtitle
-                    </div>
                     <div class="col-md-4">
                         <b>Location: </b> Corporate
                     </div>
@@ -46,9 +48,6 @@
                     </div>
                     <div class="col-md-4">
                         <b>Submit Date: </b> @Model.strColFormSubmittedDateTime
-                    </div>
-                    <div class="col-md-4">
-                        <b>Form Status: </b> @Model.colFormStatus
                     </div>
                 </div>
                 <div class="form-group row nomargin">
@@ -63,10 +62,10 @@
         </div>
     </section>
     <section id="formBody" style="overflow-y:auto" @*class="container-fluid"*@>
-        <br /><br /><br /><br /><br /><br />
+        <div style="font-size:medium; margin-bottom:15px" ><br /><br /><br /><br /><br />  </div>
         @foreach (var sec in Model.sections)
         {
-            <div class="panel panel-default" style="margin:0px 0px;">
+            <div class="panel panel-default" style="margin:0px 0px; ">
                 <div class="panel-heading" style="background-color:#292222">
                     <h4 class="panel-title" style="color:white">
                         @sec.sectionName
@@ -75,18 +74,25 @@
                 <div class="panel-body content">
                     @foreach (var quest in sec.questions)
                     {
-                        <div style="border-bottom:solid 1px #d6d6d6; margin-top: 1px">
-                            <div class="row" style="font-weight:bold;margin-left:5px; margin-top: 1px">
+                        <div class="@quest.responseClass" style="margin-top: 1px">
+                            <div class="row" style="font-weight:bold;margin-left:5px; margin-top: 3px">
                                 <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
+                                @if (@quest.responseClass.Equals("unanswered")) { <span style="float:right; color:red; font-size:x-small; margin-right:20px">*Answer Pending</span> }                                
                             </div>
                             <div class="row" style="margin-left:20px; margin-bottom:0px">
+                                @if (quest.naSelected)
+                                {
+                                    <div class="col-sm-1">
+                                        <span class="badge" style="padding:6px">N/A</span>
+                                    </div>
+                                }
                                 <div class="col-lg-9">
                                     <ul class="list-inline">
                                         @foreach (var ans in quest.answers)
                                         {
                                             if (ans.isSelected)
                                             {
-                                                <li><span class="badge" style="padding:6px">@ans.answerText</span></li>
+                                                <li ><span class="badge" style="padding:6px">@ans.answerText</span></li>
                                             }
                                             else
                                             {
@@ -94,12 +100,6 @@
                                             }
                                         }
                                     </ul>
-                                </div>
-                                <div class="col-sm-2">
-                                    @if (quest.naSelected)
-                                    {
-                                        <span class="badge" style="padding:6px">N/A</span>
-                                    }
                                 </div>
                             </div>
                             <div class="row" style="margin-left:20px">
