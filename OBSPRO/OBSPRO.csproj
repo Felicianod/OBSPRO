@@ -45,14 +45,6 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="cognosdotnetassembly_10_2, Version=10.2.5000.961, Culture=neutral, PublicKeyToken=d6e6d7d808b7e5b7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\WebDev\CognosASP\CognosAPI\cognosdotnetassembly_10_2.dll</HintPath>
-    </Reference>
-    <Reference Include="cognosdotnet_10_2, Version=10.2.5000.961, Culture=neutral, PublicKeyToken=d6e6d7d808b7e5b7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\WebDev\CognosASP\CognosAPI\cognosdotnet_10_2.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
