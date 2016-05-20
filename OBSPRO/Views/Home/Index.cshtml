@@ -57,12 +57,12 @@
                 <table class="table table-condensed table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>Form Id</th>
+                            @*<th>form id</th>*@
                             <th>FORM TITLE</th>
                             <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP Id</th>
-                            <th style="text-align:center">Observation Started</th>
+                            <th style="text-align:center">ADP ID</th>
+                            <th style="text-align:center">Observation Started On</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,7 +80,7 @@
                             {
                                 var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
                                 <tr>
-                                    <td>@observation.form_inst_id </td>
+                                    @*<td>@observation.form_inst_id </td>*@
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
                                     <td>@observation.observed_first_name @observation.observed_last_name</td>
                                     @*<td>@observation.status</td>*@
@@ -125,11 +125,11 @@
                 <table class="table table-condensed table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>Form Id</th>
+                            @*<th>Form Id</th>*@
                             <th>FORM TITLE</th>
                             <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP Id</th>
+                            <th style="text-align:center">ADP ID</th>
                             <th style="text-align:center">Observation Started On</th>
                             <th style="text-align:center">Observation Completed On</th>
                         </tr>
@@ -150,7 +150,7 @@
                                 var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
                               
                                 <tr>
-                                    <td>@observation.form_inst_id </td>
+                                    @*<td>@observation.form_inst_id </td>*@
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
                                     <td>@observation.observed_first_name @observation.observed_last_name</td>
                                     @*<td>@observation.status</td>*@
@@ -195,11 +195,11 @@
                 <table class="table table-condensed table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>Form Id</th>
+                            @*<th>Form Id</th>*@
                             <th>FORM TITLE</th>
                             <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP Id</th>
+                            <th style="text-align:center">ADP ID</th>
                             @*<th style="text-align:center">Local Id</th>*@
                             <th style="text-align:center">Observation Started</th>
                         </tr>
@@ -219,7 +219,7 @@
                             {
                                 var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy  @ [hh:mm tt]");
                                 <tr>
-                                    <td>@observation.form_inst_id</td>
+                                    @*<td>@observation.form_inst_id</td>*@
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
                                     <td>@observation.observed_first_name @observation.observed_last_name</td>
                                     @*<td>@observation.status</td>*@
