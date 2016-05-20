@@ -18,8 +18,16 @@ namespace OBSPRO.Controllers
         [HttpGet]
         public ActionResult Index(string frmStatus)
         {            
-            usr.setUser();          
-            return View(apiParcer.getAllObservations(usr.emp_id,frmStatus));
+            usr.setUser();
+            if (usr.role == "Not Authorized" || usr.role == "")
+            {
+                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus));
+            }
+            else
+            {
+                return View(apiParcer.getAllObservations(frmStatus));
+            }
+                
         }
 
         [HttpGet]
