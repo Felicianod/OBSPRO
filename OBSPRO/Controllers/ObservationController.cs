@@ -16,16 +16,16 @@ namespace OBSPRO.Controllers
         User usr = new User();
 
         [HttpGet]
-        public ActionResult Index(string frmStatus)
+        public ActionResult Index(string frmStatus, string searchString)
         {            
             usr.setUser();
             if (usr.role == "Not Authorized" || usr.role == "")
             {
-                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus));
+                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString));
             }
             else
             {
-                return View(apiParcer.getAllObservations(frmStatus));
+                return View(apiParcer.getAllObservations(frmStatus, searchString));
             }
                 
         }

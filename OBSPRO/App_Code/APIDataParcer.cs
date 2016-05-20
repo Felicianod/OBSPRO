@@ -222,7 +222,7 @@ namespace OBSPRO.App_Code
         }
 
         //This method returns all observations for the specific observer
-        public List<Observation> getAllObservations(string emp_id, string frmStatus)
+        public List<Observation> getAllObservations(string emp_id, string frmStatus, string searchString)
         {
             List<Observation> all_obs = new List<Observation>();
             usr.setUser();
@@ -245,7 +245,7 @@ namespace OBSPRO.App_Code
         }
 
         //This method returns all observations for super user  
-        public List<Observation> getAllObservations(string frmStatus)
+        public List<Observation> getAllObservations(string frmStatus, string searchString)
         {
             List<Observation> all_obs = new List<Observation>();
             var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
@@ -289,7 +289,10 @@ namespace OBSPRO.App_Code
                 obs.obs_start_time = inst.start_date;
                 obs.obs_compl_time = Convert.ToDateTime(inst.compl_date).ToString("MMM dd, yyyy hh:mm tt");
                 obs.status = inst.status;
-                if (!String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status)) { all_obs.Add(obs); }
+                if (!String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status))
+                {
+                    all_obs.Add(obs);
+                }
                 else if(String.IsNullOrEmpty(frmStatus))
                 {
                     all_obs.Add(obs); 
