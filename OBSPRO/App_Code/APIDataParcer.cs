@@ -244,7 +244,7 @@ namespace OBSPRO.App_Code
             return all_obs;
         }
 
-        //This method returns all observations for super user
+        //This method returns all observations for super user  
         public List<Observation> getAllObservations(string frmStatus)
         {
             List<Observation> all_obs = new List<Observation>();
