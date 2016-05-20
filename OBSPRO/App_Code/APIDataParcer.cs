@@ -52,11 +52,14 @@ namespace OBSPRO.App_Code
         public Dashboard getDashboard()
         {
             Dashboard dashboard = new Dashboard();
+            dashboard.isSuperUser = true;
             var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
                                join g in db.OBS_COLLECT_FORM_TMPLT on j.obs_cft_id equals g.obs_cft_id
                                join k in db.OBS_INST on j.obs_inst_id equals k.obs_inst_id
                                join m in db.DSC_EMPLOYEE on k.dsc_observed_emp_id equals m.dsc_emp_id
                                join n in db.DSC_EMPLOYEE on j.dsc_observer_emp_id equals n.dsc_emp_id
+                               where k.obs_inst_del_yn =="N"
+                               orderby j.obs_cfi_start_dt descending
                                select new
                                {
                                    observed_id = k.dsc_observed_emp_id,
@@ -89,7 +92,7 @@ namespace OBSPRO.App_Code
                 obs.observed_first_name = inst.observed_first_name;
                 obs.observed_last_name = inst.observed_last_name;
                 obs.obs_start_time = inst.start_date;
-                obs.obs_compl_time = inst.compl_date.ToString();
+                obs.obs_compl_time = Convert.ToDateTime(inst.compl_date).ToString("MMM dd, yyyy hh:mm tt"); 
                 obs.status = inst.status;
                 switch (obs.status)
                 {
@@ -103,7 +106,7 @@ namespace OBSPRO.App_Code
                         dashboard.user_complete_obs.Add(obs);
                         break;
                 }
-            }
+            }            
             return dashboard;
         }
         public OBSCollectionForm getFormInstance(int formId)
@@ -131,10 +134,10 @@ namespace OBSPRO.App_Code
             obsColForm.colFormSubtitle = (string)parsed_result["observationsColFormData"]["ColFormSubTitle"];
             obsColForm.colFormVersion = (string)parsed_result["observationsColFormData"]["ColFormVersion"];
             obsColForm.obsInstId = (string)parsed_result["observationsColFormData"]["OBSInstID"];
-            obsColForm.obsColFormInstId = (string)parsed_result["observationsColFormData"]["OBSColFormInstID"];
+            obsColForm.obsColFormInstId = (long)parsed_result["observationsColFormData"]["OBSColFormInstID"];
             obsColForm.colFormStartDateTime = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["ColFormStartDateTime"]);
             obsColForm.strColFormStartDateTime = obsColForm.colFormStartDateTime.ToString("MMM dd, yyyy hh:mm tt");
-            obsColForm.strColFormSubmittedDateTime = "";
+            obsColForm.strColFormSubmittedDateTime = db.OBS_COLLECT_FORM_INST.Single(x => x.obs_cfi_id == obsColForm.obsColFormInstId).obs_cfi_comp_date == null?"": Convert.ToDateTime(db.OBS_COLLECT_FORM_INST.Single(x => x.obs_cfi_id == obsColForm.obsColFormInstId).obs_cfi_comp_date).ToString("MMM dd, yyyy hh:mm tt");
             obsColForm.dBColFormStatus = (string)parsed_result["observationsColFormData"]["DBColFormStatus"];
             obsColForm.colFormStatus = (string)parsed_result["observationsColFormData"]["ColFormStatus"];
             JArray questions = (JArray)parsed_result["observationsColFormData"]["questions"];
@@ -217,6 +220,8 @@ namespace OBSPRO.App_Code
             obsColForm.sections.Add(current_section);
             return obsColForm;
         }
+
+        //This method returns all observations for the specific observer
         public List<Observation> getAllObservations(string emp_id, string frmStatus)
         {
             List<Observation> all_obs = new List<Observation>();
@@ -234,11 +239,59 @@ namespace OBSPRO.App_Code
                 obs.observed_adp_id = (string)res["ObservedADPID"];
                 obs.form_title = (string)res["ColFormTitle"];
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
-                if (String.IsNullOrEmpty(frmStatus) || frmStatus.Equals(obs.status)) { all_obs.Add(obs); }
+                if (String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status)) { all_obs.Add(obs); }
             }
             return all_obs;
         }
 
-
+        //This method returns all observations for super user  
+        public List<Observation> getAllObservations(string frmStatus)
+        {
+            List<Observation> all_obs = new List<Observation>();
+            var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
+                               join g in db.OBS_COLLECT_FORM_TMPLT on j.obs_cft_id equals g.obs_cft_id
+                               join k in db.OBS_INST on j.obs_inst_id equals k.obs_inst_id
+                               join m in db.DSC_EMPLOYEE on k.dsc_observed_emp_id equals m.dsc_emp_id
+                               join n in db.DSC_EMPLOYEE on j.dsc_observer_emp_id equals n.dsc_emp_id
+                               where k.obs_inst_del_yn == "N"
+                               orderby j.obs_cfi_start_dt descending
+                               select new
+                               {
+                                   observed_id = k.dsc_observed_emp_id,
+                                   observed_first_name = m.dsc_emp_first_name,
+                                   observed_last_name = m.dsc_emp_last_name,
+                                   observed_adp_id = m.dsc_emp_adp_id,
+                                   observer_id = j.dsc_observer_emp_id,
+                                   observer_first_name = n.dsc_emp_first_name,
+                                   observer_last_name = n.dsc_emp_last_name,
+                                   lc_id = k.dsc_lc_id,
+                                   customer_id = k.dsc_cust_id,
+                                   cft_id = j.obs_cft_id,
+                                   form_title = g.obs_cft_title,
+                                   inst_id = j.obs_inst_id,
+                                   cfi_id = j.obs_cfi_id,
+                                   start_date = j.obs_cfi_start_dt,
+                                   compl_date = j.obs_cfi_comp_date,
+                                   status = k.obs_inst_status == "COLLECTING" ? "OPEN" : "READY TO VERIFY"
+                               }).ToList();
+            foreach (var inst in all_obs_ins)
+            {
+                Observation obs = new Observation();
+                obs.form_inst_id = inst.cfi_id.ToString();
+                obs.form_title = inst.form_title;
+                obs.observer_id = inst.observer_id;
+                obs.observed_adp_id = inst.observed_adp_id;
+                obs.observer_first_name = inst.observer_first_name;
+                obs.observer_last_name = inst.observer_last_name;
+                obs.observed_id = (int)inst.observed_id;
+                obs.observed_first_name = inst.observed_first_name;
+                obs.observed_last_name = inst.observed_last_name;
+                obs.obs_start_time = inst.start_date;
+                obs.obs_compl_time = Convert.ToDateTime(inst.compl_date).ToString("MMM dd, yyyy hh:mm tt");
+                obs.status = inst.status;
+                if (!String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status)) { all_obs.Add(obs); }
+            }
+            return all_obs;
+        }
     }
 }

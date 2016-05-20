@@ -46,7 +46,7 @@ namespace OBSPRO.Models
         public DateTime obs_start_time { set; get; }
 
         [Display(Name = "Observation Complete Time")]
-        [DisplayFormat(DataFormatString = "{0:MMM-dd-yyyy H:mm tt}")]
+        [DisplayFormat(DataFormatString = "{0:MMM-dd-yyyy hh:mm tt}")]
         public String obs_compl_time { set; get; }
 
     }

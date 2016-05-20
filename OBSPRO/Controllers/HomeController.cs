@@ -21,22 +21,16 @@ namespace OBSPRO.Controllers
                 //User is not defined so Session has expired. Kick user back to Login Page
                 return RedirectToAction("Login", "Login", null);
             }
-            try
-            {
-                if (User.IsInRole("Admin") || User.IsInRole("Super User") || User.IsInRole("Editor") || User.IsInRole("Viewer"))
+
+                if (usr.role== "Not Authorized"||usr.role=="")
                 {
-                    return View(apiParcer.getDashboard());
+                    return View(apiParcer.getDashboard(usr.emp_id));
                 }
                 else
                 {
                     return View(apiParcer.getDashboard());
                 }
-            }
-            catch
-            {
-                return View(apiParcer.getDashboard(usr.emp_id));
-            }
-            
+
         }
     }
 

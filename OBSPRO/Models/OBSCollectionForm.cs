@@ -21,7 +21,7 @@ namespace OBSPRO.Models
         public string colFormSubtitle { set; get; }
         public string colFormVersion { set; get; }
         public string obsInstId { set; get; }
-        public string obsColFormInstId { set; get; }
+        public long obsColFormInstId { set; get; }
         public DateTime colFormStartDateTime { set; get; }
         public string strColFormStartDateTime { set; get; }
         public DateTime colFormSubmittedDateTime { set; get; }

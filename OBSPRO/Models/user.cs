@@ -23,6 +23,7 @@ namespace OBSPRO.Models
                 LastName = HttpContext.Current.Session["last_name"].ToString();
                 email = HttpContext.Current.Session["email"].ToString();
                 emp_id = HttpContext.Current.Session["emp_id"].ToString();
+                role = HttpContext.Current.Session["role"].ToString();
                 isDefined = true;
             }
             catch {
@@ -43,6 +44,7 @@ namespace OBSPRO.Models
                 LastName = HttpContext.Current.Session["last_name"].ToString();
                 email = HttpContext.Current.Session["email"].ToString();
                 emp_id = HttpContext.Current.Session["emp_id"].ToString();
+                role = HttpContext.Current.Session["role"].ToString();
                 isDefined = true;
             }
             catch
