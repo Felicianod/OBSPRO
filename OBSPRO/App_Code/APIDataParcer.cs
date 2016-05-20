@@ -290,6 +290,10 @@ namespace OBSPRO.App_Code
                 obs.obs_compl_time = Convert.ToDateTime(inst.compl_date).ToString("MMM dd, yyyy hh:mm tt");
                 obs.status = inst.status;
                 if (!String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status)) { all_obs.Add(obs); }
+                else if(String.IsNullOrEmpty(frmStatus))
+                {
+                    all_obs.Add(obs);
+                }
             }
             return all_obs;
         }
