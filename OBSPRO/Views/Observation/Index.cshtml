@@ -17,7 +17,7 @@
             <table style="width:100%">
                 <tr>
                     <td>
-                        <b>@Model.First().status OBSERVATIONS</b>
+                        <b>@*@Model.First().status*@ OBSERVATIONS</b>
                         @*<a class="accordion-toggle" data-toggle="collapse" href="#panelSection01">
                             <span class="glyphicon glyphicon-minus">&nbsp;</span>
                             <b>OBSERVATION INSTANCES</b>
@@ -31,13 +31,14 @@
             <table class="table table-condensed table-hover table-responsive">
                 <thead>
                     <tr>
-                        <th>Form Id</th>
-                        @*<th>Observer</th>*@
+                        @*<th>Form Id</th>*@
                         <th>FORM TITLE</th>
+                        <th>OBSERVER</th>
                         <th>EMPLOYEE OBSERVED</th>
-                        @*<th>OBS Status</th>*@
+                        <th>OBS Status</th>
                         <th style="text-align:center">ADP Id</th>
-                        <th style="text-align:center">Observation Started</th>
+                        <th style="text-align:center">Started On</th>
+                        <th style="text-align:center">Completed On</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,14 +56,19 @@
                         {
                             var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy  @ [hh:mm tt]");
                             <tr>
-                                <td>@observation.form_inst_id </td>
-                                @*<td>@observation.observer_id</td>*@
-                                <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
+                                @*<td>@observation.form_inst_id </td>*@
+                                <td style="width:30%">@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
+                                <td>@observation.observer_first_name  @observation.observer_last_name</td>
                                 <td>@observation.observed_first_name @observation.observed_last_name</td>
-                                @*<td>@observation.status</td>*@
+                                <td>@observation.status</td>
                                 <td style="text-align:center">@observation.observed_adp_id</td>
                                 @*<td style="text-align:center">@observation.observed_id</td>*@
                                 <td style="text-align:center">@observation.obs_start_time</td>
+                                <td style="text-align:center">
+                                    @if(observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001"))
+                                    { <text>N/A</text>}
+                                    else { @observation.obs_compl_time; }
+                                </td>
                             </tr>
                         }
                     }
