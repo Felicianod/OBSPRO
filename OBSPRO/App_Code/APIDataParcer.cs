@@ -295,7 +295,18 @@ namespace OBSPRO.App_Code
                 }
                 else if(String.IsNullOrEmpty(frmStatus))
                 {
-                    all_obs.Add(obs); 
+                    if (String.IsNullOrEmpty(searchString))//no search parameter passed
+                    {
+                        all_obs.Add(obs);
+                    }
+                    else
+                    {
+                        string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name;
+                        if (Common.matchesSearchCriteria(searchString, search_in, "Any"))
+                        {
+                            all_obs.Add(obs);
+                        }
+                    }
                 }
             }
             return all_obs;
