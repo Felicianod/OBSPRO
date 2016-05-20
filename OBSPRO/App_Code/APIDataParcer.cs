@@ -292,7 +292,7 @@ namespace OBSPRO.App_Code
                 if (!String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status)) { all_obs.Add(obs); }
                 else if(String.IsNullOrEmpty(frmStatus))
                 {
-                    all_obs.Add(obs);
+                    all_obs.Add(obs); 
                 }
             }
             return all_obs;
