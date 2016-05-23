@@ -39,13 +39,13 @@
                 <thead>
                     <tr>
                         @*<th>Form Id</th>*@
-                        <th>FORM TITLE</th>
-                        <th>OBSERVER</th>
-                        <th>EMPLOYEE OBSERVED</th>
-                        <th>OBS Status</th>
-                        <th style="text-align:center">ADP Id</th>
-                        <th style="text-align:center">Started On</th>
-                        <th style="text-align:center">Completed On</th>
+                        <th>@Html.ActionLink("FORM TITLE","Index",new { sortBy = ViewBag.sortTitleParameter, searchString = ViewBag.searchText })</th>
+                        <th>@Html.ActionLink("OBSERVER", "Index", new { sortBy = ViewBag.sortObserverParameter, searchString = ViewBag.searchText })</th>
+                        <th>@Html.ActionLink("EMPLOYEE OBSERVED", "Index", new { sortBy = ViewBag.sortEmpObservedParameter, searchString = ViewBag.searchText })</th>
+                        <th>@Html.ActionLink("OBS Status", "Index", new { sortBy = ViewBag.sortStatusParameter, searchString = ViewBag.searchText })</th>
+                        <th style="text-align:center">@Html.ActionLink("ADP ID", "Index", new { sortBy = ViewBag.sortADPParameter, searchString = ViewBag.searchText })</th>
+                        <th style="text-align:center">@Html.ActionLink("Started On", "Index", new { sortBy = ViewBag.sortStartDateParameter, searchString = ViewBag.searchText })</th>
+                        <th style="text-align:center">@Html.ActionLink("Completed On", "Index", new { sortBy = ViewBag.sortComplDateParameter, searchString = ViewBag.searchText })</th>
                     </tr>
                 </thead>
                 <tbody>

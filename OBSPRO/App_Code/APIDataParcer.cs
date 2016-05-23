@@ -222,7 +222,7 @@ namespace OBSPRO.App_Code
         }
 
         //This method returns all observations for the specific observer
-        public List<Observation> getAllObservations(string emp_id, string frmStatus, string searchString)
+        public List<Observation> getAllObservations(string emp_id, string frmStatus, string searchString, string sortBy)
         {
             List<Observation> all_obs = new List<Observation>();
             usr.setUser();
@@ -245,7 +245,7 @@ namespace OBSPRO.App_Code
         }
 
         //This method returns all observations for super user  
-        public List<Observation> getAllObservations(string frmStatus, string searchString)
+        public List<Observation> getAllObservations(string frmStatus, string searchString, string sortBy)
         {
             List<Observation> all_obs = new List<Observation>();
             var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
@@ -302,12 +302,54 @@ namespace OBSPRO.App_Code
                     else
                     {
                         string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name+obs.observer_first_name+obs.observer_last_name;
-                        if (Common.matchesSearchCriteria(searchString, search_in, "Any"))
+                        if (Common.matchesSearchCriteria(searchString, search_in, "All"))
                         {
                             all_obs.Add(obs);
                         }
                     }
                 }
+            }
+            switch (sortBy)
+            {
+                case "StartDate":
+                    all_obs = all_obs.OrderBy(x => x.obs_start_time).ToList();
+                    break;
+                case "Title desc":
+                    all_obs = all_obs.OrderByDescending(x => x.form_title).ToList();
+                    break;
+                case "Title":
+                    all_obs = all_obs.OrderBy(x => x.form_title).ToList();
+                    break;
+                case "Observed Emplpoyee desc":
+                    all_obs = all_obs.OrderByDescending(x =>x.observed_last_name).ToList();
+                    break;
+                case "Observed Emplpoyee":
+                    all_obs = all_obs.OrderBy(x => x.observed_last_name).ToList();
+                    break;
+                case "Observer desc":
+                    all_obs = all_obs.OrderByDescending(x => x.observer_last_name).ToList();
+                    break;
+                case "Observer":
+                    all_obs = all_obs.OrderBy(x => x.observer_last_name).ToList();
+                    break;
+                case "ADP ID desc":
+                    all_obs = all_obs.OrderByDescending(x => int.Parse(x.observed_adp_id)).ToList();
+                    break;
+                case "ADP ID":
+                    all_obs = all_obs.OrderBy(x => int.Parse(x.observed_adp_id)).ToList();
+                    break;
+                case "Status desc":
+                    all_obs = all_obs.OrderByDescending(x => x.status).ToList();
+                    break;
+                case "Status":
+                    all_obs = all_obs.OrderBy(x => x.status).ToList();
+                    break;
+                case "Complete Date desc":
+                    all_obs = all_obs.OrderByDescending(x => x.obs_compl_time).ToList();
+                    break;
+                case "Complete Date":
+                    all_obs = all_obs.OrderBy(x => x.obs_compl_time).ToList();
+                    break;
             }
             return all_obs;
         }

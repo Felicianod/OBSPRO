@@ -16,17 +16,25 @@ namespace OBSPRO.Controllers
         User usr = new User();
 
         [HttpGet]
-        public ActionResult Index(string frmStatus, string searchString)
+        public ActionResult Index(string frmStatus, string searchString, string sortBy)
         {            
             usr.setUser();
-            ViewBag.searchText = searchString;
+            ViewBag.searchText = searchString; 
+            ViewBag.sortStartDateParameter = String.IsNullOrEmpty(sortBy) ? "StartDate" : "";
+            ViewBag.sortTitleParameter = sortBy == "Title" ? "Title desc" : "Title";
+            ViewBag.sortEmpObservedParameter = sortBy == "Observed Emplpoyee" ? "Observed Emplpoyee desc" : "Observed Emplpoyee";
+            ViewBag.sortObserverParameter = sortBy == "Observer" ? "Observer desc" : "Observer";
+            ViewBag.sortADPParameter = sortBy == "ADP ID" ? "ADP ID desc" : "ADP ID";
+            ViewBag.sortStatusParameter = sortBy == "Status" ? "Status desc" : "Status";
+            ViewBag.sortComplDateParameter = sortBy == "Complete Date" ? "Complete Date desc" : "Complete Date";
+
             if (usr.role == "Not Authorized" || usr.role == "")
             {
-                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString));
+                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString, sortBy));
             }
             else
             {                
-                return View(apiParcer.getAllObservations(frmStatus, searchString));
+                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy));
             }
                 
         }
