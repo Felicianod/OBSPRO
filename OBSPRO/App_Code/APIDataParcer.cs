@@ -301,7 +301,7 @@ namespace OBSPRO.App_Code
                     }
                     else
                     {
-                        string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name;
+                        string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name+obs.observer_first_name+obs.observer_last_name;
                         if (Common.matchesSearchCriteria(searchString, search_in, "Any"))
                         {
                             all_obs.Add(obs);

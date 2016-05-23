@@ -19,12 +19,13 @@ namespace OBSPRO.Controllers
         public ActionResult Index(string frmStatus, string searchString)
         {            
             usr.setUser();
+            ViewBag.searchText = searchString;
             if (usr.role == "Not Authorized" || usr.role == "")
             {
                 return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString));
             }
             else
-            {
+            {                
                 return View(apiParcer.getAllObservations(frmStatus, searchString));
             }
                 
