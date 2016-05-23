@@ -66,10 +66,12 @@
 }
 
 </style>
-
+<link href="~/Content/bootstrap-dialog.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-dialog.js"></script>
+<script src="~/Scripts/obsGlobal.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        //init()
+        init();
     });
 
     function init() {
@@ -109,7 +111,6 @@
     }
 
 </script>
-
 
 
 <div style="max-width:1100px; margin:0 auto;">
@@ -177,8 +178,13 @@
                     {
                         <div class="@quest.responseClass" style="margin-top: 1px">
                             <div class="row" style="font-weight:bold;margin-left:5px; margin-top: 3px">
-                                <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
-                                @if (@quest.responseClass.Equals("unanswered")) { <span style="float:right; color:red; font-size:x-small; margin-right:20px">*Answer Pending</span> }                                
+                                <div class="col-sm-10" style="margin:0px 0px">
+                                    <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
+                                </div>
+                                <div class="col-sm-2" style="margin:0px 0px">
+                                    @if (@quest.responseClass.Equals("unanswered"))
+                                    { <span style="float:right; color:red; font-size:x-small; margin-right:20px">*Answer Pending</span> }
+                                </div>
                             </div>
                             <div class="row" style="margin-left:20px; margin-bottom:0px">
                                 @if (quest.naSelected)
@@ -219,31 +225,77 @@
     </section>
 </div>
 
-@*<br />
-<input type="button" class="btn btn-success" value="Open Preview"/> 
-<a href="javascript:;//close me" onclick="openDialog($('#content'))">show dialog A</a>
+
+
 <br />
-<a href="javascript:;//close me" onclick="openDialog($('#contentB'))">show dialog B</a>
-<br />
-<br />
-<div id="dialog" class="dialog" style="display:none">
-    This is a test!
+@*<input type="button" id="btnShowPopup" class="btn btn-success" value="Open Preview" data-toggle="modal" data-target="#myModal" />*@ 
+<input type="button" id="btnShowPopup" class="btn btn-success" value="Open Preview" /> 
+@*<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Form Print Preview</h3>
+    </div>
+    <div class="modal-body">
+    </div>
+</div>*@
+
+
+
+<div id="cognosReport" style="display:none">
+    <iframe name="myIframe" id="myIframe" style="border-style: none; width:100%;" height="1000" src="http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=true&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9"></iframe>
 </div>
+
+
 <div id="overlay" class="dialog" style="display:none"></div>
 <div id="content" class="dialog" style="display:none">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nisl felis, placerat in sollicitudin quis, hendrerit vitae diam. Nunc ornare iaculis urna.
 </div>
 
-<div id="contentB" class="dialog" style="display:none">
-    Moooo mooo moo moo moo!!!
-</div>*@
+<br />
 
+<a href="www.msn.com" class="modalTrigger">Open Modal</a>
+@*<a href="javascript:;//close me" onclick="openDialog($('#content'))">show dialog A</a>
+    <br />
+    <a href="javascript:;//close me" onclick="openDialog($('#contentB'))">show dialog B</a>
+    <br />
+    <br />
+    <div id="dialog" class="dialog" style="display:none">
+        This is a test!
+    </div>
+    
+
+    <div id="contentB" class="dialog" style="display:none">
+        Moooo mooo moo moo moo!!!
+    </div>*@
 
 <script>
     $(document).ready(function () {
+
+        //---------------------------------------------------------------------------
         $("#btnPrintForm").click(function () {
-            alert("Printing is not enabled yet");
+            obsAlert('Preview Not available at this time!');
+            //BootstrapDialog.alert("Hello!");
+            //obsConfirm('Preview Not available at this time!');
         });
+        //---------------------------------------------------------------------------
+        $("#btnShowPopup").click(function (e) {
+            e.preventDefault();
+            //var url = "/Content/Site.css";
+            //var url = "http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=true&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9";
+
+            //$(".modal-body").html('<iframe width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" src="' + url + '"></iframe>');
+
+            // Champaig Report URL below
+            //var url = "http://dsccognosprdws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&amp;ui.action=run&amp;ui.object=%2fcontent%2ffolder%5b%40name%3d%27Facilities%27%5d%2ffolder%5b%40name%3d%27Champaign%27%5d%2freportView%5b%40name%3d%27Kraft%20Champaign%20Conveyor%20Dashboard%20-%20Large%20Monitor%20V2%27%5d&amp;ui.name=Kraft%20Champaign%20Conveyor%20Dashboard%20-%20Large%20Monitor%20V2&amp;run.outputFormat=HTML&amp;run.prompt=true&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&amp;ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3di85AB38F9A1D44B6D89B3E857FF41783B";
+            
+            //$("#myIframe").prop("src", url);
+            $("#cognosReport").show();
+        });
+        
+
+        //---------------------------------------------------------------------------
 
     });
+
+    
 </script>
