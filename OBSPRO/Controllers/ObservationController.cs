@@ -19,7 +19,7 @@ namespace OBSPRO.Controllers
         public ActionResult Index(string frmStatus, string searchString, string sortBy)
         {            
             usr.setUser();
-            ViewBag.searchText = searchString; 
+            ViewBag.searchText = searchString;
             ViewBag.sortStartDateParameter = String.IsNullOrEmpty(sortBy) ? "StartDate" : "";
             ViewBag.sortTitleParameter = sortBy == "Title" ? "Title desc" : "Title";
             ViewBag.sortEmpObservedParameter = sortBy == "Observed Emplpoyee" ? "Observed Emplpoyee desc" : "Observed Emplpoyee";
