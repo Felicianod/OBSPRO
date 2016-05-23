@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4f8d49e0308841858fc36801cf34a26f" Name="Diagram1">
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.DSC_CUSTOMER" Width="1.5" PointX="3.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.DSC_EMPLOYEE" Width="1.5" PointX="3" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.DSC_LC" Width="1.5" PointX="0.75" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_ANS_TYPE" Width="1.5" PointX="6.75" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_API_EVENT_LOG" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_API_JSON" Width="1.5" PointX="7.5" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_API_RSRC_ACTION" Width="1.5" PointX="3" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_APP_EVENT_LOG" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_APPLICATION" Width="1.5" PointX="3" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_ATTRIB_DATA_TYPES" Width="1.5" PointX="3.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COL_FORM_INST_ANS" Width="1.5" PointX="15.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COL_FORM_INST_ATTRIB_VALS" Width="1.5" PointX="10.5" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COL_FORM_INST_MM_ATTACH" Width="1.5" PointX="13.5" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COL_FORM_INST_QUEST" Width="1.5" PointX="13.5" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COL_FORM_INST_SIGS" Width="1.5" PointX="13.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COL_FORM_QUESTIONS" Width="1.5" PointX="11.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COL_FORM_TMPLT_ATTRIBS" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COLLECT_FORM_INST" Width="1.5" PointX="8.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_COLLECT_FORM_TMPLT" Width="1.5" PointX="6" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_FORM_ATTRIBS" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_FORM_SECTION" Width="1.5" PointX="9" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_INST" Width="1.5" PointX="8.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_MULTIMEDIA_TYPE" Width="1.5" PointX="11.25" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_QUEST_ANS_TYPES" Width="1.5" PointX="9" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_QUEST_ASSGND_MD" Width="1.5" PointX="9" PointY="34.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_QUEST_SLCT_ANS" Width="1.5" PointX="11.25" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_QUESTION" Width="1.5" PointX="6.75" PointY="31.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_QUESTION_METADATA" Width="1.5" PointX="6.75" PointY="36.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_ROLE" Width="1.5" PointX="8.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_RVW_FORM_INST" Width="1.5" PointX="10.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_SUB_TYPE" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_SUPER_TYPE" Width="1.5" PointX="1.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_TYPE" Width="1.5" PointX="3.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_TYPE_SUB_TYPES" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_USER_AUTH" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.OBS_USER_ROLE" Width="1.5" PointX="11" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.adpemployee_staging1" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.del_dsc_employee" Width="1.5" PointX="11.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.del_employee" Width="1.5" PointX="13.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DSC_OBS_DEVModel.dsc_delnow" Width="1.5" PointX="13.75" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship34" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship8" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_emp_api_event" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship15" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship32" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship39" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship40" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship45" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship35" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship9" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship43" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_api_event_api_json" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_obs_app_obs_api_event" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_obs_cfi_api_event" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_obs_cft_api_event" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_obs_inst_api_event" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_rsrc_action_api_event" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship13" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_inst_quest_ans" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship27" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship28" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship29" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship30" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship31" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_col_form_quest" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_col_inst_col_inst_quest" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_quest_inst_quest" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship33" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_col_from_questions" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_section_from_question" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_sub_section_form_question" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship42" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship10" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship11" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship14" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship23" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_type_collect_form" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship19" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship36" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship41" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.relationship44" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_metadata_quest_assgnd" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_quest_assgnd_meta" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_role_user_role" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_sub_type_types" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.obs_super_type_type" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_obs_type_sub_type" ManuallyRouted="false" />
+        <AssociationConnector Association="DSC_OBS_DEVModel.rel_user_auth_user_role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

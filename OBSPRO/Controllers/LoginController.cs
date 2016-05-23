@@ -20,6 +20,7 @@ namespace OBSPRO.Controllers
     public class LoginController : Controller
     {
         DataRetrieval data_retrieval = new DataRetrieval();
+        DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
         [HttpGet]
         public ActionResult Login() { 
             //ViewBag.ReturnUrl = returnUrl;
@@ -33,47 +34,32 @@ namespace OBSPRO.Controllers
         public ActionResult login(UserLoginViewModel loginModel, string ReturnUrl)
         {
             if (!ModelState.IsValid) { return View(loginModel); }
-            string errorMessage = "";
-
+            
             //Model State is Valid. Check Password
-            try
-            {
-                if (isLogonValid(loginModel))
-                {  // Is password is Valid, set the Authorization cookie and redirect
-                   // the user to the link it came from (Or the Home page is noreturn URL was specified)
+            if (isLogonValid(loginModel))
+            {  // Is password is Valid, set the Authorization cookie and redirect
+                // the user to the link it came from (Or the Home page is noreturn URL was specified)
 
-                    JObject parsed_result = JObject.Parse(data_retrieval.getObserver(Session["first_name"].ToString(), Session["last_name"].ToString(), Session["email"].ToString()));
-                    foreach (var res in parsed_result["resource"])
-                    {
-                        Session.Add("emp_id", (string)res["dsc_observer_emp_id"]);
-                    }
-
-                    FormsAuthentication.SetAuthCookie(loginModel.Username, true);
-                    if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
-                        && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
-                    { return Redirect(ReturnUrl); }
-                    else {
-                        return RedirectToAction("Index", "Home");
-                    }
-
+                JObject parsed_result = JObject.Parse(data_retrieval.getObserver(Session["first_name"].ToString(), Session["last_name"].ToString(), Session["email"].ToString()));
+                foreach (var res in parsed_result["resource"])
+                {                  
+                    Session.Add("emp_id", (string)res["dsc_observer_emp_id"]);                    
                 }
-                else {
-                    // Log on was not valid. Return User back to the login page
-                    ViewBag.ReturnUrl = ReturnUrl;
-                    ModelState.AddModelError("", "Cannot Logon");
-                    return View(loginModel);
-                }
+                setUserRoles(loginModel.Username, new string[] { Session["role"].ToString() });
+                FormsAuthentication.SetAuthCookie(loginModel.Username, true);
+                if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
+                    && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
+                { return Redirect(ReturnUrl); }
+                else { return RedirectToAction("Index", "Home"); }
+              
             }
-            catch (Exception ex)
+            else
             {
-                errorMessage = ex.Message;
-                try { RedirectToAction("displayError", "Error", new { errorMsg = errorMessage }); }
-                catch { }
-                
+                ViewBag.ReturnUrl = ReturnUrl;
+                ModelState.AddModelError("", "Cannot Logon");
+                return View(loginModel);
             }
 
-            RedirectToAction("displayError", "Error", new { errorMsg = errorMessage });
-            return View(loginModel);
         }
 
         public ActionResult OBSLogout()
@@ -103,9 +89,8 @@ namespace OBSPRO.Controllers
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", "rasul.abduguev@dsc-logistics.com");
                 }
-                FormsAuthentication.SetAuthCookie(loginModel.Username, true);
-                return true;
-            }
+
+                return true; }
             string ldaurl = ConfigurationManager.AppSettings["LDAPURL"];
             WebRequest request = WebRequest.Create(ldaurl);
             request.Method = "POST";
@@ -135,7 +120,23 @@ namespace OBSPRO.Controllers
                     Session.Add("first_name", JsonObject["DSCAuthenticationSrv"]["first_name"]);
                     Session.Add("last_name", JsonObject["DSCAuthenticationSrv"]["last_name"]);
                     Session.Add("username", loginModel.Username);
-                    Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);                    
+                    Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);
+                    string role = (from r in db.OBS_ROLE
+                                   join ur in db.OBS_USER_ROLE
+                                   on r.obs_role_id equals ur.obs_role_id
+                                   join ua in db.OBS_USER_AUTH
+                                    on ur.obs_user_auth_id equals ua.obs_user_auth_id
+                                   where ua.obs_user_auth_dsc_ad_name == loginModel.Username && r.obs_role_active_yn == "Y"
+                                   && ua.obs_user_auth_active_yn == "Y" && ur.obs_user_role_eff_start_dt <= DateTime.Now && ur.obs_user_role_eff_end_dt > DateTime.Now
+                                   select r.obs_role_name).FirstOrDefault();
+                    if (!String.IsNullOrEmpty(role))
+                    {
+                        Session.Add("role", role);
+                    }
+                    else
+                    {
+                        Session.Add("role", "Not Authorized");
+                    }
                     return true;  /// Authenticasion was sucessful!!
                 }
                 else

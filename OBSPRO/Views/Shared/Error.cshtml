@@ -1,13 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    var exception = Model.Exception;
+    var errorMsg = String.Format( "Exception {0} thrown in controller {1} action {2}. Exception message: {3}",
+        exception.GetType(), Model.ControllerName, Model.ActionName, exception.Message);
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
+    <title>ERROR DETECTED</title>
 </head>
 <body>
     <hgroup>
-        <h1>Error.</h1>
+        <h1>Observation PRO App Error.</h1>
         <h2>An error occurred while processing your request.</h2>
+        <h3>@errorMsg</h3>
     </hgroup>
 </body>
 </html>

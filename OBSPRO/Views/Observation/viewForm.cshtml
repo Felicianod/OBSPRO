@@ -1,10 +1,249 @@
-﻿@{
-    ViewBag.Title = "viewForm";
+﻿@model OBSPRO.Models.OBSCollectionForm
+@{
+    ViewBag.Title = "Observation Collection Form View";
+}
+@{
+    var qcounter = 1;
+}
+<style>
+    .nomargin {
+        margin: 0px 0px;
+        padding: 2px 2px;
+    }
+    .answered {
+       border-bottom:solid 1px #d6d6d6;
+    }
+    .unanswered {
+        /*border: 1px dashed orange;
+        border-radius: 8px;
+        background-color: #fbf1f1;*/
+        border-bottom:solid 1px #d6d6d6;
+    }
+    .btnOBS {
+        /*box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
+        background-color: #1d5600;
+        color:white;
+        font-weight:bold;
+        padding:5px;
+        box-shadow: 1px 1px 10px #d0cccc, 0 2px 7px 0 #e3e0e0;
+    }
+
+    .btnOBS:hover {
+        background-color: #2a7d00;
+        color: #fed4d4;
+        /*box-shadow: 0 4px 4px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
+        box-shadow: 1px 1px 10px red, 0 2px 7px 0 #00ac1b;
+    }
+    .btnOBS:focus { 
+        color: white;
+    }
+
+    html, body {
+        height:100%
+    }
+
+#overlay { 
+    position:absolute;
+    z-index:10;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color:#f00;
+    filter:alpha(opacity=10);
+    -moz-opacity:0.1;
+    opacity:0.1;
+    cursor:pointer;
+} 
+
+.dialog {
+    position:absolute;
+    border:2px solid #3366CC;
+    width:250px;
+    height:120px;
+    background-color:#ffffff;
+    z-index:12;
 }
 
-<h2>viewForm</h2>
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //init()
+    });
+
+    function init() {
+        $('#overlay').click(function () { closeDialog(); })
+    }
+
+    function openDialog(element) {
+        //this is the general dialog handler.
+        //pass the element name and this will copy
+        //the contents of the element to the dialog box
+        alert("Opening Dialog");
+
+        $('#overlay').css('height', $(document.body).height() + 'px');
+        $('#overlay').show();
+        //$('#dialog').html($(element).html());
+        centerMe(element);
+        //$('#dialog').show();
+        element.show();
+    }
+
+    function closeDialog() {
+        $('#overlay').hide();
+        $('#content').hide();
+        $('#contentB').hide();
+        //$('#dialog').hide().html('');
+    }
+
+    function centerMe(element) {
+        //pass element name to be centered on screen
+        var pWidth = $(window).width();
+        var pTop = $(window).scrollTop();
+        var eWidth = element.width();
+        var height = element.height();
+        element.css('top', '130px');
+        //$(element).css('top',pTop+100+'px')
+        element.css('left', parseInt((pWidth / 2) - (eWidth / 2)) + 'px');
+    }
+
+</script>
 
 
-This is a place holder to Display Form Id "@ViewData["formInsId"]"
+
+<div style="max-width:1100px; margin:0 auto;">
+    <section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" @*data-spy="affix" data-offset-top="10"*@>
+        <div class="panel panel-info" style="margin:0px 0px; padding:2px 2px 10px 2px; z-index:998; border:none">
+            <div class="panel-heading header" style="background-color:#b62525; color:white; padding:0px">
+                <div class="row" style="text-align:center; margin:0px">
+                    <div class="col-sm-2">
+                        <span style="float:left"></span>
+                    </div>
+                    <div class="col-sm-7" style="margin:0 auto; padding:5px">
+                        <h4 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h4>
+                        @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
+                    </div>
+                    <div class="col-sm-3">
+                        <span style=" float:right; margin-right:20px; color:yellow"><b>Status: @Model.colFormStatus </b></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body content " style="background-color:#292222;color:white; padding:4px">
+                <div class="row">
+                    <div class="col-sm-11">
+                        <div class="form-group row nomargin">
+                            <div class="col-md-4">
+                                <span style="float:left"><b>Location: </b></span>
+                            </div>
+                            <div class="col-md-4">
+                                <b>Observer: </b> @Model.observerEmployeeFullName
+                            </div>
+                            <div class="col-md-4">
+                                <b>Employee Observed: </b> @Model.observedEmployeeFullName
+                            </div>
+                        </div>
+                        <div class="form-group row nomargin">
+                            <div class="col-md-4">
+                                <b>Start Date: </b> @Model.strColFormStartDateTime
+                            </div>
+                            <div class="col-md-4">
+                                <b>Submit Date: </b> @Model.strColFormSubmittedDateTime                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" id="btnPrintForm" class="btn btnOBS" style="float:right">
+                            <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="formBody" style="overflow-y:auto" @*class="container-fluid"*@>
+        <div style="font-size:medium; margin-bottom:5px" ><br /><br /><br /><br /> </div>
+        @foreach (var sec in Model.sections)
+        {
+            <div class="panel panel-default" style="margin:0px 0px; ">
+                <div class="panel-heading" style="background-color:#292222">
+                    <h4 class="panel-title" style="color:white">
+                        @sec.sectionName
+                    </h4>
+                </div>
+                <div class="panel-body content">
+                    @foreach (var quest in sec.questions)
+                    {
+                        <div class="@quest.responseClass" style="margin-top: 1px">
+                            <div class="row" style="font-weight:bold;margin-left:5px; margin-top: 3px">
+                                <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
+                                @if (@quest.responseClass.Equals("unanswered")) { <span style="float:right; color:red; font-size:x-small; margin-right:20px">*Answer Pending</span> }                                
+                            </div>
+                            <div class="row" style="margin-left:20px; margin-bottom:0px">
+                                @if (quest.naSelected)
+                                {
+                                    <div class="col-sm-1">
+                                        <span class="badge" style="padding:6px">N/A</span>
+                                    </div>
+                                }
+                                <div class="col-lg-9">
+                                    <ul class="list-inline">
+                                        @foreach (var ans in quest.answers)
+                                        {
+                                            if (ans.isSelected)
+                                            {
+                                                <li ><span class="badge" style="padding:6px">@ans.answerText</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li>@ans.answerText</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-left:20px">
+                                @if (!String.IsNullOrEmpty(quest.comments) ) 
+                                { 
+                                    <textarea class="form-control" readonly style="margin-bottom:3px; min-width:70%">@quest.comments</textarea>
+                                }
+                            </div>
+                        </div>
+                        qcounter += 1;
+                    }
+                </div>
+
+            </div>
+        }
+    </section>
+</div>
+
+@*<br />
+<input type="button" class="btn btn-success" value="Open Preview"/> 
+<a href="javascript:;//close me" onclick="openDialog($('#content'))">show dialog A</a>
+<br />
+<a href="javascript:;//close me" onclick="openDialog($('#contentB'))">show dialog B</a>
+<br />
+<br />
+<div id="dialog" class="dialog" style="display:none">
+    This is a test!
+</div>
+<div id="overlay" class="dialog" style="display:none"></div>
+<div id="content" class="dialog" style="display:none">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nisl felis, placerat in sollicitudin quis, hendrerit vitae diam. Nunc ornare iaculis urna.
+</div>
+
+<div id="contentB" class="dialog" style="display:none">
+    Moooo mooo moo moo moo!!!
+</div>*@
 
 
+<script>
+    $(document).ready(function () {
+        $("#btnPrintForm").click(function () {
+            alert("Printing is not enabled yet");
+        });
+
+    });
+</script>

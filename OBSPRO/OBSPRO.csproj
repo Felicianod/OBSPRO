@@ -45,6 +45,22 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="cognosdotnetassembly_10_2, Version=10.2.5000.961, Culture=neutral, PublicKeyToken=d6e6d7d808b7e5b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\cognosdotnetassembly_10_2.dll</HintPath>
+    </Reference>
+    <Reference Include="cognosdotnet_10_2, Version=10.2.5000.961, Culture=neutral, PublicKeyToken=d6e6d7d808b7e5b7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\cognosdotnet_10_2.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -62,17 +78,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -117,6 +135,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\APIclasses.cs" />
+    <Compile Include="App_Code\APIDataParcer.cs" />
+    <Compile Include="App_Code\Common.cs" />
     <Compile Include="App_Code\DataRetrieval.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -129,10 +150,145 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\adpemployee_staging1.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Dashboard.cs" />
+    <Compile Include="Models\del_dsc_employee.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\del_employee.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSC_CUSTOMER.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dsc_delnow.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSC_EMPLOYEE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSC_LC.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSC_OBSPRO_ENTITY.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSC_OBSPRO_ENTITY.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSC_OBSPRO_ENTITY.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DSC_OBSPRO_ENTITY.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSC_OBSPRO_ENTITY.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\OBSCollectionForm.cs" />
     <Compile Include="Models\Observation.cs" />
+    <Compile Include="Models\OBS_ANS_TYPE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_API_EVENT_LOG.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_API_JSON.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_API_RSRC_ACTION.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_APPLICATION.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_APP_EVENT_LOG.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_ATTRIB_DATA_TYPES.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COLLECT_FORM_INST.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COLLECT_FORM_TMPLT.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COL_FORM_INST_ANS.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COL_FORM_INST_ATTRIB_VALS.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COL_FORM_INST_MM_ATTACH.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COL_FORM_INST_QUEST.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COL_FORM_INST_SIGS.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COL_FORM_QUESTIONS.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_COL_FORM_TMPLT_ATTRIBS.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_FORM_ATTRIBS.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_FORM_SECTION.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_INST.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_MULTIMEDIA_TYPE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_QUESTION.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_QUESTION_METADATA.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_QUEST_ANS_TYPES.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_QUEST_ASSGND_MD.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_QUEST_SLCT_ANS.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_ROLE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_RVW_FORM_INST.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_SUB_TYPE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_SUPER_TYPE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_TYPE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_TYPE_SUB_TYPES.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_USER_AUTH.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OBS_USER_ROLE.cs">
+      <DependentUpon>DSC_OBSPRO_ENTITY.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Section.cs" />
     <Compile Include="Models\User.cs" />
@@ -183,6 +339,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\bgDeleted.png" />
     <Content Include="Images\Button-Add-icon.png" />
+    <Content Include="Images\confused-emoticon.jpg" />
     <Content Include="Images\DSCHome_Logo.gif" />
     <Content Include="Images\DSCHOME_Logo.png" />
     <Content Include="Images\iconNoAvatar.png" />
@@ -198,11 +355,28 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <EntityDeploy Include="Models\DSC_OBSPRO_ENTITY.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DSC_OBSPRO_ENTITY.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DSC_OBSPRO_ENTITY.edmx.diagram">
+      <DependentUpon>DSC_OBSPRO_ENTITY.edmx</DependentUpon>
+    </Content>
     <None Include="packages.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\OBSPRO.pubxml" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Models\DSC_OBSPRO_ENTITY.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DSC_OBSPRO_ENTITY.edmx</DependentUpon>
+      <LastGenOutput>DSC_OBSPRO_ENTITY.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DSC_OBSPRO_ENTITY.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DSC_OBSPRO_ENTITY.edmx</DependentUpon>
+      <LastGenOutput>DSC_OBSPRO_ENTITY.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.js" />
@@ -236,15 +410,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\_NavMenu.cshtml" />
     <Content Include="Views\Observation\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\Observation\viewForm.cshtml" />
-    <Content Include="Views\Error\displayError.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -252,6 +424,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -267,7 +442,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54031</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
