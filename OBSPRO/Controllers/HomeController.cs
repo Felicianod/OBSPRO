@@ -15,15 +15,24 @@ namespace OBSPRO.Controllers
         Dashboard dashboard = new Dashboard();
         DataRetrieval data_retrieval = new DataRetrieval();
         User usr = new User();
+
         public ActionResult Index()
         {
+            string raw_data = String.Empty;
             usr.setUser();
             if (!usr.isDefined) { 
                 //User is not defined so Session has expired. Kick user back to Login Page
                 return RedirectToAction("Login", "Login", null);
             }
 
-            string raw_data = data_retrieval.getOpenReadyObservations(usr.emp_id);
+            try {
+                throw new DivideByZeroException();
+            }
+            catch (Exception ex) {
+                string errorMessage = ex.Message;
+                RedirectToAction("displayError", "Error", new { errorMsg = errorMessage });
+            }
+            raw_data = data_retrieval.getOpenReadyObservations(usr.emp_id);
             JObject parsed_result = JObject.Parse(raw_data);
           
             foreach (var res in parsed_result["resource"])

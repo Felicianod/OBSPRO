@@ -33,32 +33,47 @@ namespace OBSPRO.Controllers
         public ActionResult login(UserLoginViewModel loginModel, string ReturnUrl)
         {
             if (!ModelState.IsValid) { return View(loginModel); }
-            
+            string errorMessage = "";
+
             //Model State is Valid. Check Password
-            if (isLogonValid(loginModel))
-            {  // Is password is Valid, set the Authorization cookie and redirect
-                // the user to the link it came from (Or the Home page is noreturn URL was specified)
-
-                JObject parsed_result = JObject.Parse(data_retrieval.getObserver(Session["first_name"].ToString(), Session["last_name"].ToString(), Session["email"].ToString()));
-                foreach (var res in parsed_result["resource"])
-                {                  
-                    Session.Add("emp_id", (string)res["dsc_observer_emp_id"]);                    
-                }
-                
-                FormsAuthentication.SetAuthCookie(loginModel.Username, true);
-                if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
-                    && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
-                { return Redirect(ReturnUrl); }
-                else { return RedirectToAction("Index", "Home"); }
-              
-            }
-            else
+            try
             {
-                ViewBag.ReturnUrl = ReturnUrl;
-                ModelState.AddModelError("", "Cannot Logon");
-                return View(loginModel);
+                if (isLogonValid(loginModel))
+                {  // Is password is Valid, set the Authorization cookie and redirect
+                   // the user to the link it came from (Or the Home page is noreturn URL was specified)
+
+                    JObject parsed_result = JObject.Parse(data_retrieval.getObserver(Session["first_name"].ToString(), Session["last_name"].ToString(), Session["email"].ToString()));
+                    foreach (var res in parsed_result["resource"])
+                    {
+                        Session.Add("emp_id", (string)res["dsc_observer_emp_id"]);
+                    }
+
+                    FormsAuthentication.SetAuthCookie(loginModel.Username, true);
+                    if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
+                        && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
+                    { return Redirect(ReturnUrl); }
+                    else {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else {
+                    // Log on was not valid. Return User back to the login page
+                    ViewBag.ReturnUrl = ReturnUrl;
+                    ModelState.AddModelError("", "Cannot Logon");
+                    return View(loginModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                try { RedirectToAction("displayError", "Error", new { errorMsg = errorMessage }); }
+                catch { }
+                
             }
 
+            RedirectToAction("displayError", "Error", new { errorMsg = errorMessage });
+            return View(loginModel);
         }
 
         public ActionResult OBSLogout()
@@ -88,8 +103,9 @@ namespace OBSPRO.Controllers
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", "rasul.abduguev@dsc-logistics.com");
                 }
-
-                return true; }
+                FormsAuthentication.SetAuthCookie(loginModel.Username, true);
+                return true;
+            }
             string ldaurl = ConfigurationManager.AppSettings["LDAPURL"];
             WebRequest request = WebRequest.Create(ldaurl);
             request.Method = "POST";
