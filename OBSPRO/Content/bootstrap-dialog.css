@@ -14,9 +14,12 @@
   color: #fff;
   display: inline-block;
   font-size: 16px;
+  text-align:center;
 }
 .bootstrap-dialog .bootstrap-dialog-message {
   font-size: 14px;
+  text-align:center;
+  color:red;
 }
 .bootstrap-dialog .bootstrap-dialog-button-icon {
   margin-right: 3px;
@@ -43,6 +46,7 @@
 }
 .bootstrap-dialog.type-primary .modal-header {
   background-color: #337ab7;
+  text-align:center;
 }
 .bootstrap-dialog.type-success .modal-header {
   background-color: #5cb85c;
