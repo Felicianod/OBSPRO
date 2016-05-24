@@ -289,11 +289,7 @@ namespace OBSPRO.App_Code
                 obs.obs_start_time = inst.start_date;
                 obs.obs_compl_time = Convert.ToDateTime(inst.compl_date).ToString("MMM dd, yyyy hh:mm tt");
                 obs.status = inst.status;
-                if (!String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status))
-                {
-                    all_obs.Add(obs);
-                }
-                else if(String.IsNullOrEmpty(frmStatus))
+                if (frmStatus.Contains(obs.status))
                 {
                     if (String.IsNullOrEmpty(searchString))//no search parameter passed
                     {
@@ -301,13 +297,14 @@ namespace OBSPRO.App_Code
                     }
                     else
                     {
-                        string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name+obs.observer_first_name+obs.observer_last_name;
+                        string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name + obs.observer_first_name + obs.observer_last_name;
                         if (Common.matchesSearchCriteria(searchString, search_in, "All"))
                         {
                             all_obs.Add(obs);
                         }
                     }
-                }
+
+                }                
             }
             switch (sortBy)
             {

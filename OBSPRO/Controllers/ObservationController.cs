@@ -35,7 +35,7 @@ namespace OBSPRO.Controllers
             }
             else
             {                
-                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy));
+                return View(apiParcer.getAllObservations(searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus, searchString, sortBy));
             }
                 
         }
