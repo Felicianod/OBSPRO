@@ -19,6 +19,7 @@ namespace OBSPRO.Controllers
         public ActionResult Index(string frmStatus, string searchString, string sortBy)
         {            
             usr.setUser();
+            bool searchAll = (searchString == null && sortBy == null && frmStatus ==null) ? true : false;
             ViewBag.searchText = searchString;
             ViewBag.sortStartDateParameter = String.IsNullOrEmpty(sortBy) ? "StartDate" : "";
             ViewBag.sortTitleParameter = sortBy == "Title" ? "Title desc" : "Title";
@@ -27,7 +28,7 @@ namespace OBSPRO.Controllers
             ViewBag.sortADPParameter = sortBy == "ADP ID" ? "ADP ID desc" : "ADP ID";
             ViewBag.sortStatusParameter = sortBy == "Status" ? "Status desc" : "Status";
             ViewBag.sortComplDateParameter = sortBy == "Complete Date" ? "Complete Date desc" : "Complete Date";
-
+            ViewBag.frmStatus = searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus;
             if (usr.role == "Not Authorized" || usr.role == "")
             {
                 return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString, sortBy));
