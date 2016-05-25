@@ -16,10 +16,18 @@ namespace OBSPRO.Controllers
         User usr = new User();
 
         [HttpGet]
-        public ActionResult Index(string frmStatus, string searchString, string sortBy)
+        public ActionResult Index( string searchString, string sortBy, FormCollection form_data)
         {            
             usr.setUser();
+            string frmStatus = null;
+            try
+            {
+                frmStatus = Request.QueryString["frmStatus"];
+            }
+            catch { }
             bool searchAll = (searchString == null && sortBy == null && frmStatus ==null) ? true : false;
+            frmStatus = searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus;
+            frmStatus = frmStatus == null ? "" : frmStatus;
             ViewBag.searchText = searchString;
             ViewBag.sortStartDateParameter = String.IsNullOrEmpty(sortBy) ? "StartDate" : "";
             ViewBag.sortTitleParameter = sortBy == "Title" ? "Title desc" : "Title";
@@ -28,14 +36,17 @@ namespace OBSPRO.Controllers
             ViewBag.sortADPParameter = sortBy == "ADP ID" ? "ADP ID desc" : "ADP ID";
             ViewBag.sortStatusParameter = sortBy == "Status" ? "Status desc" : "Status";
             ViewBag.sortComplDateParameter = sortBy == "Complete Date" ? "Complete Date desc" : "Complete Date";
-            ViewBag.frmStatus = searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus;
+            ViewBag.Open = (searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus).Contains("OPEN")?"checked":"";
+            ViewBag.Ready = (searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus).Contains("READY TO VERIFY") ? "checked" : "";
+            ViewBag.Completed = (searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus).Contains("COMPLETED") ? "checked" : "";
+            ViewBag.FullfrmStatus = frmStatus;
             if (usr.role == "Not Authorized" || usr.role == "")
             {
                 return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString, sortBy));
             }
             else
-            {                
-                return View(apiParcer.getAllObservations(searchAll ? "OPEN,READY TO VERIFY,COMPLETED" : frmStatus, searchString, sortBy));
+            {          
+                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy));
             }
                 
         }
