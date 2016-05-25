@@ -14,7 +14,6 @@ namespace OBSPRO.App_Code
 
         public  string getLCs()
         {
-
             string endPoint = "obs_getLC";
             WebRequest request = WebRequest.Create(api_url+endPoint);
             request.Method = "GET";
