@@ -229,7 +229,7 @@
 
 <br />
 @*<input type="button" id="btnShowPopup" class="btn btn-success" value="Open Preview" data-toggle="modal" data-target="#myModal" />*@ 
-<input type="button" id="btnShowPopup" class="btn btn-success" value="Open Preview" /> 
+@*<input type="button" id="btnShowPopup" class="btn btn-success" value="Open Preview" />*@ 
 @*<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -241,9 +241,9 @@
 
 
 
-<div id="cognosReport" style="display:none">
-    <iframe name="myIframe" id="myIframe" style="border-style: none; width:100%;" height="1000" src="http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=true&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9"></iframe>
-</div>
+@*<div id="cognosReport" style="display:none">
+    <iframe name="myIframe" id="myIframe" style="border-style: none; width:100%;" height="1000" src="http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=10353&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9"></iframe>
+</div>*@
 
 
 <div id="overlay" class="dialog" style="display:none"></div>
@@ -253,7 +253,7 @@
 
 <br />
 
-<a href="www.msn.com" class="modalTrigger">Open Modal</a>
+@*<a href="www.msn.com" class="modalTrigger">Open Modal</a>*@
 @*<a href="javascript:;//close me" onclick="openDialog($('#content'))">show dialog A</a>
     <br />
     <a href="javascript:;//close me" onclick="openDialog($('#contentB'))">show dialog B</a>
@@ -270,26 +270,19 @@
 
 <script>
     $(document).ready(function () {
-
         //---------------------------------------------------------------------------
-        $("#btnPrintForm").click(function () {
-            obsAlert('Preview Not available at this time!');
+        $("#btnPrintForm").click(function (e) {
+            e.preventDefault();
+
+            //obsAlert('Preview Not available at this time!');
             //BootstrapDialog.alert("Hello!");
             //obsConfirm('Preview Not available at this time!');
-        });
-        //---------------------------------------------------------------------------
-        $("#btnShowPopup").click(function (e) {
-            e.preventDefault();
-            //var url = "/Content/Site.css";
-            //var url = "http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=true&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9";
 
-            //$(".modal-body").html('<iframe width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" src="' + url + '"></iframe>');
-
-            // Champaig Report URL below
-            //var url = "http://dsccognosprdws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&amp;ui.action=run&amp;ui.object=%2fcontent%2ffolder%5b%40name%3d%27Facilities%27%5d%2ffolder%5b%40name%3d%27Champaign%27%5d%2freportView%5b%40name%3d%27Kraft%20Champaign%20Conveyor%20Dashboard%20-%20Large%20Monitor%20V2%27%5d&amp;ui.name=Kraft%20Champaign%20Conveyor%20Dashboard%20-%20Large%20Monitor%20V2&amp;run.outputFormat=HTML&amp;run.prompt=true&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&amp;ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3di85AB38F9A1D44B6D89B3E857FF41783B";
-            
-            //$("#myIframe").prop("src", url);
-            $("#cognosReport").show();
+            var cfiIf = @Model.obsColFormInstId;
+            var url = "http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
+            url = url + cfiIf + "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9";
+            window.open(url);
+            //window.open(url, "popupWindow", "width=600,height=800,scrollbars=yes");
         });
         //---------------------------------------------------------------------------
 
