@@ -63,7 +63,6 @@
             </fieldset>
         </div>
     </div>
-
 </form>
 <div class="row personal-info">
     <div class="panel panel-info">
@@ -136,4 +135,32 @@
         </div>
     </div>
 </div> <!-- _______________ END OF COLLAPSIBLE PANEL SECTION ___________________ -->
+<table style="width:100%">
+    <tr>
+        <td style="text-align:left">
+            @if (!String.IsNullOrWhiteSpace(Request.QueryString["searchString"]) || !(ViewBag.FullfrmStatus == "STARTED,READY FOR REVIEW,COMPLETED"))
+            {
+                <p> @Html.ActionLink("Show All Observations", "Index")</p>
+            }
+        </td>
+        <td style="text-align:right">
+            @using (Html.BeginForm("Index", "Observation", FormMethod.Get))
+            {
+
+                <input type="hidden" value="@Request.QueryString["searchString"]" id="searchString" name="searchString" />
+                <input type="hidden" value="@Request["sortBy"]" id="sortBy" name="sortBy" />
+                <input type="hidden" value="@Request["frmStatus"]" id="frmStatus" name="frmStatus" />
+                <input type="hidden" value="@Request["page"]" id="page" name="page" />
+                <b>Rows Per Page</b>
+                @Html.DropDownList("PageSize", new SelectList(new Dictionary<string, int> { { "10", 10 }, { "25", 25 }, { "50", 50 } }, "Key", "Value", ViewBag.CurrentItemsPerPage), new { id = "PageSize" })
+                <script type="text/javascript">
+                    $('#PageSize').on('change', function (event) {
+                        var form = $(event.target).parents('form');
+                        form.submit();
+                    });
+                </script>
+            }
+        </td>
+    </tr>
+</table>
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.CurrentItemsPerPage, sortBy = Request["sortBy"], frmStatus = Request["frmStatus"], searchString= ViewBag.searchText }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
