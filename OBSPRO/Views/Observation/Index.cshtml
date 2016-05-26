@@ -40,14 +40,14 @@
                 <div class="col-sm-3" style="padding:0 0; ">
                     <div class="checkbox" >
                         <label>
-                            <input type="checkbox" id="frmStatus" name="frmStatus" value="OPEN" @ViewBag.Open>Open
+                            <input type="checkbox" id="frmStatus" name="frmStatus" value="STARTED" @ViewBag.Open>Started
                         </label>
                     </div>
                 </div>
                 <div class="col-sm-5">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="frmStatus" name="frmStatus" value="READY TO VERIFY" @ViewBag.Ready>Ready To Verify
+                            <input type="checkbox" id="frmStatus" name="frmStatus" value="READY FOR REVIEW" @ViewBag.Ready>Ready For Review
                         </label>
                     </div>
                 </div>
@@ -92,6 +92,7 @@
                         <th style="text-align:center">@Html.ActionLink("ADP ID", "Index", new { sortBy = ViewBag.sortADPParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
                         <th style="text-align:center">@Html.ActionLink("Started On", "Index", new { sortBy = ViewBag.sortStartDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
                         <th style="text-align:center">@Html.ActionLink("Completed On", "Index", new { sortBy = ViewBag.sortComplDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
+                        <th style="text-align:center">Reviewed On</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,11 +120,12 @@
                                 <td style="text-align:center">@dateStarted</td>
                                 <td style="text-align:center">
                                     @if (observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001"))
-                                    { <text>N/A</text>}
+                                    { <text>Not Completed</text>}
                                     else
                                     { @observation.obs_compl_time;
                                     }
                                 </td>
+                                <td style="text-align:center"></td>
                             </tr>
                         }
                     }
