@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using OBSPRO.Models;
 using OBSPRO.App_Code;
 using Newtonsoft.Json.Linq;
+using PagedList;
+using PagedList.Mvc;
 
 namespace OBSPRO.Controllers
 
@@ -16,9 +18,10 @@ namespace OBSPRO.Controllers
         User usr = new User();
 
         [HttpGet]
-        public ActionResult Index( string searchString, string sortBy, FormCollection form_data)
+        public ActionResult Index( string searchString, string sortBy, FormCollection form_data, int? page, int? PageSize)
         {            
             usr.setUser();
+            ViewBag.CurrentItemsPerPage = PageSize ?? 20;
             string frmStatus = null;
             try
             {
@@ -36,17 +39,18 @@ namespace OBSPRO.Controllers
             ViewBag.sortADPParameter = sortBy == "ADP ID" ? "ADP ID desc" : "ADP ID";
             ViewBag.sortStatusParameter = sortBy == "Status" ? "Status desc" : "Status";
             ViewBag.sortComplDateParameter = sortBy == "Complete Date" ? "Complete Date desc" : "Complete Date";
-            ViewBag.Open = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("STARTED") ?"checked":"";
+            ViewBag.Open = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("STARTED")?"checked":"";
             ViewBag.Ready = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("READY FOR REVIEW") ? "checked" : "";
             ViewBag.Completed = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("COMPLETED") ? "checked" : "";
             ViewBag.FullfrmStatus = frmStatus;
             if (usr.role == "Not Authorized" || usr.role == "")
             {
-                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString, sortBy));
+
+                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 20));
             }
             else
             {          
-                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy));
+                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 20));
             }
                 
         }

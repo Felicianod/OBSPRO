@@ -1,4 +1,6 @@
-﻿@model List<OBSPRO.Models.Observation>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<OBSPRO.Models.Observation>
 @{
     ViewBag.Title = "Observations";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -85,13 +87,13 @@
                 <thead>
                     <tr>
                         @*<th>Form Id</th>*@
-                        <th>@Html.ActionLink("FORM TITLE", "Index", new { sortBy = ViewBag.sortTitleParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
-                        <th>@Html.ActionLink("OBSERVER", "Index", new { sortBy = ViewBag.sortObserverParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
-                        <th>@Html.ActionLink("EMPLOYEE OBSERVED", "Index", new { sortBy = ViewBag.sortEmpObservedParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
-                        <th>@Html.ActionLink("OBS Status", "Index", new { sortBy = ViewBag.sortStatusParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
-                        <th style="text-align:center">@Html.ActionLink("ADP ID", "Index", new { sortBy = ViewBag.sortADPParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
-                        <th style="text-align:center">@Html.ActionLink("Started On", "Index", new { sortBy = ViewBag.sortStartDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
-                        <th style="text-align:center">@Html.ActionLink("Completed On", "Index", new { sortBy = ViewBag.sortComplDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
+                        <th>@Html.ActionLink("FORM TITLE", "Index", new { sortBy = ViewBag.sortTitleParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th>@Html.ActionLink("OBSERVER", "Index", new { sortBy = ViewBag.sortObserverParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th>@Html.ActionLink("EMPLOYEE OBSERVED", "Index", new { sortBy = ViewBag.sortEmpObservedParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th>@Html.ActionLink("OBS Status", "Index", new { sortBy = ViewBag.sortStatusParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th style="text-align:center">@Html.ActionLink("ADP ID", "Index", new { sortBy = ViewBag.sortADPParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th style="text-align:center">@Html.ActionLink("Started On", "Index", new { sortBy = ViewBag.sortStartDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th style="text-align:center">@Html.ActionLink("Completed On", "Index", new { sortBy = ViewBag.sortComplDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
                         <th style="text-align:center"><a href="#">Reviewed On</a></th>
                     </tr>
                 </thead>
@@ -134,3 +136,4 @@
         </div>
     </div>
 </div> <!-- _______________ END OF COLLAPSIBLE PANEL SECTION ___________________ -->
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.CurrentItemsPerPage, sortBy = Request["sortBy"], frmStatus = Request["frmStatus"], searchString= ViewBag.searchText }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
