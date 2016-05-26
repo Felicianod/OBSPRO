@@ -7,6 +7,22 @@
     .personal-info {
         margin: 0px;
     }
+
+    fieldset.scheduler-border {
+        border: 2px solid #ddd !important;
+        padding: 3px 10px 3px 40px;
+        margin: 0 0 1.5em 0 !important;
+        /*-webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;*/
+    }
+
+    legend.scheduler-border {
+        font-size:medium;
+        width: inherit; /* Or auto */
+        padding: 0 10px; /* To give a bit of padding on the left and right */
+        border-bottom: none;
+        margin: 0 0;
+    }
 </style>
 <form method="get">
     <div class="row">
@@ -15,37 +31,36 @@
                 <span class="input-group-addon" id="basic-addon1">Search</span>
                 <input type="text" id="searchString" name="searchString" class="form-control" value="@ViewBag.searchText" aria-describedby="basic-addon1">
                 <button type="submit" class="btn btn-primary">GO</button>
-            </div> 
+            </div>
         </div>
-            <div class="col-sm-4">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="frmStatus" name="frmStatus" value="OPEN" @ViewBag.Open>Open
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="frmStatus" name="frmStatus" value="READY TO VERIFY" @ViewBag.Ready>Ready To Verify
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="frmStatus" name="frmStatus" value="COMPLETED" @ViewBag.Completed>Completed
-                            </label>
-                        </div>
+        <div class="col-lg-4">
+            <fieldset class="scheduler-border row">
+                <legend class="scheduler-border">Filter By Status</legend>
+                <div class="col-sm-3" style="padding:0 0; ">
+                    <div class="checkbox" >
+                        <label>
+                            <input type="checkbox" id="frmStatus" name="frmStatus" value="OPEN" @ViewBag.Open>Open
+                        </label>
                     </div>
                 </div>
-
-            </div>  
-         
+                <div class="col-sm-5">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="frmStatus" name="frmStatus" value="READY TO VERIFY" @ViewBag.Ready>Ready To Verify
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="frmStatus" name="frmStatus" value="COMPLETED" @ViewBag.Completed>Completed
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
     </div>
-        
+
 </form>
 
 <br />
@@ -58,9 +73,9 @@
                     <td>
                         <b>@*@Model.First().status*@ OBSERVATIONS</b>
                         @*<a class="accordion-toggle" data-toggle="collapse" href="#panelSection01">
-                            <span class="glyphicon glyphicon-minus">&nbsp;</span>
-                            <b>OBSERVATION INSTANCES</b>
-                        </a>*@
+                                <span class="glyphicon glyphicon-minus">&nbsp;</span>
+                                <b>OBSERVATION INSTANCES</b>
+                            </a>*@
                     </td>
                 </tr>
             </table>
@@ -71,7 +86,7 @@
                 <thead>
                     <tr>
                         @*<th>Form Id</th>*@
-                        <th>@Html.ActionLink("FORM TITLE","Index",new { sortBy = ViewBag.sortTitleParameter, searchString = ViewBag.searchText , frmStatus = ViewBag.FullfrmStatus })</th>
+                        <th>@Html.ActionLink("FORM TITLE", "Index", new { sortBy = ViewBag.sortTitleParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
                         <th>@Html.ActionLink("OBSERVER", "Index", new { sortBy = ViewBag.sortObserverParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
                         <th>@Html.ActionLink("EMPLOYEE OBSERVED", "Index", new { sortBy = ViewBag.sortEmpObservedParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
                         <th>@Html.ActionLink("OBS Status", "Index", new { sortBy = ViewBag.sortStatusParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus })</th>
@@ -104,9 +119,11 @@
                                 @*<td style="text-align:center">@observation.observed_id</td>*@
                                 <td style="text-align:center">@dateStarted</td>
                                 <td style="text-align:center">
-                                    @if(observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001"))
+                                    @if (observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001"))
                                     { <text>N/A</text>}
-                                    else { @observation.obs_compl_time; }
+                                    else
+                                    { @observation.obs_compl_time;
+                                    }
                                 </td>
                             </tr>
                         }
