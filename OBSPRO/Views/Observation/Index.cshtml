@@ -63,6 +63,7 @@
             </fieldset>
         </div>
     </div>
+    <input type="hidden" value="@Request["PageSize"]" id="pageSize" name="pageSize" />
 </form>
 <div class="row personal-info">
     <div class="panel panel-info">
@@ -146,13 +147,13 @@
         <td style="text-align:right">
             @using (Html.BeginForm("Index", "Observation", FormMethod.Get))
             {
-
+                var status = Request["frmStatus"] == null ? ViewBag.FullfrmStatus : Request["frmStatus"];
                 <input type="hidden" value="@Request.QueryString["searchString"]" id="searchString" name="searchString" />
                 <input type="hidden" value="@Request["sortBy"]" id="sortBy" name="sortBy" />
-                <input type="hidden" value="@Request["frmStatus"]" id="frmStatus" name="frmStatus" />
+                <input type="hidden" value="@status" id="frmStatus" name="frmStatus" />
                 <input type="hidden" value="@Request["page"]" id="page" name="page" />
                 <b>Rows Per Page</b>
-                @Html.DropDownList("PageSize", new SelectList(new Dictionary<string, int> { { "10", 10 }, { "25", 25 }, { "50", 50 } }, "Key", "Value", ViewBag.CurrentItemsPerPage), new { id = "PageSize" })
+                @Html.DropDownList("PageSize", new SelectList(new Dictionary<string, int> { { "15", 15 }, { "25", 25 }, { "50", 50 } }, "Key", "Value", ViewBag.CurrentItemsPerPage), new { id = "PageSize" })
                 <script type="text/javascript">
                     $('#PageSize').on('change', function (event) {
                         var form = $(event.target).parents('form');
