@@ -21,7 +21,7 @@ namespace OBSPRO.Controllers
         public ActionResult Index( string searchString, string sortBy, FormCollection form_data, int? page, int? PageSize)
         {            
             usr.setUser();
-            ViewBag.CurrentItemsPerPage = PageSize ?? 20;
+            ViewBag.CurrentItemsPerPage = PageSize ?? 15;
             string frmStatus = null;
             try
             {
@@ -46,11 +46,11 @@ namespace OBSPRO.Controllers
             if (usr.role == "Not Authorized" || usr.role == "")
             {
 
-                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 20));
+                return View(apiParcer.getAllObservations(usr.emp_id, frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 15));
             }
             else
             {          
-                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 20));
+                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 15));
             }
                 
         }

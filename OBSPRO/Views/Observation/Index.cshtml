@@ -152,7 +152,7 @@
                 <input type="hidden" value="@Request["frmStatus"]" id="frmStatus" name="frmStatus" />
                 <input type="hidden" value="@Request["page"]" id="page" name="page" />
                 <b>Rows Per Page</b>
-                @Html.DropDownList("PageSize", new SelectList(new Dictionary<string, int> { { "10", 10 }, { "25", 25 }, { "50", 50 } }, "Key", "Value", ViewBag.CurrentItemsPerPage), new { id = "PageSize" })
+                @Html.DropDownList("PageSize", new SelectList(new Dictionary<string, int> { { "15", 15 }, { "25", 25 }, { "50", 50 } }, "Key", "Value", ViewBag.CurrentItemsPerPage), new { id = "PageSize" })
                 <script type="text/javascript">
                     $('#PageSize').on('change', function (event) {
                         var form = $(event.target).parents('form');
