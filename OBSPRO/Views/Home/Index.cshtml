@@ -46,7 +46,7 @@
                                 <span class="glyphicon glyphicon-minus">&nbsp;</span>
                                 @*<span class="glyphicon glyphicon-collapse-up">&nbsp;</span>*@
                                 @*<span class="caret">&nbsp;</span>*@
-                                <b>OPEN OBSERVATIONS</b>
+                                <b>STARTED OBSERVATIONS</b>
                             </a>
                         </td>
                     </tr>
@@ -104,7 +104,7 @@
                 @if (Model.user_open_obs.Count() > 5)
                 {
                     // Allow full list Display Option
-                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "OPEN" }, null)
+                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "STARTED" }, null)
                 }
             </div>
         </div>
@@ -179,7 +179,7 @@
                 @if (Model.user_ready_obs.Count() > 5)
                 {
                     // Allow full list Display Option
-                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "READY TO VERIFY" }, null)
+                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "READY FOR REVIEW" }, null)
                 }
             </div>
         </div>

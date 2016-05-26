@@ -26,7 +26,7 @@ namespace OBSPRO.App_Code
                 obs.form_inst_id = (string)res["ObsColFormInstID"];
                 obs.observed_id = (int)res["dsc_observed_emp_id"];
                 obs.observer_id = (int)res["dsc_observer_emp_id"];
-                obs.status = (string)res["obs_inst_status"];
+                obs.status = (string)res["obs_inst_status"]== "READY TO VERIFY"? "READY FOR REVIEW": (string)res["obs_inst_status"]=="OPEN"?"STARTED": (string)res["obs_inst_status"];
                 obs.observed_first_name = (string)res["dsc_observed_first_name"];
                 obs.observed_last_name = (string)res["dsc_observed_last_name"];
                 obs.observed_adp_id = (string)res["ObservedADPID"];
@@ -34,10 +34,10 @@ namespace OBSPRO.App_Code
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
                 switch (obs.status)
                 {
-                    case "OPEN":
+                    case "STARTED":
                         dashboard.user_open_obs.Add(obs);
                         break;
-                    case "READY TO VERIFY":
+                    case "READY FOR REVIEW":
                         dashboard.user_ready_obs.Add(obs);
                         break;
                     case "COMPLETE":
@@ -77,7 +77,7 @@ namespace OBSPRO.App_Code
                                    cfi_id = j.obs_cfi_id,
                                    start_date = j.obs_cfi_start_dt,
                                    compl_date = j.obs_cfi_comp_date,
-                                   status = k.obs_inst_status=="COLLECTING"?"OPEN": "READY TO VERIFY"
+                                   status = k.obs_inst_status=="COLLECTING"?"STARTED": "READY FOR REVIEW"
                                }).ToList();
             foreach(var inst in all_obs_ins)
             {
@@ -96,10 +96,10 @@ namespace OBSPRO.App_Code
                 obs.status = inst.status;
                 switch (obs.status)
                 {
-                    case "OPEN":
+                    case "STARTED":
                         dashboard.user_open_obs.Add(obs);
                         break;
-                    case "READY TO VERIFY":
+                    case "READY FOR REVIEW":
                         dashboard.user_ready_obs.Add(obs);
                         break;
                     case "COMPLETE":
@@ -139,7 +139,7 @@ namespace OBSPRO.App_Code
             obsColForm.strColFormStartDateTime = obsColForm.colFormStartDateTime.ToString("MMM dd, yyyy hh:mm tt");
             obsColForm.strColFormSubmittedDateTime = db.OBS_COLLECT_FORM_INST.Single(x => x.obs_cfi_id == obsColForm.obsColFormInstId).obs_cfi_comp_date == null?"": Convert.ToDateTime(db.OBS_COLLECT_FORM_INST.Single(x => x.obs_cfi_id == obsColForm.obsColFormInstId).obs_cfi_comp_date).ToString("MMM dd, yyyy hh:mm tt");
             obsColForm.dBColFormStatus = (string)parsed_result["observationsColFormData"]["DBColFormStatus"];
-            obsColForm.colFormStatus = (string)parsed_result["observationsColFormData"]["ColFormStatus"];
+            obsColForm.colFormStatus = (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Ready"?"READY FOR REVIEW": (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Open"?"STARTED": (string)parsed_result["observationsColFormData"]["ColFormStatus"];
             JArray questions = (JArray)parsed_result["observationsColFormData"]["questions"];
             foreach (var quest in questions)
             {
@@ -272,7 +272,7 @@ namespace OBSPRO.App_Code
                                    cfi_id = j.obs_cfi_id,
                                    start_date = j.obs_cfi_start_dt,
                                    compl_date = j.obs_cfi_comp_date,
-                                   status = k.obs_inst_status == "COLLECTING" ? "OPEN" : "READY TO VERIFY"
+                                   status = k.obs_inst_status == "COLLECTING" ? "STARTED" : "READY FOR REVIEW"
                                }).ToList();
             foreach (var inst in all_obs_ins)
             {
