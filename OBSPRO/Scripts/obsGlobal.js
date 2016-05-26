@@ -1,5 +1,6 @@
 ﻿
 //Function to replace the browser Confirmation popup with a nicer bootstraps formatted window.
+//Requieres "bootstrap-dialog.js" & "bootstrap-dialog.css"
 function obsConfirm(myMessage) {
     BootstrapDialog.confirm({
         title: 'CONFIRMATION - Are you Sure?',
