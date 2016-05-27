@@ -233,13 +233,70 @@ namespace OBSPRO.App_Code
                 obs.form_inst_id = (string)res["ObsColFormInstID"];
                 obs.observed_id = (int)res["dsc_observed_emp_id"];
                 obs.observer_id = (int)res["dsc_observer_emp_id"];
-                obs.status = (string)res["obs_inst_status"];
+                obs.status = (string)res["obs_inst_status"]=="OPEN"?"STARTED": (string)res["obs_inst_status"]== "READY TO VERIFY"?"READY FOR REVIEW": (string)res["obs_inst_status"];
                 obs.observed_first_name = (string)res["dsc_observed_first_name"];
                 obs.observed_last_name = (string)res["dsc_observed_last_name"];
                 obs.observed_adp_id = (string)res["ObservedADPID"];
                 obs.form_title = (string)res["ColFormTitle"];
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
-                if (String.IsNullOrEmpty(frmStatus) && frmStatus.Equals(obs.status)) { all_obs.Add(obs); }
+                if (frmStatus.Contains(obs.status))
+                {
+                    if (String.IsNullOrEmpty(searchString))//no search parameter passed
+                    {
+                        all_obs.Add(obs);
+                    }
+                    else
+                    {
+                        string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name + obs.observer_first_name + obs.observer_last_name;
+                        if (Common.matchesSearchCriteria(searchString, search_in, "All"))
+                        {
+                            all_obs.Add(obs);
+                        }
+                    }
+
+                }
+            }
+            switch (sortBy)
+            {
+                case "StartDate":
+                    all_obs = all_obs.OrderBy(x => x.obs_start_time).ToList();
+                    break;
+                case "Title desc":
+                    all_obs = all_obs.OrderByDescending(x => x.form_title).ToList();
+                    break;
+                case "Title":
+                    all_obs = all_obs.OrderBy(x => x.form_title).ToList();
+                    break;
+                case "Observed Emplpoyee desc":
+                    all_obs = all_obs.OrderByDescending(x => x.observed_last_name).ToList();
+                    break;
+                case "Observed Emplpoyee":
+                    all_obs = all_obs.OrderBy(x => x.observed_last_name).ToList();
+                    break;
+                case "Observer desc":
+                    all_obs = all_obs.OrderByDescending(x => x.observer_last_name).ToList();
+                    break;
+                case "Observer":
+                    all_obs = all_obs.OrderBy(x => x.observer_last_name).ToList();
+                    break;
+                case "ADP ID desc":
+                    all_obs = all_obs.OrderByDescending(x => int.Parse(x.observed_adp_id)).ToList();
+                    break;
+                case "ADP ID":
+                    all_obs = all_obs.OrderBy(x => int.Parse(x.observed_adp_id)).ToList();
+                    break;
+                case "Status desc":
+                    all_obs = all_obs.OrderByDescending(x => x.status).ToList();
+                    break;
+                case "Status":
+                    all_obs = all_obs.OrderBy(x => x.status).ToList();
+                    break;
+                case "Complete Date desc":
+                    all_obs = all_obs.OrderByDescending(x => x.obs_compl_time).ToList();
+                    break;
+                case "Complete Date":
+                    all_obs = all_obs.OrderBy(x => x.obs_compl_time).ToList();
+                    break;
             }
             return all_obs;
         }

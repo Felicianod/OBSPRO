@@ -215,6 +215,8 @@
                             <th style="text-align:center">ADP ID</th>
                             @*<th style="text-align:center">Local Id</th>*@
                             <th style="text-align:center">Started On</th>
+                            <th style="text-align:center">Completed On</th>
+                            <th style="text-align:center">Reviewed On</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -242,6 +244,8 @@
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
                                     <td style="text-align:center">@observation.obs_start_time.ToString()</td>
+                                    <td style="text-align:center"></td>
+                                    <td style="text-align:center"></td>
                                 </tr>
                                 loopCounter++;
                                 if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
