@@ -15,12 +15,13 @@ namespace OBSPRO.Controllers
             Exception ex = new HttpUnhandledException();
             return View("Error", ex);
         }
+        
         // GET: Error
-        //public ActionResult Index(string ErrorMsg )
-        //{
-        //    Exception ex = new Exception(ErrorMsg);
-        //    return View("Error", ex);
-        //}
+        public ActionResult Index(string ErrorMsg)
+        {
+            Exception ex = new Exception(ErrorMsg);
+            return View("Error", ex);
+        }
 
         // GET: Error
         public ActionResult Index(Exception catchedException)
@@ -48,5 +49,6 @@ namespace OBSPRO.Controllers
             Exception ex = new UnauthorizedAccessException();
             return View("Error", ex);
         }
+
     }
 }

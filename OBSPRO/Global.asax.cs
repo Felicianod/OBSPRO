@@ -74,7 +74,7 @@ namespace OBSPRO
 
             //// We've handled the error, so clear it from the Server. 
             ////Leaving the server in an error state can cause unintended side effects as the server continues its attempts to handle the error.
-            //Server.ClearError();
+            Server.ClearError();
 
             //// Possible that a partially rendered page has already been written to response buffer before encountering error, so clear it.
             //Response.Clear();
