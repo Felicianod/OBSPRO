@@ -127,7 +127,10 @@ namespace OBSPRO.App_Code
                                                    select emp.dsc_emp_first_name + " " + emp.dsc_emp_last_name).First().ToString();
             try { obsColForm.hiredDate = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["hiredDate"]); }
             catch { }
-            obsColForm.lc_id = (string)parsed_result["observationsColFormData"]["DSC_LC_ID"];
+            int lc_id_numeric = (int)parsed_result["observationsColFormData"]["DSC_LC_ID"];
+            obsColForm.lc_id = (from loc in db.DSC_LC
+                                where loc.dsc_lc_id == lc_id_numeric
+                                select loc.dsc_lc_name).First().ToString();
             obsColForm.customer_id = (string)parsed_result["observationsColFormData"]["customer"];
             obsColForm.obsColFormId = (int)parsed_result["observationsColFormData"]["OBSColFormID"];
             obsColForm.colFormTitle = (string)parsed_result["observationsColFormData"]["ColFormTitle"];
