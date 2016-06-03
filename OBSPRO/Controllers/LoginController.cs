@@ -21,6 +21,7 @@ namespace OBSPRO.Controllers
     {
         DataRetrieval data_retrieval = new DataRetrieval();
         DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
+
         [HttpGet]
         public ActionResult Login() { 
             //ViewBag.ReturnUrl = returnUrl;
@@ -60,6 +61,16 @@ namespace OBSPRO.Controllers
                 return View(loginModel);
             }
 
+        }
+
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult OBSLogout()
