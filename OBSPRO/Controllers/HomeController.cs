@@ -17,22 +17,23 @@ namespace OBSPRO.Controllers
         public ActionResult Index()
         {
             usr.setUser();
-            if (!usr.isDefined) { 
+            if (!usr.isDefined)
+            {
                 //User is not defined so Session has expired. Kick user back to Login Page
                 return RedirectToAction("Login", "Login", null);
             }
 
-                if (usr.role== "Not Authorized"||usr.role=="")
-                {
-                    return View(apiParcer.getDashboard(usr.emp_id));
-                }
-                else
-                {
-                    return View(apiParcer.getDashboard());
-                }
+            if (usr.role == "Not Authorized" || usr.role == "")
+            {
+                return View(apiParcer.getDashboard(usr.emp_id));
+            }
+            else
+            {
+                return View(apiParcer.getDashboard());
+            }
 
         }
     }
 
-        
+
 }
