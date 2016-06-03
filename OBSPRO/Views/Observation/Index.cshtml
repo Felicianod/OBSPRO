@@ -121,7 +121,7 @@
                                 @*<td style="text-align:center">@observation.observed_id</td>*@
                                 <td style="text-align:center">@dateStarted</td>
                                 <td style="text-align:center">
-                                    @if (observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001"))
+                                    @if (observation.obs_compl_time ==null ||(observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001")))
                                     { <text>Not Completed</text>}
                                     else
                                     { @observation.obs_compl_time;
