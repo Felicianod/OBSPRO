@@ -348,6 +348,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Red-Zone_Icon.png" />
     <Content Include="Images\bgDeleted.png" />
     <Content Include="Images\Button-Add-icon.png" />
     <Content Include="Images\confused-emoticon.jpg" />
@@ -357,6 +358,8 @@
     <Content Include="Images\KPogany.jpg" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\LoadingData.gif" />
+    <Content Include="Images\Observations_icon.jpg" />
+    <Content Include="Images\Resources_Tools_icon-250x250.jpg" />
     <Content Include="Images\ui-anim_basic_16x16.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -423,7 +426,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\_NavMenu.cshtml" />
     <Content Include="Views\Observation\Index.cshtml" />
@@ -432,6 +434,7 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Shared\AuthorizeFailed.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

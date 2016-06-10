@@ -1,9 +1,10 @@
 ﻿@model OBSPRO.Models.Dashboard
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Dashboard";
 }
 @{
     int loopCounter = 0;
+    string userName = @Session["first_name"].ToString() + " " + @Session["last_name"].ToString();
 }
 <style>
     .personal-info {
@@ -17,20 +18,22 @@
     </div>
     <div id="userDIV" class="col-sm-4 jumbotron" style="border: 1px solid black; margin:0px; padding:5px 20px; margin-bottom:4px">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <span style="font-weight:bold; ">User Name:</span>
-                &nbsp;&nbsp;&nbsp; 
-                <span>@User.Identity.Name</span>
+            </div>
+            <div class="col-sm-8">
+                <span>@userName</span>
             </div>
         </div>
         <div class="row">
-            @*<div class="col-sm-12">
-                <span style="font-weight:bold;">Other Info:</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>TEST DATA</span>
-            </div>*@
+            <div class="col-sm-4">
+                <span style="font-weight:bold; ">Server:</span>
+            </div>
+            <div class="col-sm-8">
+                <span>@Environment.MachineName</span>
+            </div>
         </div>
-    </div>    
+    </div>
 </div>
 <br />
 <div class="row dashboard" style="margin:0px; ">
@@ -59,7 +62,8 @@
                         <tr>
                             @*<th>form id</th>*@
                             <th>FORM TITLE</th>
-                            @if(Model.isSuperUser){
+                            @if (Model.isSuperUser)
+                            {
                                 <th>OBSERVER</th>
                             }
                             <th>EMPLOYEE OBSERVED</th>
@@ -95,8 +99,8 @@
                                     @*<td style="text-align:center">@observation.observed_id</td>*@
                                     <td style="text-align:center">@dateStarted</td>
                                 </tr>
-                                loopCounter++;
-                                if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
+                                    loopCounter++;
+                                    if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
                             }
                         }
                     </tbody>
@@ -134,7 +138,9 @@
                         <tr>
                             @*<th>Form Id</th>*@
                             <th>FORM TITLE</th>
-                            @if (Model.isSuperUser) { <th>OBSERVER</th> }
+                            @if (Model.isSuperUser)
+                            {
+                            <th>OBSERVER</th> }
                             <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
                             <th style="text-align:center">ADP ID</th>
@@ -156,7 +162,7 @@
                             foreach (var observation in Model.user_ready_obs)
                             {
                                 var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
-                              
+
                                 <tr>
                                     @*<td>@observation.form_inst_id </td>*@
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
@@ -170,8 +176,8 @@
                                     <td style="text-align:center">@dateStarted</td>
                                     <td style="text-align:center">@observation.obs_compl_time</td>
                                 </tr>
-                                loopCounter++;
-                                if (loopCounter >= 5 || loopCounter == Model.user_ready_obs.Count) { loopCounter = 0; break; }
+                                    loopCounter++;
+                                    if (loopCounter >= 5 || loopCounter == Model.user_ready_obs.Count) { loopCounter = 0; break; }
                             }
                         }
                     </tbody>
@@ -209,7 +215,9 @@
                         <tr>
                             @*<th>Form Id</th>*@
                             <th>FORM TITLE</th>
-                            @if (Model.isSuperUser) { <th>OBSERVER</th> }
+                            @if (Model.isSuperUser)
+                            {
+                            <th>OBSERVER</th> }
                             <th>EMPLOYEE OBSERVED</th>
                             @*<th>OBS Status</th>*@
                             <th style="text-align:center">ADP ID</th>
@@ -247,8 +255,8 @@
                                     <td style="text-align:center"></td>
                                     <td style="text-align:center"></td>
                                 </tr>
-                                loopCounter++;
-                                if (loopCounter >= 5 || loopCounter == Model.user_complete_obs.Count) { loopCounter = 0; break; }
+                                    loopCounter++;
+                                    if (loopCounter >= 5 || loopCounter == Model.user_complete_obs.Count) { loopCounter = 0; break; }
                             }
                         }
                     </tbody>

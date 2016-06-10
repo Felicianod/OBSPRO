@@ -28,8 +28,7 @@ namespace OBSPRO.Models
         public string strColFormSubmittedDateTime { set; get; }
         public string dBColFormStatus { set; get; }
         public string colFormStatus { set; get; }
-        
+        public string colFormPrintPath { set; get; }
         public List<Section> sections = new List<Section>();
-
     }
 }

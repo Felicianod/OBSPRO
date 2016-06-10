@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Web.SessionState;
 using System.Security.Principal;
 using System.Web.Optimization;
 
@@ -23,7 +20,7 @@ namespace OBSPRO
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalFilters.Filters.Add(new System.Web.Mvc.AuthorizeAttribute());
             GlobalFilters.Filters.Add(new HandleErrorAttribute());
-            ViewEngines.Engines.Add(new RazorViewEngine());            
+            ViewEngines.Engines.Add(new RazorViewEngine());
         }
 
         protected void Session_Start(object sender, EventArgs e)

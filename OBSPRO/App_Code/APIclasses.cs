@@ -54,7 +54,7 @@ namespace OBSPRO.App_Code
     //    //    value= "";
     //    //    valueType = "";
     //    //}
-    //    //public string getPaylod(){
+    //    //public string getPayload(){
     //    //    StringBuilder payloadString = new StringBuilder("");
     //    //    string quote = (valueType == "INT") ? "" : "\"";
 

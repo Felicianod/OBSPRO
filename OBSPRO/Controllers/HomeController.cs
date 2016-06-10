@@ -14,8 +14,10 @@ namespace OBSPRO.Controllers
     {
         User usr = new User();
         APIDataParcer apiParcer = new APIDataParcer();
+
         public ActionResult Index()
         {
+
             usr.setUser();
             if (!usr.isDefined)
             {
