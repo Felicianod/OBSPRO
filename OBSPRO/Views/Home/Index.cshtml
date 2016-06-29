@@ -16,7 +16,7 @@
         <br />
         <span @*class="glyphicon glyphicon-dashboard"*@ style="width:80%; font-weight:bold; font-size:larger; vertical-align:bottom">[&nbsp; USER DASHBOARD &nbsp;]</span><br />
     </div>
-    <div id="userDIV" class="col-sm-4 jumbotron" style="border: 1px solid black; margin:0px; padding:5px 20px; margin-bottom:4px">
+    @*<div id="userDIV" class="col-sm-4 jumbotron" style="border: 1px solid black; margin:0px; padding:5px 20px; margin-bottom:4px">
         <div class="row">
             <div class="col-sm-4">
                 <span style="font-weight:bold; ">User Name:</span>
@@ -33,7 +33,7 @@
                 <span>@Environment.MachineName</span>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
 <br />
 <div class="row dashboard" style="margin:0px; ">
@@ -61,14 +61,14 @@
                     <thead>
                         <tr>
                             @*<th>form id</th>*@
-                            <th>FORM TITLE</th>
+                            <th>Form Title</th>
                             @if (Model.isSuperUser)
                             {
-                                <th>OBSERVER</th>
+                                <th>Observer</th>
                             }
-                            <th>EMPLOYEE OBSERVED</th>
+                            <th>Employee Observed</th>
                             @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP ID</th>
+                            <th style="text-align:center">ADP Id</th>
                             <th style="text-align:center">Started On</th>
                         </tr>
                     </thead>
@@ -137,13 +137,13 @@
                     <thead>
                         <tr>
                             @*<th>Form Id</th>*@
-                            <th>FORM TITLE</th>
+                            <th>Form Title</th>
                             @if (Model.isSuperUser)
                             {
-                            <th>OBSERVER</th> }
-                            <th>EMPLOYEE OBSERVED</th>
+                            <th>Observer</th> }
+                            <th>Employee Observed</th>
                             @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP ID</th>
+                            <th style="text-align:center">ADP Id</th>
                             <th style="text-align:center">Started On</th>
                             <th style="text-align:center">Completed On</th>
                         </tr>
@@ -214,13 +214,13 @@
                     <thead>
                         <tr>
                             @*<th>Form Id</th>*@
-                            <th>FORM TITLE</th>
+                            <th>Form Title</th>
                             @if (Model.isSuperUser)
                             {
-                            <th>OBSERVER</th> }
-                            <th>EMPLOYEE OBSERVED</th>
+                            <th>Observer</th> }
+                            <th>Employee Observed</th>
                             @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP ID</th>
+                            <th style="text-align:center">ADP Id</th>
                             @*<th style="text-align:center">Local Id</th>*@
                             <th style="text-align:center">Started On</th>
                             <th style="text-align:center">Completed On</th>
