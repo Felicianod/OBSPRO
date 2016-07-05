@@ -24,6 +24,13 @@ namespace OBSPRO.Controllers
         }
 
         // GET: Error
+        public ActionResult Message(string ErrorMsg)
+        {
+            Exception ex = new Exception(ErrorMsg);
+            return View("Error", ex);
+        }
+
+        // GET: Error
         public ActionResult Index(Exception catchedException)
         {
             return View("Error", catchedException);

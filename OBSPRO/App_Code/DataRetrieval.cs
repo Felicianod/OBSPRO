@@ -119,7 +119,7 @@ namespace OBSPRO.App_Code
             }
             catch (Exception e)
             {
-                return e.Message;
+                return "ERROR: " + e.Message;
             }
         }
     }

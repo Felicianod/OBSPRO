@@ -109,11 +109,29 @@ namespace OBSPRO.App_Code
             }            
             return dashboard;
         }
-        public OBSCollectionForm getFormInstance(int formId)
+        public OBSCollectionForm getFormInstance(int? formId)
         {
+            int intFormId = formId ?? 0;
             OBSCollectionForm obsColForm = new OBSCollectionForm();
+            JObject parsed_result;
+            bool APIcall_Succeeded = false;
+            string APIcall_Message = "";
 
-            JObject parsed_result = JObject.Parse(api.getObsCollForm(formId));
+            try {
+                parsed_result = JObject.Parse(api.getObsCollForm(intFormId));
+                //Verify that the API call succeeded
+                APIcall_Succeeded = ((string)parsed_result["result"]).Equals("SUCCESS") ? true : false;
+                APIcall_Message = (string)parsed_result["message"];
+                // Throw exception if the API call returns an error
+                if (!APIcall_Succeeded) { throw new Exception(APIcall_Message); }  
+            }
+            catch (Exception ex) {
+                // Throw exception if the API call fails
+                APIcall_Succeeded = false;
+                APIcall_Message = ex.Message;
+                throw new Exception(APIcall_Message);
+            }
+            // We reach this section only if the API call is successfull and it returns a "SUCCESS" response.
             Section current_section = new Section();
             current_section.sectionName = String.Empty;
             obsColForm.observedEmployeeId = (int)parsed_result["observationsColFormData"]["ObservedEmployeeId"];

@@ -56,9 +56,19 @@ namespace OBSPRO.Controllers
         }
 
         [HttpGet]
-        public ActionResult viewForm(int id)
+        public ActionResult viewForm(int? id)
         {
-            return View(apiParcer.getFormInstance(id));
+            int formId = id ?? 0;
+            if (formId < 1) return RedirectToAction("Message", "Error", new { ErrorMsg = "Invalid or Missing Form Id. Please Select a Valid Form Id and Try Again." });
+
+            OBSCollectionForm formRetrieved;
+            try { 
+                formRetrieved = apiParcer.getFormInstance(formId); 
+            }
+            catch(Exception ex) {
+                return RedirectToAction("Message", "Error", new { ErrorMsg = ex.Message });
+            }            
+            return View(formRetrieved);
         }
 
         // GET: Observation/Create
