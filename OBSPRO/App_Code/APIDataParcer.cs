@@ -440,5 +440,28 @@ namespace OBSPRO.App_Code
             }
             return all_obs;
         }
+
+        public string getUserRole(string userName)
+        {
+            JObject parsed_result;
+            try
+            {
+                parsed_result = JObject.Parse(api.getObserverRole(userName));
+                if ((string)parsed_result["resource"]["obs_role_active_yn"] == "Y")
+                {
+                    return (string)parsed_result["resource"]["obs_role_name"];
+                }
+                else
+                {
+                    return "Not Authorized";
+                }
+
+            }
+            catch
+            {
+                return "Not Authorized";
+            }
+            
+        }
     }
 }
