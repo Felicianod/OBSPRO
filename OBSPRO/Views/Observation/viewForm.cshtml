@@ -104,9 +104,11 @@
         background-color: white;
         padding: 0px 0px;
     }
+    
     fieldset > legend + * {
         clear:both;
     }
+
     .headerColRow {
         margin: 0; 
         padding:0; 
@@ -169,7 +171,6 @@
 </script>
 
 <div style="max-width:1100px; margin:0 auto;">
-  @*<section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" >*@
    <section id="formHeader" style="margin:0; padding:0; position:fixed; top:75px; z-index:999; min-width:1100px;">
         <div class="panel panel-info" style="margin:0; padding:2px 2px 2px 2px; z-index:998; border:none">
             <div class="panel-heading header" style="background-color:#b62525; color:white; padding:0px">
@@ -212,7 +213,7 @@
                             <span style="color: blue">@Model.colFormStatus</span>
                         </div>
                         <div class="row headerColRow" style="text-align:center">
-                            <a href="javascript:window.open('@Model.colFormPrintPath');"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
+                            <a id="printColForm" href=""><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
                         </div>
                         <div class="row headerColRow" style="text-align:center">
                             <a href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
@@ -237,7 +238,7 @@
         </div>
     </section>
 
-  <section id="formBody" style="overflow-y:auto; margin:0; padding:0" @*class="container-fluid"*@>
+  <section id="formBody" style="overflow-y:auto; margin:0; padding:0" >
 
     @foreach (var sec in Model.sections)
     {
@@ -308,26 +309,6 @@
                           }
                        </div>
                    }
-                        
-                        @*@if (quest.naSelected)
-                        {
-                            <div class="col-sm-1">
-                                <span class="badge" style="padding:6px">N/A</span>
-                            </div>
-                        }
-                        else
-                        {
-                            if (quest.showsNA.Equals("true"))
-                            {
-                                <div class="col-sm-1">
-                                    <span class="badge badge-outline" style="padding:6px;">N/A</span>
-                                </div>
-                            }
-                        }*@
-
-
-
-
 
                     </div>
                  @*------------------------------ ANSWER COMMENT SECTION ---------------------------------------------*@
@@ -361,12 +342,15 @@
 
 <script>
     $(document).ready(function () {
-        //Adjust or Set the correct Margin Height of the Form Body 
+        //Adjust or Set the correct Margin Height of the Form Body
         $("#formBody").css("margin-top", $("#formHeader").outerHeight() - 17);
 
         //---------------------------------------------------------------------------
         $("#btnPrintForm").click(function (e) {
             e.preventDefault();
+
+            @*var url = "http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=/content/folder[%40name='SDK Testing']/report[%40name='Observation Collection Form']&ui.name=Observation Collection Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
+            url = url + cfiIf + "&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=/ibmcognos/cgi-bin/cognosisapi.dll?b_action=xts.run&m=portal/cc.xts&m_folder=iFA794FAF9D6A4AC6B67192521DB5FAD9";*@
 
             //obsAlert('Preview Not available at this time!');
             //BootstrapDialog.alert("Hello!");
@@ -378,14 +362,21 @@
 
 
             var urlProd = "http://dsccognosprdws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
-                urlProd = urlProd + cfiIf + "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diCB0D41DDB02D428D8A78DB5821709948";*@
+                urlProd = urlProd + cfiIf + "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diCB0D41DDB02D428D8A78DB5821709948";
+            *@
 
             //window.open(urlProd);
             //window.open(url, "popupWindow", "width=600,height=800,scrollbars=yes");
 
             window.open('@Model.colFormPrintPath');
+
         });
         //---------------------------------------------------------------------------
-
-    });    
+        $("#printColForm").click(function (e) {
+            e.preventDefault();
+            var url = "http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=/content/folder[%40name='SDK Testing']/report[%40name='Observation Collection Form']&ui.name=Observation Collection Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
+            url = url + "@Model.obsColFormInstId" + "&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=/ibmcognos/cgi-bin/cognosisapi.dll?b_action=xts.run&m=portal/cc.xts&m_folder=iFA794FAF9D6A4AC6B67192521DB5FAD9";
+            window.open(url);
+        });
+    });
 </script>

@@ -26,6 +26,16 @@ namespace OBSPRO.Controllers
         // GET: Error
         public ActionResult Message(string ErrorMsg)
         {
+            //Check first if the user is logged in
+            try
+            {
+                string sessionActive = Session["emp_id"].ToString();
+            }
+            catch
+            {
+                RedirectToAction("OBSLogout", "Login");
+            }
+
             Exception ex = new Exception(ErrorMsg);
             return View("Error", ex);
         }
