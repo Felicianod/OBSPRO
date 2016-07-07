@@ -7,7 +7,7 @@
 }
 <style>
     .nomargin {
-        margin: 0px 0px;
+        margin: 0;
         padding: 2px 2px;
     }
     .answered {
@@ -77,8 +77,8 @@
       background-color: transparent;
   }
   fieldset.textComment {
-      border: 3px double #d6d6d6;
-      background-color: #f6fbfb;
+      border: 1px solid #d6d6d6;
+      /*background-color: #f6fbfb;*/
       padding: 0 1.4em 0.6em 1.0em;
       margin: 0 0 0.7em 0;
       -webkit-box-shadow:  0px 0px 0px 0px #000;
@@ -101,11 +101,25 @@
     fieldset > legend {
         float:left;
         margin-top:-12px;
-        background-color: #f6fbfb;
+        background-color: white;
         padding: 0px 0px;
     }
     fieldset > legend + * {
         clear:both;
+    }
+    .headerColRow {
+        margin: 0; 
+        padding:0; 
+        /*border:1px solid brown*/
+    }
+    .boldLabel{
+        margin:0; 
+        padding:0 4px;
+        font-weight:bold;
+    }
+    .dataLabel {
+        margin:0; 
+        padding:0;
     }
 </style>
 <link href="~/Content/bootstrap-dialog.css" rel="stylesheet" />
@@ -155,47 +169,67 @@
 </script>
 
 <div style="max-width:1100px; margin:0 auto;">
-  <section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" @*data-spy="affix" data-offset-top="10"*@>
-        <div class="panel panel-info" style="margin:0px 0px; padding:2px 2px 10px 2px; z-index:998; border:none">
+  @*<section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" >*@
+   <section id="formHeader" style="margin:0; padding:0; position:fixed; top:75px; z-index:999; min-width:1100px; border:1px solid red">
+        <div class="panel panel-info" style="margin:0; padding:2px 2px 2px 2px; z-index:998; border:none">
             <div class="panel-heading header" style="background-color:#b62525; color:white; padding:0px">
                 <div class="row" style="text-align:center; margin:0px">
                     <div class="col-sm-1">
                         <span style="float:left"></span>
                     </div>
-                    <div class="col-sm-7" style="margin:0 auto; padding:5px">
+                    <div class="col-sm-9" style="margin:0 auto; padding:5px">
                         <h4 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h4>
                         @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
                     </div>
-                    <div class="col-sm-4" style="padding:0px">
+                    <div class="col-sm-2" style="padding:0px">
                         <div class="row" style="margin-right:2px; padding:0px">
-                            <div class="col-sm-9" style="padding-right:0px">
-                                <span style="float:right; margin-right:10px; color:yellow"><b>Status: @Model.colFormStatus </b></span>
-                            </div>
-                            <div class="col-sm-3" style="padding-right:2px">
                                 <button type="button" id="btnPrintForm" class="btn btnOBS" style="float:right">
                                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
                                 </button>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-body content " style="background-color:#292222;color:white; padding:4px">
-                <div class="row" style="padding:0px; margin:0; width:100%">
+            <div class="panel-body content " style="padding:4px; border:1px solid #c6c6c6">
+                <div class="row" style="padding:0px; margin:0; width:100%; ">
                     <div class="col-sm-4 nomargin" style="margin:0; ">
-                        <div class="row" style="margin-left:6px"><span style="float:left"><b>Logistic Center: </b> @Model.lc_id </span></div>
-                        <div class="row" style="margin-left:6px"><b>Started Observation at: </b> @Model.strColFormStartDateTime</div>
+                        <div class="row headerColRow" >
+                            <div class="col-sm-5 boldLabel" > <span style="float:right">Employee Observed:</span></div>
+                            <div class="col-sm-7 dataLabel" > <span style="float: left;">@Model.observedEmployeeFullName</span></div>
+                        </div>
+                        <div class="row headerColRow" >
+                            <div class="col-sm-5 boldLabel" > <span style="float: right; ">Observed ADP ID:</span></div>
+                            <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.observedEmployeeId</span></div>
+                        </div>
+                        <div class="row headerColRow">
+                            <div class="col-sm-5 boldLabel" > <span style="float: right; ">Logistics Center:</span></div>
+                            <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.lc_id</span></div>
+                        </div>
                     </div>
-
                     <div class="col-sm-4 nomargin" style="margin:0; ">
-                        <div class="row" style="margin-left:6px"><b>Observer: </b> @Model.observerEmployeeFullName</div>
-                        <div class="row" style="margin-left:6px"><b>Observation Submitted at: </b> @Model.strColFormSubmittedDateTime</div>
+                        <div class="row headerColRow" style="font-weight:bold; text-align:center">
+                            <span>Status:</span>
+                            <span style="color: blue">@Model.colFormStatus</span>
+                        </div>
+                        <div class="row headerColRow" style="text-align:center">
+                            <a href="javascript:window.open('@Model.colFormPrintPath');"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
+                        </div>
+                        <div class="row headerColRow" style="text-align:center">
+                            <a href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
+                        </div>
                     </div>
-
-                    <div class="col-sm-4 nomargin " style="margin:0; border: 2px inset white;">
-                        <div class="row" style="margin-left:10px"><b>Employee Observed: </b> <span style="color:gray">&nbsp;&nbsp;&nbsp;&nbsp; [ADP Id: @Model.observedEmployeeId]</span> </div>
-                        <div class="row">
-                            <div class="col-sm-10 col-sm-offset-1">@*<b>Name: </b>*@ @Model.observedEmployeeFullName</div>
+                    <div class="col-sm-4 nomargin" style="margin:0;">
+                        <div class="row headerColRow">
+                            <div class="col-sm-5 boldLabel"> <span style="float: right;">Observer:</span></div>
+                            <div class="col-sm-7 dataLabel"> <span style="float: left;">@Model.observerEmployeeFullName</span></div>
+                        </div>
+                        <div class="row headerColRow">
+                            <div class="col-sm-5 boldLabel"> <span style="float: right;">Obs.Started:</span></div>
+                            <div class="col-sm-7 dataLabel"> <span style="float: left;">@Model.strColFormStartDateTime</span></div>
+                        </div>
+                        <div class="row headerColRow">
+                            <div class="col-sm-5 boldLabel"> <span style="float: right; ">Obs.Completed:</span></div>
+                            <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.strColFormSubmittedDateTime</span></div>
                         </div>
                     </div>
                 </div>
@@ -203,8 +237,8 @@
         </div>
     </section>
 
-  <section id="formBody" style="overflow-y:auto;" @*class="container-fluid"*@>
-      <div style="font-size:medium; margin-bottom:5px; "> </div>
+  <section id="formBody" style="overflow-y:auto; border:1px solid red; margin:0; padding:0" @*class="container-fluid"*@>
+
     @foreach (var sec in Model.sections)
     {
       <div class="panel panel-default" style="margin:0px 0px; ">
@@ -213,49 +247,69 @@
                  @sec.sectionName
             </h4>
          </div>
-          <div class="panel-body content" style="padding:0px;">
-            @foreach (var quest in sec.questions)
-            {                
-                <div class="@quest.responseClass" style="margin: 1px 2px 0px 2px; padding:0px;">
-                    @*------------------------------ QUESTION SECTION --------------------------------------------*@
-                    <div class="row" style="font-weight:bold;margin:0px 5px 7px 8px; margin-top: 3px; padding:0px; ">
-                        <div class="col-sm-10" style="margin:0px 0px; padding-left:3px">
-                            <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
-                        </div>
-                        <div class="col-sm-2" style="margin:0px 0px">
-                            @if (@quest.responseClass.Equals("unanswered"))
-                                    { <span style="float:right; color:red; font-size:x-small; margin-right:20px">*Answer Pending</span> }
-                        </div>
+         <div class="panel-body content" style="padding:0px;">
+           @foreach (var quest in sec.questions)
+           {                
+             <div class="@quest.responseClass" style="margin: 1px 2px 0px 2px; padding:0px;">
+                 @*------------------------------ QUESTION SECTION --------------------------------------------*@
+                 <div class="row" style="font-weight:bold;margin:0px 5px 7px 8px; margin-top: 3px; padding:0px; ">
+                    <div class="col-sm-10" style="margin:0px 0px; padding-left:3px">
+                         <span style="font-size:large">@qcounter&nbsp;&nbsp;</span><span style="font-size:medium">@quest.questionText</span>
                     </div>
-                    @*------------------------------ ANSWER SECTION ---------------------------------------------*@
-                    <div class="row" style="margin:0px 0px 0px 25px; padding:0px;">
-                        <div class="col-sm-11">
-                            @if (quest.answerType == "FREE_TXT")
-                            {// Show FREE TEXT ANSWER BOX
-                                <fieldset class="textComment">
+                    <div class="col-sm-2" style="margin:0px 0px">
+                       @if (@quest.responseClass.Equals("unanswered"))
+                       { <span style="float:right; color:red; font-size:x-small; margin-right:20px">*Answer Pending</span> }
+                    </div>
+                 </div>
+                 @*------------------------------ ANSWER SECTION ---------------------------------------------*@
+                 <div class="row" style="margin:0px 0px 0px 25px; padding:0px;">
+                   @{
+                       string colWidth = "";
+                       if (quest.showsNA.Equals("true")) { colWidth = "col-sm-11"; }
+                       else { colWidth = "col-sm-12"; }
+                   }
+
+                       <div class="@colWidth">
+                         @if (quest.answerType == "FREE_TXT")
+                         {// Show FREE TEXT ANSWER BOX
+                            <fieldset class="textComment">
                                     <legend class="textComment">Answer</legend>
                                     @quest.comments.Trim()
-                                </fieldset>
-                            }
-                            else
-                            {
-                                <ul class="list-inline">
-                                    @foreach (var ans in quest.answers)
-                                    {
-                                        if (ans.isSelected)
-                                        {
-                                            <li><span class="badge" style="padding:6px">@ans.answerText</span></li>
-                                        }
-                                        else
-                                        {
-                                            <li>@ans.answerText</li>
-                                        }
-                                    }
-                                </ul>
-                            }
+                            </fieldset>
+                         }
+                         else
+                         {
+                            <ul class="list-inline">
+                              @foreach (var ans in quest.answers)
+                              {
+                                 if (ans.isSelected)
+                                 {
+                                    <li><span class="badge" style="padding:6px">@ans.answerText</span></li>
+                                 }
+                                 else
+                                 {
+                                    <li>@ans.answerText</li>
+                                 }
+                              }
+                            </ul>
+                         }
                         </div>
 
-                        @if (quest.naSelected)
+                   @if (quest.showsNA.Equals("true"))
+                   {
+                       <div class="col-sm-1">
+                          @if (quest.naSelected)
+                          {
+                             <span class="badge" style="padding:6px">N/A</span>
+                          }
+                          else
+                          {
+                             <span class="badge badge-outline" style="padding:6px;">N/A</span>
+                          }
+                       </div>
+                   }
+                        
+                        @*@if (quest.naSelected)
                         {
                             <div class="col-sm-1">
                                 <span class="badge" style="padding:6px">N/A</span>
@@ -269,76 +323,46 @@
                                     <span class="badge badge-outline" style="padding:6px;">N/A</span>
                                 </div>
                             }
-                        }
+                        }*@
+
+
+
+
+
                     </div>
-                    @*------------------------------ ANSWER COMMENT SECTION ---------------------------------------------*@
-                    @* ----  Display the Comment Box Only if the Question is not a FREE_TEXT question -----   *@
-                    @if (quest.answerType != "FREE_TXT")
-                    {
-                        <div class="row" style="margin:0px 0px 0px 20px; padding:0px 0px 0px 0px; ">
-                            @if (!String.IsNullOrEmpty(quest.comments))
-                            {
-                                <text>Must add Comment: </text>@quest.mustAddComment <text>Can Add: </text>@quest.canAddComment
-                                <div class='fake_textarea'>
-                                    <b>Comment: </b> @quest.comments
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
-                qcounter += 1;
-            }
-          </div>
+                 @*------------------------------ ANSWER COMMENT SECTION ---------------------------------------------*@
+                 @* ----  Display the Comment Box Only if the Question is not a FREE_TEXT question -----   *@
+                 @if (quest.answerType != "FREE_TXT")
+                 {
+                     <div class="row" style="margin:0px 0px 0px 20px; padding:0px 0px 0px 0px; ">
+                       @if (!String.IsNullOrEmpty(quest.comments))
+                       {
+                           <text>Must add Comment: </text>@quest.mustAddComment <text>Can Add: </text>@quest.canAddComment
+                           <div class='fake_textarea'>
+                               <b>Comment: </b> @quest.comments
+                           </div>
+                       }
+                     </div>
+                 }
+             </div>
+              qcounter += 1;
+           }
+         </div>
       </div>
     }
+      <br />
+      <div class="row" style="margin:0; padding:0;text-align:center; font-style:italic; color:darkgray">Form Id: @Model.obsColFormInstId <span style="margin-left:10px">Version: @Model.colFormVersion</span></div>
   </section>
 </div>
 
 <br />
-@*<input type="button" id="btnShowPopup" class="btn btn-success" value="Open Preview" data-toggle="modal" data-target="#myModal" />*@ 
-@*<input type="button" id="btnShowPopup" class="btn btn-success" value="Open Preview" />*@ 
-@*<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Form Print Preview</h3>
-    </div>
-    <div class="modal-body">
-    </div>
-</div>*@
-
-
-
-@*<div id="cognosReport" style="display:none">
-    <iframe name="myIframe" id="myIframe" style="border-style: none; width:100%;" height="1000" src="http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=10353&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9"></iframe>
-</div>*@
-
-
-<div id="overlay" class="dialog" style="display:none"></div>
-<div id="content" class="dialog" style="display:none">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nisl felis, placerat in sollicitudin quis, hendrerit vitae diam. Nunc ornare iaculis urna.
-</div>
-
 <br />
 
-@*<a href="www.msn.com" class="modalTrigger">Open Modal</a>*@
-@*<a href="javascript:;//close me" onclick="openDialog($('#content'))">show dialog A</a>
-    <br />
-    <a href="javascript:;//close me" onclick="openDialog($('#contentB'))">show dialog B</a>
-    <br />
-    <br />
-    <div id="dialog" class="dialog" style="display:none">
-        This is a test!
-    </div>
-    
-
-    <div id="contentB" class="dialog" style="display:none">
-        Moooo mooo moo moo moo!!!
-    </div>*@
 
 <script>
     $(document).ready(function () {
         //Adjust or Set the correct Margin Height of the Form Body 
-        $("#formBody").css("margin-top", $("#formHeader").outerHeight());
+        $("#formBody").css("margin-top", $("#formHeader").outerHeight() - 17);
 
         //---------------------------------------------------------------------------
         $("#btnPrintForm").click(function (e) {
