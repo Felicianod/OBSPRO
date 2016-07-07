@@ -111,6 +111,8 @@ namespace OBSPRO.App_Code
             }            
             return dashboard;
         }
+
+        //This method is to parse get Collection form API. it returns the data for saved or submitted collection form with all the questions and answers
         public OBSCollectionForm getFormInstance(int? formId)
         {
             int intFormId = formId ?? 0;

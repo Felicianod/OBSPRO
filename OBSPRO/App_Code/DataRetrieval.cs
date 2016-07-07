@@ -65,6 +65,9 @@ namespace OBSPRO.App_Code
             }
 
         }
+
+        //this method retrieves open and ready observations for collected by specific user
+        // 7.7.2016 - No longer needed. Will be replaced with getOpenReadybyUser()
         public string getOpenReadyObservations(string emp_id)
         {
             string endPoint = "obs_getOpenReady";
@@ -151,5 +154,34 @@ namespace OBSPRO.App_Code
                 return e.Message;
             }
         } 
+
+        public string getOpenReadybyUser(string emp_id, string searchby)
+        {
+            string endPoint = "openreadybyid";
+            WebRequest request = WebRequest.Create(api_url + endPoint);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string parsedContent = "{\"emp_id\":\"" + emp_id + "\",\"searchby\":\"" + searchby + "\"}";
+            Byte[] bytes = encoding.GetBytes(parsedContent);
+            string JsonString = String.Empty;
+            try
+            {
+                Stream newStream = request.GetRequestStream();
+                newStream.Write(bytes, 0, bytes.Length);
+                newStream.Close();
+                WebResponse response = request.GetResponse();
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+                    JsonString = reader.ReadToEnd();
+                    return JsonString;
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }
