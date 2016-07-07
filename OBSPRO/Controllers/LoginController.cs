@@ -20,6 +20,7 @@ namespace OBSPRO.Controllers
     public class LoginController : Controller
     {
         DataRetrieval data_retrieval = new DataRetrieval();
+        APIDataParcer parcer = new APIDataParcer();
         DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
 
         [HttpGet]
@@ -131,7 +132,7 @@ namespace OBSPRO.Controllers
                     Session.Add("last_name", JsonObject["DSCAuthenticationSrv"]["last_name"]);
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);
-                    string role = data_retrieval.getObserverRole(loginModel.Username);
+                    string role = parcer.getUserRole(loginModel.Username);
                     if (!String.IsNullOrEmpty(role))
                     {
                         Session.Add("role", role);

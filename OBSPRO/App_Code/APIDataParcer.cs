@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 
 namespace OBSPRO.App_Code
 {   
@@ -443,22 +445,31 @@ namespace OBSPRO.App_Code
 
         public string getUserRole(string userName)
         {
+            JavaScriptSerializer ScriptSerializer = new JavaScriptSerializer();
+          
             JObject parsed_result;
             try
             {
                 parsed_result = JObject.Parse(api.getObserverRole(userName));
-                if ((string)parsed_result["resource"]["obs_role_active_yn"] == "Y")
+                JArray roles = (JArray)parsed_result["resource"];
+                foreach (var res in roles)
                 {
-                    return (string)parsed_result["resource"]["obs_role_name"];
-                }
-                else
-                {
-                    return "Not Authorized";
-                }
+                    if ((string)res["obs_role_active_yn"] == "Y")
+                    {
+                        return (string)res["obs_role_name"];
+                    }
+                    else
+                    {
 
+                        return "Not Authorized";
+                    }
+
+                }
+                return (string)parsed_result["obs_role_name"];
             }
-            catch
+            catch(Exception e)
             {
+                string error = e.Message;
                 return "Not Authorized";
             }
             
