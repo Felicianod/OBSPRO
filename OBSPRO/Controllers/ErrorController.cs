@@ -33,7 +33,7 @@ namespace OBSPRO.Controllers
             }
             catch
             {
-                RedirectToAction("OBSLogout", "Login");
+              return RedirectToAction("OBSLogout", "Login");
             }
 
             Exception ex = new Exception(ErrorMsg);

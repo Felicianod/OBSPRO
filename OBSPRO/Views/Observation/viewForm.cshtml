@@ -5,195 +5,79 @@
 @{
     var qcounter = 1;
 }
-<style>
-    .nomargin {
-        margin: 0;
-        padding: 2px 2px;
-    }
-    .answered {
-       border-bottom:solid 1px #d6d6d6;
-    }
-    .unanswered {
-        /*border: 1px dashed orange;
-        border-radius: 8px;
-        background-color: #fbf1f1;*/
-        border-bottom:solid 1px #d6d6d6;
-    }
-    .btnOBS {
-        /*box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
-        background-color: #1d5600;
-        color:white;
-        font-weight:bold;
-        padding:5px;
-        box-shadow: 1px 1px 10px #d0cccc, 0 2px 7px 0 #e3e0e0;
-    }
-
-    .btnOBS:hover {
-        background-color: #2a7d00;
-        color: #fed4d4;
-        /*box-shadow: 0 4px 4px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
-        box-shadow: 1px 1px 10px red, 0 2px 7px 0 #00ac1b;
-    }
-    .btnOBS:focus { 
-        color: white;
-    }
-
-    html, body {
-        height:100%
-    }
-    .fake_textarea {
-        border: 1px solid gray;
-        border-radius: 4px;
-        background-color: #ededed;
-        padding:7px;
-        margin: 0px 0px 6px 13px;
-        width:96%;    
-    }
-    #overlay { 
-        position:absolute;
-        z-index:10;
-        width:100%;
-        height:100%;
-        top:0;
-        left:0;
-        background-color:#f00;
-        filter:alpha(opacity=10);
-        -moz-opacity:0.1;
-        opacity:0.1;
-        cursor:pointer;
-    } 
-
-   .dialog {
-       position:absolute;
-       border:2px solid #3366CC;
-       width:250px;
-       height:120px;
-       background-color:#ffffff;
-       z-index:12;
-   }
-  .badge-outline {
-      color: black;
-      border: 1px solid #999;
-      background-color: transparent;
-  }
-  fieldset.textComment {
-      border: 1px solid #d6d6d6;
-      /*background-color: #f6fbfb;*/
-      padding: 0 1.4em 0.6em 1.0em;
-      margin: 0 0 0.7em 0;
-      -webkit-box-shadow:  0px 0px 0px 0px #000;
-              box-shadow:  0px 0px 0px 0px #000;
-    
-     -moz-border-radius:5px;  
-     border-radius: 5px;  
-     -webkit-border-radius: 5px;
-  }
-
-  legend.textComment {
-     font-size: 1.0em !important;
-     font-weight: bold !important;
-     text-align: left !important;
-     width:inherit; /* Or auto */
-     padding:0 10px; /* To give a bit of padding on the left and right */
-     border-bottom:none;
-  }
-
-    fieldset > legend {
-        float:left;
-        margin-top:-12px;
-        background-color: white;
-        padding: 0px 0px;
-    }
-    
-    fieldset > legend + * {
-        clear:both;
-    }
-
-    .headerColRow {
-        margin: 0; 
-        padding:0; 
-        /*border:1px solid brown*/
-    }
-    .boldLabel{
-        margin:0; 
-        padding:0 4px;
-        font-weight:bold;
-    }
-    .dataLabel {
-        margin:0; 
-        padding:0;
-    }
-</style>
+<link href="~/Content/viewForm.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-dialog.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap-dialog.js"></script>
 <script src="~/Scripts/obsGlobal.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        init();
-    });
+    //$(document).ready(function () {
+    //    init();
+    //});
 
-    function init() {
-        $('#overlay').click(function () { closeDialog(); })
-    }
+    //function init() {
+    //    $('#overlay').click(function () { closeDialog(); })
+    //}
 
-    function openDialog(element) {
-        //this is the general dialog handler.
-        //pass the element name and this will copy
-        //the contents of the element to the dialog box
-        alert("Opening Dialog");
+    //function openDialog(element) {
+    //    //this is the general dialog handler.
+    //    //pass the element name and this will copy
+    //    //the contents of the element to the dialog box
+    //    alert("Opening Dialog");
 
-        $('#overlay').css('height', $(document.body).height() + 'px');
-        $('#overlay').show();
-        //$('#dialog').html($(element).html());
-        centerMe(element);
-        //$('#dialog').show();
-        element.show();
-    }
+    //    $('#overlay').css('height', $(document.body).height() + 'px');
+    //    $('#overlay').show();
+    //    //$('#dialog').html($(element).html());
+    //    centerMe(element);
+    //    //$('#dialog').show();
+    //    element.show();
+    //}
 
-    function closeDialog() {
-        $('#overlay').hide();
-        $('#content').hide();
-        $('#contentB').hide();
-        //$('#dialog').hide().html('');
-    }
+    //function closeDialog() {
+    //    $('#overlay').hide();
+    //    $('#content').hide();
+    //    $('#contentB').hide();
+    //    //$('#dialog').hide().html('');
+    //}
 
-    function centerMe(element) {
-        //pass element name to be centered on screen
-        var pWidth = $(window).width();
-        var pTop = $(window).scrollTop();
-        var eWidth = element.width();
-        var height = element.height();
-        element.css('top', '130px');
-        //$(element).css('top',pTop+100+'px')
-        element.css('left', parseInt((pWidth / 2) - (eWidth / 2)) + 'px');
-    }
+    //function centerMe(element) {
+    //    //pass element name to be centered on screen
+    //    var pWidth = $(window).width();
+    //    var pHeight = $(window).height();
+    //    var pTop = $(window).scrollTop();
+    //    var eWidth = element.width();
+    //    var eHeight = element.height();
+    //    element.css('top', '130px');
+    //    //$(element).css('top',pTop+100+'px')
+    //    element.css('left', parseInt((pWidth / 2) - (eWidth / 2)) + 'px');
+    //    element.css('top', parseInt((pHeight / 2) - (eHeight / 2)) + 'px');
+    //}
 
 </script>
 
-<div style="max-width:1100px; margin:0 auto;">
-   <section id="formHeader" style="margin:0; padding:0; position:fixed; top:75px; z-index:999; min-width:1100px;">
+<div style="max-width:1248px; margin:0 auto;">
+   <section id="formHeader " style="margin:0; padding:0; position:fixed; top:80px; z-index:999; width:1250px; ">
         <div class="panel panel-info" style="margin:0; padding:2px 2px 2px 2px; z-index:998; border:none">
-            <div class="panel-heading header" style="background-color:#b62525; color:white; padding:0px">
+            <div class="panel-heading " style="background-color:#b62525; color:white; padding:0px">
                 <div class="row" style="text-align:center; margin:0px">
-                    <div class="col-sm-1">
+                    @*<div class="col-sm-1">
                         <span style="float:left"></span>
-                    </div>
-                    <div class="col-sm-9" style="margin:0 auto; padding:5px">
+                    </div>*@
+                    <div class="col-sm-12 hideMe" style="margin:0 auto; padding:5px">
                         <h4 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h4>
                         @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
                     </div>
-                    <div class="col-sm-2" style="padding:0px">
+                    @*<div class="col-sm-2" style="padding:0px">
                         <div class="row" style="margin-right:2px; padding:0px">
                                 <button type="button" id="btnPrintForm" class="btn btnOBS" style="float:right">
                                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
                                 </button>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="panel-body content " style="padding:4px; border:1px solid #c6c6c6">
                 <div class="row" style="padding:0px; margin:0; width:100%; ">
-                    <div class="col-sm-4 nomargin" style="margin:0; ">
+                    <div class="col-sm-5 nomargin" style="margin:0; ">
                         <div class="row headerColRow" >
                             <div class="col-sm-5 boldLabel" > <span style="float:right">Employee Observed:</span></div>
                             <div class="col-sm-7 dataLabel" > <span style="float: left;">@Model.observedEmployeeFullName</span></div>
@@ -207,17 +91,20 @@
                             <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.lc_id</span></div>
                         </div>
                     </div>
-                    <div class="col-sm-4 nomargin" style="margin:0; ">
-                        <div class="row headerColRow" style="font-weight:bold; text-align:center">
+                    <div class="col-sm-3 nomargin" style="margin:0; ">
+                        <div class="row headerColRow" style="font-weight:bold; margin-left:25px ">
                             <span>Status:</span>
                             <span style="color: blue">@Model.colFormStatus</span>
                         </div>
-                        <div class="row headerColRow" style="text-align:center">
-                            <a id="printColForm" href=""><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
+                        <div class="row headerColRow" style="margin-left:25px ">
+                            <a id="printColForm" href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
                         </div>
-                        <div class="row headerColRow" style="text-align:center">
-                            <a href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
-                        </div>
+                        @if (Model.colFormStatus.Equals("READY FOR REVIEW"))
+                        {
+                            <div class="row headerColRow" style="margin-left:25px ">
+                                <a href="javascript:alert('Function Not Enabled')"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
+                            </div>
+                        }
                     </div>
                     <div class="col-sm-4 nomargin" style="margin:0;">
                         <div class="row headerColRow">
@@ -238,7 +125,7 @@
         </div>
     </section>
 
-  <section id="formBody" style="overflow-y:auto; margin:0; padding:0" >
+  <section id="formBody" style="overflow-y:auto; margin:200px 0px 0px 0px; padding:0" >
 
     @foreach (var sec in Model.sections)
     {
@@ -343,7 +230,7 @@
 <script>
     $(document).ready(function () {
         //Adjust or Set the correct Margin Height of the Form Body
-        $("#formBody").css("margin-top", $("#formHeader").outerHeight() - 17);
+        $("#formBody").css("margin-top", $("#formHeader").outerHeight() - 12);
 
         //---------------------------------------------------------------------------
         $("#btnPrintForm").click(function (e) {
