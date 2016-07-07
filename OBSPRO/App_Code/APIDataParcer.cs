@@ -445,8 +445,7 @@ namespace OBSPRO.App_Code
 
         public string getUserRole(string userName)
         {
-            JavaScriptSerializer ScriptSerializer = new JavaScriptSerializer();
-          
+                      
             JObject parsed_result;
             try
             {
@@ -465,11 +464,10 @@ namespace OBSPRO.App_Code
                     }
 
                 }
-                return (string)parsed_result["obs_role_name"];
+                return "Not Authorized";
             }
-            catch(Exception e)
-            {
-                string error = e.Message;
+            catch
+            {              
                 return "Not Authorized";
             }
             
