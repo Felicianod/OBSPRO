@@ -22,6 +22,8 @@ namespace OBSPRO.Models
 
         [Display(Name = "Status")]
         public string status { set; get; }
+        [Display(Name = "Location")]
+        public string location { set; get; }
 
         [Display(Name = "First Name")]
         public string observed_first_name { set; get; }
