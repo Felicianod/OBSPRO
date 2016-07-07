@@ -10,6 +10,7 @@ namespace OBSPRO.Models
         public string ErrorMessage = String.Empty;
         public int observedEmployeeId { set; get; }
         public string observedEmployeeFullName { set; get; }
+        public string observedADPID { set; get; }
         public int observerEmployeeId { set; get; }
         public string observerEmployeeFullName { set; get; }
         public DateTime hiredDate { set; get; }

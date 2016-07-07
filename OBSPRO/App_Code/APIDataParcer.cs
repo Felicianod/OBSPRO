@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 
 namespace OBSPRO.App_Code
 {   
@@ -136,18 +138,12 @@ namespace OBSPRO.App_Code
             current_section.sectionName = String.Empty;
             obsColForm.observedEmployeeId = (int)parsed_result["observationsColFormData"]["ObservedEmployeeId"];
             obsColForm.observerEmployeeId = (int)parsed_result["observationsColFormData"]["ObserverEmployeeID"];
-            obsColForm.observerEmployeeFullName = (from emp in db.DSC_EMPLOYEE
-                                                   where emp.dsc_emp_id == obsColForm.observerEmployeeId
-                                                   select emp.dsc_emp_first_name + " " + emp.dsc_emp_last_name).First().ToString();
-            obsColForm.observedEmployeeFullName = (from emp in db.DSC_EMPLOYEE
-                                                   where emp.dsc_emp_id == obsColForm.observedEmployeeId
-                                                   select emp.dsc_emp_first_name + " " + emp.dsc_emp_last_name).First().ToString();
+            obsColForm.observerEmployeeFullName = (string)parsed_result["observationsColFormData"]["ObserverFullName"];
+            obsColForm.observedEmployeeFullName = (string)parsed_result["observationsColFormData"]["ObservedFullName"];
+            obsColForm.observedADPID = (string)parsed_result["observationsColFormData"]["ObservedADPID"];
             try { obsColForm.hiredDate = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["hiredDate"]); }
-            catch { }
-            int lc_id_numeric = (int)parsed_result["observationsColFormData"]["DSC_LC_ID"];
-            obsColForm.lc_id = (from loc in db.DSC_LC
-                                where loc.dsc_lc_id == lc_id_numeric
-                                select loc.dsc_lc_name).First().ToString();
+            catch { }           
+            obsColForm.lc_id = (string)parsed_result["observationsColFormData"]["ObservedLocation"];
             obsColForm.customer_id = (string)parsed_result["observationsColFormData"]["customer"];
             obsColForm.obsColFormId = (int)parsed_result["observationsColFormData"]["OBSColFormID"];
             obsColForm.colFormTitle = (string)parsed_result["observationsColFormData"]["ColFormTitle"];
@@ -157,7 +153,12 @@ namespace OBSPRO.App_Code
             obsColForm.obsColFormInstId = (long)parsed_result["observationsColFormData"]["OBSColFormInstID"];
             obsColForm.colFormStartDateTime = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["ColFormStartDateTime"]);
             obsColForm.strColFormStartDateTime = obsColForm.colFormStartDateTime.ToString("MMM dd, yyyy hh:mm tt");
-            obsColForm.strColFormSubmittedDateTime = db.OBS_COLLECT_FORM_INST.Single(x => x.obs_cfi_id == obsColForm.obsColFormInstId).obs_cfi_comp_date == null?"": Convert.ToDateTime(db.OBS_COLLECT_FORM_INST.Single(x => x.obs_cfi_id == obsColForm.obsColFormInstId).obs_cfi_comp_date).ToString("MMM dd, yyyy hh:mm tt");
+            try {
+                obsColForm.colFormSubmittedDateTime = Convert.ToDateTime((string)parsed_result["observationsColFormData"]["ObservationCompDate"]);
+                obsColForm.strColFormSubmittedDateTime = obsColForm.colFormSubmittedDateTime.ToString("MMM dd, yyyy hh:mm tt");
+            }
+            catch { obsColForm.strColFormSubmittedDateTime = ""; }
+            
             obsColForm.dBColFormStatus = (string)parsed_result["observationsColFormData"]["DBColFormStatus"];
             obsColForm.colFormStatus = (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Ready"?"READY FOR REVIEW": (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Open"?"STARTED": (string)parsed_result["observationsColFormData"]["ColFormStatus"];
             //Point the form to its respective Cognos Server Path based on the current Server Name
@@ -439,6 +440,36 @@ namespace OBSPRO.App_Code
                     break;
             }
             return all_obs;
+        }
+
+        public string getUserRole(string userName)
+        {
+                      
+            JObject parsed_result;
+            try
+            {
+                parsed_result = JObject.Parse(api.getObserverRole(userName));
+                JArray roles = (JArray)parsed_result["resource"];
+                foreach (var res in roles)
+                {
+                    if ((string)res["obs_role_active_yn"] == "Y")
+                    {
+                        return (string)res["obs_role_name"];
+                    }
+                    else
+                    {
+
+                        return "Not Authorized";
+                    }
+
+                }
+                return "Not Authorized";
+            }
+            catch
+            {              
+                return "Not Authorized";
+            }
+            
         }
     }
 }

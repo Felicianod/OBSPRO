@@ -122,5 +122,34 @@ namespace OBSPRO.App_Code
                 return "ERROR: " + e.Message;
             }
         }
+
+        public string getObserverRole(string userName)
+        {
+            string endPoint = "observerrole";
+            WebRequest request = WebRequest.Create(api_url + endPoint);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string parsedContent = "{\"name\":\"" + userName + "\"}";
+            Byte[] bytes = encoding.GetBytes(parsedContent);
+            string JsonString = String.Empty;
+            try
+            {
+                Stream newStream = request.GetRequestStream();
+                newStream.Write(bytes, 0, bytes.Length);
+                newStream.Close();
+                WebResponse response = request.GetResponse();
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+                    JsonString = reader.ReadToEnd();
+                    return JsonString;
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        } 
     }
 }
