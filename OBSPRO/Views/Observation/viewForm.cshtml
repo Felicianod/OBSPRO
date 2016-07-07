@@ -170,7 +170,7 @@
 
 <div style="max-width:1100px; margin:0 auto;">
   @*<section id="formHeader" style="position:fixed; top:71px; z-index:999; min-width:1100px" >*@
-   <section id="formHeader" style="margin:0; padding:0; position:fixed; top:75px; z-index:999; min-width:1100px; border:1px solid red">
+   <section id="formHeader" style="margin:0; padding:0; position:fixed; top:75px; z-index:999; min-width:1100px;">
         <div class="panel panel-info" style="margin:0; padding:2px 2px 2px 2px; z-index:998; border:none">
             <div class="panel-heading header" style="background-color:#b62525; color:white; padding:0px">
                 <div class="row" style="text-align:center; margin:0px">
@@ -199,7 +199,7 @@
                         </div>
                         <div class="row headerColRow" >
                             <div class="col-sm-5 boldLabel" > <span style="float: right; ">Observed ADP ID:</span></div>
-                            <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.observedEmployeeId</span></div>
+                            <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.observedADPID</span></div>
                         </div>
                         <div class="row headerColRow">
                             <div class="col-sm-5 boldLabel" > <span style="float: right; ">Logistics Center:</span></div>
@@ -237,7 +237,7 @@
         </div>
     </section>
 
-  <section id="formBody" style="overflow-y:auto; border:1px solid red; margin:0; padding:0" @*class="container-fluid"*@>
+  <section id="formBody" style="overflow-y:auto; margin:0; padding:0" @*class="container-fluid"*@>
 
     @foreach (var sec in Model.sections)
     {
