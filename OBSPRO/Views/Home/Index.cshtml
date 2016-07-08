@@ -162,7 +162,9 @@
                             foreach (var observation in Model.user_ready_obs)
                             {
                                 var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
-                                if (observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001")) { observation.obs_compl_time = "-"; }
+                                var dateCompleted = Convert.ToDateTime(observation.obs_compl_time).ToString("MMM dd, yyyy hh:mm tt");
+
+                                if (dateCompleted.Substring(0, 12).Equals("Jan 01, 0001")) { dateCompleted = "-"; }
                                 <tr>
                                     @*<td>@observation.form_inst_id </td>*@
                                     <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
@@ -174,7 +176,7 @@
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
                                     <td style="text-align:center">@dateStarted</td>
-                                    <td style="text-align:center">@observation.obs_compl_time</td>
+                                    <td style="text-align:center">@dateCompleted</td>
                                 </tr>
                                     loopCounter++;
                                     if (loopCounter >= 5 || loopCounter == Model.user_ready_obs.Count) { loopCounter = 0; break; }
