@@ -285,8 +285,8 @@ namespace OBSPRO.App_Code
         public List<Observation> getAllObservations(string emp_id, string frmStatus, string searchString, string sortBy)
         {
             List<Observation> all_obs = new List<Observation>();
-            usr.setUser();
-            JObject parsed_result = JObject.Parse(api.getOpenReadybyUser(usr.emp_id,searchString));
+            //usr.setUser();
+            JObject parsed_result = JObject.Parse(api.getOpenReadybyUser(emp_id, searchString));
             foreach (var res in parsed_result["resource"])
             {
                 Observation obs = new Observation();
@@ -313,19 +313,6 @@ namespace OBSPRO.App_Code
                 if (frmStatus.Contains(obs.status))
                 {
                     all_obs.Add(obs);
-                    //if (String.IsNullOrEmpty(searchString))//no search parameter passed
-                    //{
-                    //    all_obs.Add(obs);
-                    //}
-                    //else
-                    //{
-                    //    string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name + obs.observer_first_name + obs.observer_last_name;
-                    //    if (Common.matchesSearchCriteria(searchString, search_in, "All"))
-                    //    {
-                    //        all_obs.Add(obs);
-                    //    }
-                    //}
-
                 }
             }
             switch (sortBy)
@@ -359,6 +346,12 @@ namespace OBSPRO.App_Code
                     break;
                 case "Status desc":
                     all_obs = all_obs.OrderByDescending(x => x.status).ToList();
+                    break;
+                case "Location desc":
+                    all_obs = all_obs.OrderByDescending(x => x.location).ToList();
+                    break;
+                case "Location":
+                    all_obs = all_obs.OrderBy(x => x.location).ToList();
                     break;
                 case "Status":
                     all_obs = all_obs.OrderBy(x => x.status).ToList();
@@ -405,19 +398,6 @@ namespace OBSPRO.App_Code
                 if (frmStatus.Contains(obs.status))
                 {
                     all_obs.Add(obs);
-                    //if (String.IsNullOrEmpty(searchString))//no search parameter passed
-                    //{
-                    //    all_obs.Add(obs);
-                    //}
-                    //else
-                    //{
-                    //    string search_in = obs.form_title + obs.observed_first_name + obs.observed_last_name + obs.observer_first_name + obs.observer_last_name;
-                    //    if (Common.matchesSearchCriteria(searchString, search_in, "All"))
-                    //    {
-                    //        all_obs.Add(obs);
-                    //    }
-                    //}
-
                 }
             }
             switch (sortBy)
@@ -454,6 +434,12 @@ namespace OBSPRO.App_Code
                     break;
                 case "Status":
                     all_obs = all_obs.OrderBy(x => x.status).ToList();
+                    break;
+                case "Location desc":
+                    all_obs = all_obs.OrderByDescending(x => x.location).ToList();
+                    break;
+                case "Location":
+                    all_obs = all_obs.OrderBy(x => x.location).ToList();
                     break;
                 case "Complete Date desc":
                     all_obs = all_obs.OrderByDescending(x => x.obs_compl_time).ToList();

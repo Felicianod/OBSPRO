@@ -39,6 +39,7 @@ namespace OBSPRO.Controllers
             ViewBag.sortADPParameter = sortBy == "ADP ID" ? "ADP ID desc" : "ADP ID";
             ViewBag.sortStatusParameter = sortBy == "Status" ? "Status desc" : "Status";
             ViewBag.sortComplDateParameter = sortBy == "Complete Date" ? "Complete Date desc" : "Complete Date";
+            ViewBag.sortLocationParameter = sortBy == "Location" ? "Location desc" : "Location";
             ViewBag.Open = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("STARTED")?"checked":"";
             ViewBag.Ready = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("READY FOR REVIEW") ? "checked" : "";
             ViewBag.Completed = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("COMPLETED") ? "checked" : "";
@@ -50,7 +51,7 @@ namespace OBSPRO.Controllers
             }
             else
             {          
-                return View(apiParcer.getAllObservations(frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 15));
+                return View(apiParcer.getAllObservations(null,frmStatus, searchString, sortBy).ToPagedList(page ?? 1, PageSize ?? 15));
             }
                 
         }
