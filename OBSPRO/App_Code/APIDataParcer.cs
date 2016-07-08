@@ -24,6 +24,10 @@ namespace OBSPRO.App_Code
             {
                 dashboard.isSuperUser = true;
             }
+            else
+            {
+                dashboard.isSuperUser = false;
+            }
             string raw_data = api.getOpenReadybyUser(emp_id,null);
             JObject parsed_result = JObject.Parse(raw_data);
             
@@ -62,7 +66,9 @@ namespace OBSPRO.App_Code
                         break;
                 }
             }
-            
+            dashboard.user_open_obs = dashboard.user_open_obs.OrderByDescending(x => x.obs_start_time).ToList();
+            dashboard.user_ready_obs = dashboard.user_ready_obs.OrderByDescending(x => x.obs_compl_time).ToList();
+
             return dashboard;
         }
         //This method returns dashboard data for super user 
