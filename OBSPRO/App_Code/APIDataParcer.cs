@@ -16,7 +16,7 @@ namespace OBSPRO.App_Code
         User usr = new User();
         DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
 
-        //This method returns dashboard data for the specific observer 
+        //This method returns dashboard data
         public Dashboard getDashboard(string emp_id)
         {
             Dashboard dashboard = new Dashboard();
@@ -281,7 +281,7 @@ namespace OBSPRO.App_Code
             return obsColForm;
         }
 
-        //This method returns all observations for the specific observer
+        //This method returns all observations for Find Observation Menu
         public List<Observation> getAllObservations(string emp_id, string frmStatus, string searchString, string sortBy)
         {
             List<Observation> all_obs = new List<Observation>();
@@ -367,89 +367,89 @@ namespace OBSPRO.App_Code
         }
 
         //This method returns all observations for super user  
-        public List<Observation> getAllObservations(string frmStatus, string searchString, string sortBy)
-        {
-            List<Observation> all_obs = new List<Observation>();
-            usr.setUser();
-            JObject parsed_result = JObject.Parse(api.getOpenReadybyUser(null, searchString));
-            foreach (var res in parsed_result["resource"])
-            {
-                Observation obs = new Observation();
-                obs.form_inst_id = (string)res["ObsColFormInstID"];
-                obs.observed_id = (int)res["dsc_observed_emp_id"];
-                obs.observer_id = (int)res["dsc_observer_emp_id"];
-                obs.status = (string)res["obs_inst_status"] == "OPEN" ? "STARTED" : (string)res["obs_inst_status"] == "READY TO VERIFY" ? "READY FOR REVIEW" : (string)res["obs_inst_status"];
-                obs.observed_first_name = (string)res["Observedfirst_name"];
-                obs.observed_last_name = (string)res["Observedlast_name"];
-                obs.observer_first_name = (string)res["Observerfirst_name"];
-                obs.observer_last_name = (string)res["Observerlast_name"];
-                obs.observed_adp_id = (string)res["ObservedADPID"];
-                obs.form_title = (string)res["ColFormTitle"];
-                obs.location = (string)res["lcname"];
-                obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
-                try
-                {
-                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]);
-                }
-                catch
-                {
-                }
+        //public List<Observation> getAllObservations(string frmStatus, string searchString, string sortBy)
+        //{
+        //    List<Observation> all_obs = new List<Observation>();
+        //    usr.setUser();
+        //    JObject parsed_result = JObject.Parse(api.getOpenReadybyUser(null, searchString));
+        //    foreach (var res in parsed_result["resource"])
+        //    {
+        //        Observation obs = new Observation();
+        //        obs.form_inst_id = (string)res["ObsColFormInstID"];
+        //        obs.observed_id = (int)res["dsc_observed_emp_id"];
+        //        obs.observer_id = (int)res["dsc_observer_emp_id"];
+        //        obs.status = (string)res["obs_inst_status"] == "OPEN" ? "STARTED" : (string)res["obs_inst_status"] == "READY TO VERIFY" ? "READY FOR REVIEW" : (string)res["obs_inst_status"];
+        //        obs.observed_first_name = (string)res["Observedfirst_name"];
+        //        obs.observed_last_name = (string)res["Observedlast_name"];
+        //        obs.observer_first_name = (string)res["Observerfirst_name"];
+        //        obs.observer_last_name = (string)res["Observerlast_name"];
+        //        obs.observed_adp_id = (string)res["ObservedADPID"];
+        //        obs.form_title = (string)res["ColFormTitle"];
+        //        obs.location = (string)res["lcname"];
+        //        obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
+        //        try
+        //        {
+        //            obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]);
+        //        }
+        //        catch
+        //        {
+        //        }
 
-                if (frmStatus.Contains(obs.status))
-                {
-                    all_obs.Add(obs);
-                }
-            }
-            switch (sortBy)
-            {
-                case "StartDate":
-                    all_obs = all_obs.OrderBy(x => x.obs_start_time).ToList();
-                    break;
-                case "Title desc":
-                    all_obs = all_obs.OrderByDescending(x => x.form_title).ToList();
-                    break;
-                case "Title":
-                    all_obs = all_obs.OrderBy(x => x.form_title).ToList();
-                    break;
-                case "Observed Emplpoyee desc":
-                    all_obs = all_obs.OrderByDescending(x => x.observed_last_name).ToList();
-                    break;
-                case "Observed Emplpoyee":
-                    all_obs = all_obs.OrderBy(x => x.observed_last_name).ToList();
-                    break;
-                case "Observer desc":
-                    all_obs = all_obs.OrderByDescending(x => x.observer_last_name).ToList();
-                    break;
-                case "Observer":
-                    all_obs = all_obs.OrderBy(x => x.observer_last_name).ToList();
-                    break;
-                case "ADP ID desc":
-                    all_obs = all_obs.OrderByDescending(x => int.Parse(x.observed_adp_id)).ToList();
-                    break;
-                case "ADP ID":
-                    all_obs = all_obs.OrderBy(x => int.Parse(x.observed_adp_id)).ToList();
-                    break;
-                case "Status desc":
-                    all_obs = all_obs.OrderByDescending(x => x.status).ToList();
-                    break;
-                case "Status":
-                    all_obs = all_obs.OrderBy(x => x.status).ToList();
-                    break;
-                case "Location desc":
-                    all_obs = all_obs.OrderByDescending(x => x.location).ToList();
-                    break;
-                case "Location":
-                    all_obs = all_obs.OrderBy(x => x.location).ToList();
-                    break;
-                case "Complete Date desc":
-                    all_obs = all_obs.OrderByDescending(x => x.obs_compl_time).ToList();
-                    break;
-                case "Complete Date":
-                    all_obs = all_obs.OrderBy(x => x.obs_compl_time).ToList();
-                    break;
-            }
-            return all_obs;
-        }
+        //        if (frmStatus.Contains(obs.status))
+        //        {
+        //            all_obs.Add(obs);
+        //        }
+        //    }
+        //    switch (sortBy)
+        //    {
+        //        case "StartDate":
+        //            all_obs = all_obs.OrderBy(x => x.obs_start_time).ToList();
+        //            break;
+        //        case "Title desc":
+        //            all_obs = all_obs.OrderByDescending(x => x.form_title).ToList();
+        //            break;
+        //        case "Title":
+        //            all_obs = all_obs.OrderBy(x => x.form_title).ToList();
+        //            break;
+        //        case "Observed Emplpoyee desc":
+        //            all_obs = all_obs.OrderByDescending(x => x.observed_last_name).ToList();
+        //            break;
+        //        case "Observed Emplpoyee":
+        //            all_obs = all_obs.OrderBy(x => x.observed_last_name).ToList();
+        //            break;
+        //        case "Observer desc":
+        //            all_obs = all_obs.OrderByDescending(x => x.observer_last_name).ToList();
+        //            break;
+        //        case "Observer":
+        //            all_obs = all_obs.OrderBy(x => x.observer_last_name).ToList();
+        //            break;
+        //        case "ADP ID desc":
+        //            all_obs = all_obs.OrderByDescending(x => int.Parse(x.observed_adp_id)).ToList();
+        //            break;
+        //        case "ADP ID":
+        //            all_obs = all_obs.OrderBy(x => int.Parse(x.observed_adp_id)).ToList();
+        //            break;
+        //        case "Status desc":
+        //            all_obs = all_obs.OrderByDescending(x => x.status).ToList();
+        //            break;
+        //        case "Status":
+        //            all_obs = all_obs.OrderBy(x => x.status).ToList();
+        //            break;
+        //        case "Location desc":
+        //            all_obs = all_obs.OrderByDescending(x => x.location).ToList();
+        //            break;
+        //        case "Location":
+        //            all_obs = all_obs.OrderBy(x => x.location).ToList();
+        //            break;
+        //        case "Complete Date desc":
+        //            all_obs = all_obs.OrderByDescending(x => x.obs_compl_time).ToList();
+        //            break;
+        //        case "Complete Date":
+        //            all_obs = all_obs.OrderBy(x => x.obs_compl_time).ToList();
+        //            break;
+        //    }
+        //    return all_obs;
+        //}
 
         //This method returns all observations for super user  
         //public List<Observation> getAllObservations(string frmStatus, string searchString, string sortBy)
