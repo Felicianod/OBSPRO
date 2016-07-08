@@ -19,7 +19,11 @@ namespace OBSPRO.App_Code
         public Dashboard getDashboard(string emp_id)
         {
             Dashboard dashboard = new Dashboard();
-            string raw_data = api.getOpenReadyObservations(emp_id);
+            if (String.IsNullOrEmpty(emp_id))
+            {
+                dashboard.isSuperUser = true;
+            }
+            string raw_data = api.getOpenReadybyUser(emp_id,null);
             JObject parsed_result = JObject.Parse(raw_data);
             
             foreach (var res in parsed_result["resource"])
@@ -28,12 +32,23 @@ namespace OBSPRO.App_Code
                 obs.form_inst_id = (string)res["ObsColFormInstID"];
                 obs.observed_id = (int)res["dsc_observed_emp_id"];
                 obs.observer_id = (int)res["dsc_observer_emp_id"];
-                obs.status = (string)res["obs_inst_status"]== "READY TO VERIFY"? "READY FOR REVIEW": (string)res["obs_inst_status"]=="OPEN"?"STARTED": (string)res["obs_inst_status"];
-                obs.observed_first_name = (string)res["dsc_observed_first_name"];
-                obs.observed_last_name = (string)res["dsc_observed_last_name"];
+                obs.status = (string)res["obs_inst_status"] == "OPEN" ? "STARTED" : (string)res["obs_inst_status"] == "READY TO VERIFY" ? "READY FOR REVIEW" : (string)res["obs_inst_status"];
+                obs.observed_first_name = (string)res["Observedfirst_name"];
+                obs.observed_last_name = (string)res["Observedlast_name"];
+                obs.observer_first_name = (string)res["Observerfirst_name"];
+                obs.observer_last_name = (string)res["Observerlast_name"];
                 obs.observed_adp_id = (string)res["ObservedADPID"];
                 obs.form_title = (string)res["ColFormTitle"];
+                obs.location = (string)res["lcname"];
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
+                try
+                {
+                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]).ToString("MMM dd, yyyy hh:mm tt");
+                }
+                catch
+                {
+                    obs.obs_compl_time = "";
+                }
                 switch (obs.status)
                 {
                     case "STARTED":
@@ -51,66 +66,66 @@ namespace OBSPRO.App_Code
             return dashboard;
         }
         //This method returns dashboard data for super user 
-        public Dashboard getDashboard()
-        {
-            Dashboard dashboard = new Dashboard();
-            dashboard.isSuperUser = true;
-            var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
-                               join g in db.OBS_COLLECT_FORM_TMPLT on j.obs_cft_id equals g.obs_cft_id
-                               join k in db.OBS_INST on j.obs_inst_id equals k.obs_inst_id
-                               join m in db.DSC_EMPLOYEE on k.dsc_observed_emp_id equals m.dsc_emp_id
-                               join n in db.DSC_EMPLOYEE on j.dsc_observer_emp_id equals n.dsc_emp_id
-                               where k.obs_inst_del_yn =="N"
-                               orderby j.obs_cfi_start_dt descending
-                               select new
-                               {
-                                   observed_id = k.dsc_observed_emp_id,
-                                   observed_first_name = m.dsc_emp_first_name,
-                                   observed_last_name = m.dsc_emp_last_name,
-                                   observed_adp_id = m.dsc_emp_adp_id,
-                                   observer_id = j.dsc_observer_emp_id,
-                                   observer_first_name = n.dsc_emp_first_name,
-                                   observer_last_name = n.dsc_emp_last_name,
-                                   lc_id = k.dsc_lc_id,
-                                   customer_id = k.dsc_cust_id,
-                                   cft_id = j.obs_cft_id,
-                                   form_title = g.obs_cft_title,
-                                   inst_id = j.obs_inst_id,
-                                   cfi_id = j.obs_cfi_id,
-                                   start_date = j.obs_cfi_start_dt,
-                                   compl_date = j.obs_cfi_comp_date,
-                                   status = k.obs_inst_status=="COLLECTING"?"STARTED": "READY FOR REVIEW"
-                               }).ToList();
-            foreach(var inst in all_obs_ins)
-            {
-                Observation obs = new Observation();
-                obs.form_inst_id = inst.cfi_id.ToString();
-                obs.form_title = inst.form_title;
-                obs.observer_id = inst.observer_id;
-                obs.observed_adp_id = inst.observed_adp_id;
-                obs.observer_first_name = inst.observer_first_name;
-                obs.observer_last_name = inst.observer_last_name;
-                obs.observed_id = (int)inst.observed_id;
-                obs.observed_first_name = inst.observed_first_name;
-                obs.observed_last_name = inst.observed_last_name;
-                obs.obs_start_time = inst.start_date;
-                obs.obs_compl_time = Convert.ToDateTime(inst.compl_date).ToString("MMM dd, yyyy hh:mm tt"); 
-                obs.status = inst.status;
-                switch (obs.status)
-                {
-                    case "STARTED":
-                        dashboard.user_open_obs.Add(obs);
-                        break;
-                    case "READY FOR REVIEW":
-                        dashboard.user_ready_obs.Add(obs);
-                        break;
-                    case "COMPLETE":
-                        dashboard.user_complete_obs.Add(obs);
-                        break;
-                }
-            }            
-            return dashboard;
-        }
+        //public Dashboard getDashboard()
+        //{
+        //    Dashboard dashboard = new Dashboard();
+        //    dashboard.isSuperUser = true;
+        //    var all_obs_ins = (from j in db.OBS_COLLECT_FORM_INST
+        //                       join g in db.OBS_COLLECT_FORM_TMPLT on j.obs_cft_id equals g.obs_cft_id
+        //                       join k in db.OBS_INST on j.obs_inst_id equals k.obs_inst_id
+        //                       join m in db.DSC_EMPLOYEE on k.dsc_observed_emp_id equals m.dsc_emp_id
+        //                       join n in db.DSC_EMPLOYEE on j.dsc_observer_emp_id equals n.dsc_emp_id
+        //                       where k.obs_inst_del_yn =="N"
+        //                       orderby j.obs_cfi_start_dt descending
+        //                       select new
+        //                       {
+        //                           observed_id = k.dsc_observed_emp_id,
+        //                           observed_first_name = m.dsc_emp_first_name,
+        //                           observed_last_name = m.dsc_emp_last_name,
+        //                           observed_adp_id = m.dsc_emp_adp_id,
+        //                           observer_id = j.dsc_observer_emp_id,
+        //                           observer_first_name = n.dsc_emp_first_name,
+        //                           observer_last_name = n.dsc_emp_last_name,
+        //                           lc_id = k.dsc_lc_id,
+        //                           customer_id = k.dsc_cust_id,
+        //                           cft_id = j.obs_cft_id,
+        //                           form_title = g.obs_cft_title,
+        //                           inst_id = j.obs_inst_id,
+        //                           cfi_id = j.obs_cfi_id,
+        //                           start_date = j.obs_cfi_start_dt,
+        //                           compl_date = j.obs_cfi_comp_date,
+        //                           status = k.obs_inst_status=="COLLECTING"?"STARTED": "READY FOR REVIEW"
+        //                       }).ToList();
+        //    foreach(var inst in all_obs_ins)
+        //    {
+        //        Observation obs = new Observation();
+        //        obs.form_inst_id = inst.cfi_id.ToString();
+        //        obs.form_title = inst.form_title;
+        //        obs.observer_id = inst.observer_id;
+        //        obs.observed_adp_id = inst.observed_adp_id;
+        //        obs.observer_first_name = inst.observer_first_name;
+        //        obs.observer_last_name = inst.observer_last_name;
+        //        obs.observed_id = (int)inst.observed_id;
+        //        obs.observed_first_name = inst.observed_first_name;
+        //        obs.observed_last_name = inst.observed_last_name;
+        //        obs.obs_start_time = inst.start_date;
+        //        obs.obs_compl_time = Convert.ToDateTime(inst.compl_date).ToString("MMM dd, yyyy hh:mm tt"); 
+        //        obs.status = inst.status;
+        //        switch (obs.status)
+        //        {
+        //            case "STARTED":
+        //                dashboard.user_open_obs.Add(obs);
+        //                break;
+        //            case "READY FOR REVIEW":
+        //                dashboard.user_ready_obs.Add(obs);
+        //                break;
+        //            case "COMPLETE":
+        //                dashboard.user_complete_obs.Add(obs);
+        //                break;
+        //        }
+        //    }            
+        //    return dashboard;
+        //}
 
         //This method is to parse get Collection form API. it returns the data for saved or submitted collection form with all the questions and answers
         public OBSCollectionForm getFormInstance(int? formId)
