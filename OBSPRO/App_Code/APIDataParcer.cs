@@ -2,6 +2,7 @@
 using OBSPRO.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -43,11 +44,10 @@ namespace OBSPRO.App_Code
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
                 try
                 {
-                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]).ToString("MMM dd, yyyy hh:mm tt");
+                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]);
                 }
                 catch
                 {
-                    obs.obs_compl_time = "";
                 }
                 switch (obs.status)
                 {
@@ -298,11 +298,10 @@ namespace OBSPRO.App_Code
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
                 try
                 {
-                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]).ToString("MMM dd, yyyy hh:mm tt");                   
+                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]);                   
                 }
                 catch
                 {
-                    obs.obs_compl_time = "";
                 }
                
                 if (frmStatus.Contains(obs.status))
@@ -391,11 +390,10 @@ namespace OBSPRO.App_Code
                 obs.obs_start_time = Convert.ToDateTime((string)res["ColFormStartDateTime"]);
                 try
                 {
-                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]).ToString("MMM dd, yyyy hh:mm tt");
+                    obs.obs_compl_time = Convert.ToDateTime((string)res["completeddate"]);
                 }
                 catch
                 {
-                    obs.obs_compl_time = "";
                 }
 
                 if (frmStatus.Contains(obs.status))

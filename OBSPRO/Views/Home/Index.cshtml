@@ -162,6 +162,7 @@
                             foreach (var observation in Model.user_ready_obs)
                             {
                                 var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
+                                var dateCompleted = Convert.ToDateTime(observation.obs_compl_time).ToString("MMM dd, yyyy hh:mm tt");
 
                                 <tr>
                                     @*<td>@observation.form_inst_id </td>*@
@@ -174,7 +175,7 @@
                                     @*<td>@observation.status</td>*@
                                     <td style="text-align:center">@observation.observed_adp_id</td>
                                     <td style="text-align:center">@dateStarted</td>
-                                    <td style="text-align:center">@observation.obs_compl_time</td>
+                                    <td style="text-align:center">@dateCompleted</td>
                                 </tr>
                                     loopCounter++;
                                     if (loopCounter >= 5 || loopCounter == Model.user_ready_obs.Count) { loopCounter = 0; break; }
