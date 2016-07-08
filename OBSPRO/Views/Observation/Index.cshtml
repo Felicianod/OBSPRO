@@ -111,6 +111,7 @@
                         foreach (var observation in Model)
                         {
                             var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
+                            var dateCompleted = Convert.ToDateTime(observation.obs_compl_time).ToString("MMM dd, yyyy hh:mm tt");
                             <tr>
                                 @*<td>@observation.form_inst_id </td>*@
                                 <td style="width:30%">@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
@@ -121,10 +122,10 @@
                                 @*<td style="text-align:center">@observation.observed_id</td>*@
                                 <td style="text-align:center">@dateStarted</td>
                                 <td style="text-align:center">
-                                    @if (observation.obs_compl_time ==null ||(observation.obs_compl_time.Substring(0, 12).Equals("Jan 01, 0001")))
+                                    @if (observation.obs_compl_time ==null|| observation.obs_compl_time<Convert.ToDateTime("01/01/2000"))
                                     { <text>Not Completed</text>}
                                     else
-                                    { @observation.obs_compl_time;
+                                    { @Convert.ToDateTime(observation.obs_compl_time).ToString("MMM dd, yyyy hh:mm tt");
                                     }
                                 </td>
                                 @*<td style="text-align:center">Not Reviewed</td>*@

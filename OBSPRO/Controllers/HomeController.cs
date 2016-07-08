@@ -31,7 +31,7 @@ namespace OBSPRO.Controllers
             }
             else
             {
-                return View(apiParcer.getDashboard());
+                return View(apiParcer.getDashboard(null));
             }
 
         }
