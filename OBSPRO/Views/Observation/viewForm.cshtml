@@ -126,7 +126,7 @@
         </div>
     </section>
 
-  <section id="formBody" style="overflow-y:auto; margin-top:100px; padding:0; height:600px" >
+  <section id="formBody" style="overflow-y:auto; margin-top:100px; margin-left:2px; padding:0; height:600px" >
 
     @foreach (var sec in Model.sections)
     {
@@ -206,7 +206,6 @@
                      <div class="row" style="margin:0px 0px 0px 20px; padding:0px 0px 0px 0px; ">
                        @if (!String.IsNullOrEmpty(quest.comments))
                        {
-                           <text>Must add Comment: </text>@quest.mustAddComment <text>Can Add: </text>@quest.canAddComment
                            <div class='fake_textarea'>
                                <b>Comment: </b> @quest.comments
                            </div>
