@@ -36,7 +36,7 @@ namespace OBSPRO.App_Code
                 obs.form_inst_id = (string)res["ObsColFormInstID"];
                 obs.observed_id = (int)res["dsc_observed_emp_id"];
                 obs.observer_id = (int)res["dsc_observer_emp_id"];
-                obs.status = (string)res["obs_inst_status"] == "OPEN" ? "STARTED" : (string)res["obs_inst_status"] == "READY TO VERIFY" ? "READY FOR REVIEW" : (string)res["obs_inst_status"];
+                obs.status = (string)res["obs_inst_status"] == "OPEN" ? "Started" : (string)res["obs_inst_status"] == "READY TO VERIFY" ? "Ready for Review" : (string)res["obs_inst_status"];
                 obs.observed_first_name = (string)res["Observedfirst_name"];
                 obs.observed_last_name = (string)res["Observedlast_name"];
                 obs.observer_first_name = (string)res["Observerfirst_name"];
@@ -54,10 +54,10 @@ namespace OBSPRO.App_Code
                 }
                 switch (obs.status)
                 {
-                    case "STARTED":
+                    case "Started":
                         dashboard.user_open_obs.Add(obs);
                         break;
-                    case "READY FOR REVIEW":
+                    case "Ready for Review":
                         dashboard.user_ready_obs.Add(obs);
                         break;
                     case "COMPLETE":
@@ -185,7 +185,7 @@ namespace OBSPRO.App_Code
                 obsColForm.strColFormSubmittedDateTime = "";
             }           
             obsColForm.dBColFormStatus = (string)parsed_result["observationsColFormData"]["DBColFormStatus"];
-            obsColForm.colFormStatus = (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Ready"?"READY FOR REVIEW": (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Open"?"STARTED": (string)parsed_result["observationsColFormData"]["ColFormStatus"];
+            obsColForm.colFormStatus = (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Ready"?"Ready for Review": (string)parsed_result["observationsColFormData"]["ColFormStatus"]=="Open"?"Started": (string)parsed_result["observationsColFormData"]["ColFormStatus"];
             //Point the form to its respective Cognos Server Path based on the current Server Name
             //If the Server Name is "dscAPPSProd1" (Production Server) point to the Production Cognos Service Server otherwise point to Cognos Dev Server
             if (Environment.MachineName.Equals("dscAPPSProd1"))
@@ -292,7 +292,7 @@ namespace OBSPRO.App_Code
                 obs.form_inst_id = (string)res["ObsColFormInstID"];
                 obs.observed_id = (int)res["dsc_observed_emp_id"];
                 obs.observer_id = (int)res["dsc_observer_emp_id"];
-                obs.status = (string)res["obs_inst_status"]=="OPEN"?"STARTED": (string)res["obs_inst_status"]== "READY TO VERIFY"?"READY FOR REVIEW": (string)res["obs_inst_status"];
+                obs.status = (string)res["obs_inst_status"]=="OPEN"?"Started": (string)res["obs_inst_status"]== "READY TO VERIFY"?"Ready for Review": (string)res["obs_inst_status"];
                 obs.observed_first_name = (string)res["Observedfirst_name"];
                 obs.observed_last_name = (string)res["Observedlast_name"];
                 obs.observer_first_name = (string)res["Observerfirst_name"];
