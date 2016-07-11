@@ -72,6 +72,7 @@ namespace OBSPRO.Controllers
             return View(formRetrieved);
         }
 
+
         // GET: Observation/Create
         public ActionResult Create()
         {
