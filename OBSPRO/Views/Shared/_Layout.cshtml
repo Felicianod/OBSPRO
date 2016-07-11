@@ -85,18 +85,13 @@
     <div class="container-fluid body-content" >
         @RenderBody()
     </div>
-    <div id="foot" style="z-index: 999">
-        <table style="width:100%;">
-            <tr>
-                <td style="text-align:center"></td>
-                <td style="text-align:center">
-                    Questions? &nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:dsclogistics@service-now.com">dsclogistics@service-now.com</a>
-                </td>
-                <td style="text-align:right">
-                    <b>v.Sprint 8 &nbsp;&nbsp;&nbsp;&nbsp;</b>
-                </td>
-            </tr>
-        </table>
+    <div class="row" id="foot" style="z-index: 999">
+        <div class="col-sm-4 col-sm-offset-3">
+            Questions? <a href="mailto:dsclogistics@service-now.com">dsclogistics@service-now.com</a>
+        </div>
+        <div class="col-sm-4" style="text-align:right">
+            v 1.0
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jqueryUI")

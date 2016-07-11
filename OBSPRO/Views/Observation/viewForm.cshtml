@@ -53,9 +53,10 @@
     //}
 
 </script>
-
-<div style="max-width:1248px; margin:0 auto;">
-   <section id="formHeader " style="margin:0; padding:0; position:fixed; top:80px; z-index:999; width:1250px; ">
+<div style="max-width:1248px; margin:80px 0px 0px 0px; ">
+    @*<section id="formHeader " style="margin:0; padding:0; position:fixed; top:95px; z-index:999; width:1250px; "></section>*@
+    <section id="formHeader " style="margin:0; padding:0; position:fixed; top:85px; z-index:999; width:1250px; ">
+   @*<section class="mainHeader" id="formHeader " style="margin:0 auto; padding:0; z-index:999; width:1250px; ">*@
         <div class="panel panel-info" style="margin:0; padding:2px 2px 2px 2px; z-index:998; border:none">
             <div class="panel-heading " style="background-color:#b62525; color:white; padding:0px">
                 <div class="row" style="text-align:center; margin:0px">
@@ -125,7 +126,7 @@
         </div>
     </section>
 
-  <section id="formBody" style="overflow-y:auto; margin:200px 0px 0px 0px; padding:0" >
+  <section id="formBody" style="overflow-y:auto; margin-top:100px; padding:0; height:600px" >
 
     @foreach (var sec in Model.sections)
     {
@@ -137,7 +138,7 @@
          </div>
          <div class="panel-body content" style="padding:0px;">
            @foreach (var quest in sec.questions)
-           {                
+           {
              <div class="@quest.responseClass" style="margin: 1px 2px 0px 2px; padding:0px;">
                  @*------------------------------ QUESTION SECTION --------------------------------------------*@
                  <div class="row" style="font-weight:bold;margin:0px 5px 7px 8px; margin-top: 3px; padding:0px; ">
@@ -230,7 +231,9 @@
 <script>
     $(document).ready(function () {
         //Adjust or Set the correct Margin Height of the Form Body
-        $("#formBody").css("margin-top", $("#formHeader").outerHeight() - 12);
+        //$("#formBody").css("margin-top", $("#formHeader").outerHeight() - 12 + 50);
+
+        $("#formBody").css("height", ($(window).height() - $("#formHeader").outerHeight() - 260));
 
         //---------------------------------------------------------------------------
         $("#btnPrintForm").click(function (e) {
