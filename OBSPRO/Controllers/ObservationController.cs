@@ -29,7 +29,7 @@ namespace OBSPRO.Controllers
             }
             catch { }
             bool searchAll = (searchString == null && sortBy == null && frmStatus ==null) ? true : false;
-            frmStatus = searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus;
+            frmStatus = searchAll ? "Started,Ready for Review,COMPLETED" : frmStatus;
             frmStatus = frmStatus == null ? "" : frmStatus;
             ViewBag.searchText = searchString;
             ViewBag.sortStartDateParameter = String.IsNullOrEmpty(sortBy) ? "StartDate" : "";
@@ -40,9 +40,9 @@ namespace OBSPRO.Controllers
             ViewBag.sortStatusParameter = sortBy == "Status" ? "Status desc" : "Status";
             ViewBag.sortComplDateParameter = sortBy == "Complete Date" ? "Complete Date desc" : "Complete Date";
             ViewBag.sortLocationParameter = sortBy == "Location" ? "Location desc" : "Location";
-            ViewBag.Open = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("STARTED")?"checked":"";
-            ViewBag.Ready = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("READY FOR REVIEW") ? "checked" : "";
-            ViewBag.Completed = (searchAll ? "STARTED,READY FOR REVIEW,COMPLETED" : frmStatus).Contains("COMPLETED") ? "checked" : "";
+            ViewBag.Open = (searchAll ? "Started,Ready for Review,COMPLETED" : frmStatus).Contains("Started")?"checked":"";
+            ViewBag.Ready = (searchAll ? "Started,Ready for Review,COMPLETED" : frmStatus).Contains("Ready for Review") ? "checked" : "";
+            ViewBag.Completed = (searchAll ? "Started,Ready for Review,COMPLETED" : frmStatus).Contains("COMPLETED") ? "checked" : "";
             ViewBag.FullfrmStatus = frmStatus;
             if (usr.role == "Not Authorized" || usr.role == "")
             {
