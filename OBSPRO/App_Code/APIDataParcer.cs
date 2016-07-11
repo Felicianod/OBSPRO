@@ -14,7 +14,6 @@ namespace OBSPRO.App_Code
     {
         DataRetrieval api = new DataRetrieval();
         User usr = new User();
-       // DSC_OBS_DEVEntities db = new DSC_OBS_DEVEntities();
 
         //This method returns dashboard data
         public Dashboard getDashboard(string emp_id)
