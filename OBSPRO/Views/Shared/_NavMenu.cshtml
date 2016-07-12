@@ -12,24 +12,24 @@
     <div class="collapse navbar-collapse" id="myNavbar" style="font-size:large">
         <div class="col-md-7 col-md-offset-2">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
+                <li class="dropdown menu01">
                     <a href="/home" style="padding:15px 10px 0 0">
                         Recent<br />Observations
                     </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav menu01">
                 <li class="dropdown">
                     <a href="/Observation/Index" style="padding:15px 10px 0 0; margin-left:25px">
                         Find Observations
                     </a>
                     @*<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Find Observations
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Find Observation", "Index", "Observation", null, new { style = "padding:15px 10px 0 0" })</li>
-                    </ul>*@
+                    Find Observations
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Find Observation", "Index", "Observation", null, new { style = "padding:15px 10px 0 0" })</li>
+                </ul>*@
                 </li>
             </ul>
         </div>

@@ -53,7 +53,7 @@
     //}
 
 </script>
-<div style="max-width:1248px; margin:80px 0px 0px 0px; ">
+<div style="max-width:1248px; margin:80px 0px 0px 50px; ">
     @*<section id="formHeader " style="margin:0; padding:0; position:fixed; top:95px; z-index:999; width:1250px; "></section>*@
     <section id="formHeader " style="margin:0; padding:0; position:fixed; top:85px; z-index:999; width:1250px; ">
    @*<section class="mainHeader" id="formHeader " style="margin:0 auto; padding:0; z-index:999; width:1250px; ">*@
@@ -63,8 +63,9 @@
                     @*<div class="col-sm-1">
                         <span style="float:left"></span>
                     </div>*@
-                    <div class="col-sm-12 hideMe" style="margin:0 auto; padding:5px">
-                        <h4 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h4>
+                    <div class="col-sm-12 hideMe" style="margin:0 auto; padding:4px; font-size: x-large">
+                        <span style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></span>
+                        @*<h3 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h3>*@
                         @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
                     </div>
                     @*<div class="col-sm-2" style="padding:0px">
@@ -93,19 +94,27 @@
                         </div>
                     </div>
                     <div class="col-sm-3 nomargin" style="margin:0; ">
-                        <div class="row headerColRow" style="font-weight:bold; margin-left:25px ">
-                            <span>Status:</span>
-                            <span style="color: blue">@Model.colFormStatus</span>
-                        </div>
-                        <div class="row headerColRow" style="margin-left:25px ">
-                            <a id="printColForm" href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
-                        </div>
-                        @if (Model.colFormStatus.Equals("READY FOR REVIEW"))
-                        {
-                            <div class="row headerColRow" style="margin-left:25px ">
-                                <a href="javascript:alert('Function Not Enabled')"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
+                        <div  style="width:180px">
+                            <div class="row headerColRow" style="font-weight:bold; text-align:center">
+                                <span>Status:</span>
+                                <span style="color: blue">@Model.colFormStatus</span>
                             </div>
-                        }
+                            <div class="row headerColRow" style="text-align:center">
+                                <a id="printColForm" href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
+                            </div>
+                            @if (Model.colFormStatus.Equals("Ready for Review"))
+                            {
+                                <div class="row headerColRow" style="text-align:center">
+                                    <a href="javascript:alert('Function Not Enabled')"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row headerColRow" style="text-align:center; color:#c6c6c6">
+                                    <span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span>
+                                </div>
+                            }
+                        </div>
                     </div>
                     <div class="col-sm-4 nomargin" style="margin:0;">
                         <div class="row headerColRow">
@@ -113,12 +122,16 @@
                             <div class="col-sm-7 dataLabel"> <span style="float: left;">@Model.observerEmployeeFullName</span></div>
                         </div>
                         <div class="row headerColRow">
-                            <div class="col-sm-5 boldLabel"> <span style="float: right;">Obs.Started:</span></div>
+                            <div class="col-sm-5 boldLabel"> <span style="float: right;">Obs Started:</span></div>
                             <div class="col-sm-7 dataLabel"> <span style="float: left;">@Model.strColFormStartDateTime</span></div>
                         </div>
                         <div class="row headerColRow">
-                            <div class="col-sm-5 boldLabel"> <span style="float: right; ">Obs.Completed:</span></div>
-                            <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.strColFormSubmittedDateTime</span></div>
+                            <div class="col-sm-5 boldLabel"> <span style="float: right; ">Obs Completed:</span></div>
+                            <div class="col-sm-7 dataLabel"> 
+                                <span style="float: left; ">
+                                @if (@Model.strColFormSubmittedDateTime.Equals("")) { <tex> - Not Completed -</tex>}
+                                else { @Model.strColFormSubmittedDateTime}                                
+                                </span></div>
                         </div>
                     </div>
                 </div>
@@ -126,7 +139,7 @@
         </div>
     </section>
 
-  <section id="formBody" style="overflow-y:auto; margin-top:100px; margin-left:2px; padding:0; height:600px" >
+  <section id="formBody" style="overflow-y:auto; margin-top:115px; margin-left:2px; padding:0; height:600px" >
 
     @foreach (var sec in Model.sections)
     {
@@ -150,6 +163,9 @@
                        { <span style="float:right; color:red; font-size:x-small; margin-right:20px">*Answer Pending</span> }
                     </div>
                  </div>
+                 @*<div class="row" style="margin-left:30px">
+                     can add comment: @quest.canAddComment  must add comment: @quest.mustAddComment
+                 </div>*@
                  @*------------------------------ ANSWER SECTION ---------------------------------------------*@
                  <div class="row" style="margin:0px 0px 0px 25px; padding:0px;">
                    @{
@@ -158,13 +174,16 @@
                        else { colWidth = "col-sm-12"; }
                    }
 
-                       <div class="@colWidth">
+                       <div class="@colWidth" >
                          @if (quest.answerType == "FREE_TXT")
                          {// Show FREE TEXT ANSWER BOX
-                            <fieldset class="textComment">
+                            <div class='fake_textarea' style="margin-left: -3px; width: 99%; background-color:white">
+                                <b>Answer: </b> @quest.comments.Trim()
+                            </div>
+                            @*<fieldset class="textComment">
                                     <legend class="textComment">Answer</legend>
                                     @quest.comments.Trim()
-                            </fieldset>
+                            </fieldset>*@
                          }
                          else
                          {
@@ -182,19 +201,13 @@
                               }
                             </ul>
                          }
-                        </div>
+                       </div>
 
                    @if (quest.showsNA.Equals("true"))
                    {
                        <div class="col-sm-1">
-                          @if (quest.naSelected)
-                          {
-                             <span class="badge" style="padding:6px">N/A</span>
-                          }
-                          else
-                          {
-                             <span class="badge badge-outline" style="padding:6px;">N/A</span>
-                          }
+                          @if (quest.naSelected) { <span class="badge" style="padding:6px">N/A</span>                 }
+                          else                   { <span class="badge badge-outline" style="padding:6px;">N/A</span>  }
                        </div>
                    }
 

@@ -25,6 +25,12 @@
         border-bottom: none;
         margin: 0 0;
     }
+    .findForm td:not(:first-of-type){
+        text-align:center; border-right-style:dashed;border-right-width:1px; border-right-color: #ddd;
+    }
+    .findForm th:not(:first-of-type){
+        text-align:center; border-right-style:dashed;border-right-width:1px; border-right-color: #ddd;
+    }
 </style>
 <form method="get">
     <div class="row">
@@ -36,30 +42,30 @@
                 <button type="submit" class="btn btn-primary">GO</button>
             </div>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             <fieldset class="scheduler-border row">
                 <legend class="scheduler-border">Filter By Status</legend>
-                <div class="col-sm-3" style="padding:0 0; ">
+                <div class="col-sm-4" style="padding:0 0; ">
                     <div class="checkbox" >
                         <label>
                             <input type="checkbox" id="frmStatus" name="frmStatus" value="Started" @ViewBag.Open>Started
                         </label>
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" id="frmStatus" name="frmStatus" value="Ready for Review" @ViewBag.Ready>Ready for Review
                         </label>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                @*<div class="col-sm-4">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" id="frmStatus" name="frmStatus" value="COMPLETED" @ViewBag.Completed>Review Completed
                         </label>
                     </div>
-                </div>
+                </div>*@
             </fieldset>
         </div>
     </div>
@@ -83,7 +89,7 @@
         </div>
         <!-- PANEL BODY -->
         <div class="panel-body collapse in" id="panelSection01">
-            <table class="table table-condensed table-hover table-responsive">
+            <table class="table table-condensed table-hover table-responsive findForm">
                 <thead>
                     <tr>
                         @*<th>Form Id</th>*@
@@ -91,10 +97,10 @@
                         <th>@Html.ActionLink("OBS Status", "Index", new { sortBy = ViewBag.sortStatusParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
                         <th>@Html.ActionLink("Observer", "Index", new { sortBy = ViewBag.sortObserverParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
                         <th>@Html.ActionLink("Employee Observed", "Index", new { sortBy = ViewBag.sortEmpObservedParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
-                        <th style="text-align:center">@Html.ActionLink("ADP ID", "Index", new { sortBy = ViewBag.sortADPParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
-                        <th style="text-align:center">@Html.ActionLink("Location", "Index", new { sortBy = ViewBag.sortLocationParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
-                        <th style="text-align:center">@Html.ActionLink("Observation Started", "Index", new { sortBy = ViewBag.sortStartDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
-                        <th style="text-align:center">@Html.ActionLink("Observation Completed", "Index", new { sortBy = ViewBag.sortComplDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th>@Html.ActionLink("ADP ID", "Index", new { sortBy = ViewBag.sortADPParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th>@Html.ActionLink("Location", "Index", new { sortBy = ViewBag.sortLocationParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th>@Html.ActionLink("Observation Started", "Index", new { sortBy = ViewBag.sortStartDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
+                        <th>@Html.ActionLink("Observation Completed", "Index", new { sortBy = ViewBag.sortComplDateParameter, searchString = ViewBag.searchText, frmStatus = ViewBag.FullfrmStatus, pageSize = Request["PageSize"], page = Request["page"] })</th>
                         @*<th style="text-align:center"><a href="#">Reviewed On</a></th>*@
                     </tr>
                 </thead>
@@ -116,13 +122,13 @@
                             <tr>
                                 @*<td>@observation.form_inst_id </td>*@
                                 <td style="width:30%">@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                <td>@observation.status</td>
-                                <td>@observation.observer_first_name  @observation.observer_last_name</td>
-                                <td>@observation.observed_first_name @observation.observed_last_name</td>
-                                <td style="text-align:center">@observation.observed_adp_id</td>
-                                <td style="text-align:center">@observation.location</td>
-                                <td style="text-align:center">@dateStarted</td>
-                                <td style="text-align:center">
+                                <td >@observation.status</td>
+                                <td >@observation.observer_first_name  @observation.observer_last_name</td>
+                                <td >@observation.observed_first_name @observation.observed_last_name</td>
+                                <td >@observation.observed_adp_id</td>
+                                <td >@observation.location</td>
+                                <td >@dateStarted</td>
+                                <td >
                                     @if (observation.obs_compl_time ==null|| observation.obs_compl_time<Convert.ToDateTime("01/01/2000"))
                                     { <text>Not Completed</text>}
                                     else
