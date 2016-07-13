@@ -190,13 +190,15 @@ namespace OBSPRO.App_Code
             //If the Server Name is "dscAPPSProd1" (Production Server) point to the Production Cognos Service Server otherwise point to Cognos Dev Server
             if (Environment.MachineName.Equals("dscAPPSProd1"))
             {//Production Cognos Server Path
-                obsColForm.colFormPrintPath = @"http://dsccognosprdws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=" + obsColForm.obsColFormInstId;
-                obsColForm.colFormPrintPath += "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diCB0D41DDB02D428D8A78DB5821709948";
+             //    obsColForm.colFormPrintPath = @"http://dsccognosprdws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=" + obsColForm.obsColFormInstId;
+             //    obsColForm.colFormPrintPath += "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diCB0D41DDB02D428D8A78DB5821709948";
+                obsColForm.colFormPrintPath = "PROD";
             }
             else
             {//Development Cognos Server Path
-                obsColForm.colFormPrintPath = @"http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=" + obsColForm.obsColFormInstId;
-                obsColForm.colFormPrintPath += "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9";
+             //    obsColForm.colFormPrintPath = @"http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=" + obsColForm.obsColFormInstId;
+             //    obsColForm.colFormPrintPath += "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9";
+                obsColForm.colFormPrintPath = "DEV";
             }
 
 
