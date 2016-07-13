@@ -72,29 +72,46 @@
 
 <body>
     @Scripts.Render("~/bundles/bootstrap")
-    @try {
+    @*@try {
         var sessionActive = Session["emp_id"].ToString();
     }
     catch {
         @RenderBody();
         Html.Action("OBSLogout", "Login");
+    }*@
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="container-fluid body-content" style="margin:0 auto">
+            @RenderBody()
+        </div>
+        <input type="hidden" id="goTologoff" value="Y" />
+        //Html.Action("OBSLogout", "Login");
     }
-    <div style="text-align:center">
-        @Html.Partial("_NavMenu")
-    </div>
-    <div class="container-fluid body-content" >
-        @RenderBody()
-    </div>
-    <div class="row" id="foot" style="z-index: 999">
-        <div class="col-sm-4 col-sm-offset-3">
-            Questions? <a href="mailto:dsclogistics@service-now.com">dsclogistics@service-now.com</a>
+    else
+    {
+        <div style="text-align:center">
+            @Html.Partial("_NavMenu")
         </div>
-        <div class="col-sm-4" style="text-align:right">
-            v 1.0
+        <div class="container-fluid body-content" style="margin:0 auto">
+            @RenderBody()
         </div>
-    </div>
-
+        <div class="row" id="foot" style="z-index: 999">
+            <div class="col-sm-4 col-sm-offset-3">
+                Questions? <a href="mailto:dsclogistics@service-now.com">dsclogistics@service-now.com</a>
+            </div>
+            <div class="col-sm-4" style="text-align:right">
+                v 1.0
+            </div>
+        </div>
+    }
     @Scripts.Render("~/bundles/jqueryUI")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        if ($("#goTologoff").val() == "Y") {
+            window.location.href = "/Login/Login";
+        }
+    });
+</script>
