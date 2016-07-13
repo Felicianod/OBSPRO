@@ -17,7 +17,6 @@ namespace OBSPRO.Controllers
 
         public ActionResult Index()
         {
-
             usr.setUser();
             if (!usr.isDefined)
             {
