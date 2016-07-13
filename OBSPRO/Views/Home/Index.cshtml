@@ -108,7 +108,7 @@
                 @if (Model.user_open_obs.Count() > 5)
                 {
                     // Allow full list Display Option
-                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "STARTED" }, null)
+                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "Started" }, null)
                 }
             </div>
         </div>
@@ -187,7 +187,7 @@
                 @if (Model.user_ready_obs.Count() > 5)
                 {
                     // Allow full list Display Option
-                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "READY FOR REVIEW" }, null)
+                    @Html.ActionLink("show More ...", "Index", "Observation", new { frmStatus = "Ready for Review" }, null)
                 }
             </div>
         </div>
