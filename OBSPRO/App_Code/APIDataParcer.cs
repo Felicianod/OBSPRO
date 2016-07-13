@@ -316,6 +316,7 @@ namespace OBSPRO.App_Code
                     all_obs.Add(obs);
                 }
             }
+
             switch (sortBy)
             {
                 case "StartDate":
@@ -362,6 +363,8 @@ namespace OBSPRO.App_Code
                     break;
                 case "Complete Date":
                     all_obs = all_obs.OrderBy(x => x.obs_compl_time).ToList();
+                    break;
+                default: all_obs = all_obs.OrderByDescending(x => x.obs_start_time).ToList();
                     break;
             }
             return all_obs;
