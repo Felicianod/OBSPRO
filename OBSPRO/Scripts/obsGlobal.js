@@ -6,7 +6,6 @@
 //<script src="~/Scripts/bootstrap-dialog.js"></script>
 //<script src="~/Scripts/obsGlobal.js"></script>
 
-
 function obsConfirm(myMessage) {
     BootstrapDialog.confirm({
         title: 'CONFIRMATION - Are you Sure?',

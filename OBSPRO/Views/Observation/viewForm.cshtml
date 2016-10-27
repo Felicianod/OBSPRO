@@ -105,7 +105,7 @@
                             @if (Model.colFormStatus.Equals("Ready for Review"))
                             {
                                 <div class="row headerColRow" style="text-align:center">
-                                    <a id="printReviewForm" href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
+                                    <a id="printReviewForm" href="#" download><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
                                 </div>
                             }
                             else
@@ -237,10 +237,7 @@
 </div>
 
 <br />
-<br />
-@*<iframe id="rptFrame" src=""></iframe>*@
-@*<a id="dowmloadlink" href="test.com" download="CognosReport.pdf"></a>*@
-<a id="dowmloadlink" href="http://www.test.com" >Donk click here</a>
+
 
 <script>
     $(document).ready(function () {
@@ -250,39 +247,13 @@
         $("#formBody").css("height", ($(window).height() - $("#formHeader").outerHeight() - 260));
 
         //---------------------------------------------------------------------------
-        $("#btnPrintForm").click(function (e) {
-            e.preventDefault();
-
-            @*var url = "http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=/content/folder[%40name='SDK Testing']/report[%40name='Observation Collection Form']&ui.name=Observation Collection Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
-            url = url + cfiIf + "&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=/ibmcognos/cgi-bin/cognosisapi.dll?b_action=xts.run&m=portal/cc.xts&m_folder=iFA794FAF9D6A4AC6B67192521DB5FAD9";*@
-
-            //obsAlert('Preview Not available at this time!');
-            //BootstrapDialog.alert("Hello!");
-            //obsConfirm('Preview Not available at this time!');
-
-            @*var cfiIf = @Model.obsColFormInstId;
-            var url = "http://dsccognosdevws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
-                url = url + cfiIf + "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diFA794FAF9D6A4AC6B67192521DB5FAD9";
-
-
-            var urlProd = "http://dsccognosprdws1.dsccorp.net/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
-                urlProd = urlProd + cfiIf + "&ui=h1&cv.header=false&cv.toolbar=false" + "&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3diCB0D41DDB02D428D8A78DB5821709948";
-            *@
-
-            //window.open(urlProd);
-            //window.open(url, "popupWindow", "width=600,height=800,scrollbars=yes");
-
-            window.open('@Model.colFormPrintPath');
-
-        });
-        //---------------------------------------------------------------------------
         $("#printColForm").click(function (e) {
             e.preventDefault();
             var server_env = "@Model.colFormPrintPath";
-            //alert("You are in the " + server_env + " Environment.");            
-            var cgURL = "http://dsccognosprdws1.dsccorp.net:80/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run";            
+            //alert("You are in the " + server_env + " Environment.");
+            var cgURL = "http://dsccognosprdws1.dsccorp.net:80/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run";
             var cgRptPath = "";  // ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20Dev%27%5d&ui.name=Observation%20Collection%20Form%20-%20Dev
-            var cgRptOptions = "&run.outputFormat=PDF&run.prompt=false&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!";            
+            var cgRptOptions = "&run.outputFormat=PDF&run.prompt=false&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!";
             var urlParams = "&p_cfi_id=" + "@Model.obsColFormInstId";
             var cgbackURL = "&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3d";
             var folderId = "";    //Example:  "iCB0D41DDB02D428D8A78DB5821709948";
@@ -290,15 +261,15 @@
 
             switch (server_env) {
                 case 'Development':
-                    cgRptPath = "&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20Dev%27%5d&ui.name=Observation%20Collection%20Form%20-%20Dev";
-                    folderId = "i4A050ECBA2694D719A489A1BCAA9E942";                    
+                    cgRptPath = "&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20Dev%20v1.0%27%5d&ui.name=Observation%20Collection%20Form%20-%20Dev%20v1.0";
+                    folderId = "i4A050ECBA2694D719A489A1BCAA9E942";
                     break;
                 case 'QA':
-                    cgRptPath = "&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20QA%27%5d&ui.name=Observation%20Collection%20Form%20-%20QA";                    
+                    cgRptPath = "&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20QA%20v1.0%27%5d&ui.name=Observation%20Collection%20Form%20-%20QA%20v1.0";
                     folderId = "iCB0D41DDB02D428D8A78DB5821709948";
                     break;
                 case 'Production':
-                    cgRptPath = "&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20Prod%27%5d&ui.name=Observation%20Collection%20Form%20-%20Prod";
+                    cgRptPath = "&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20Prod%20v1.0%27%5d&ui.name=Observation%20Collection%20Form%20-%20Prod%20v1.0";
                     folderId = "iCB0D41DDB02D428D8A78DB5821709948";
                     break;
                 default:
@@ -319,8 +290,6 @@
                 //alert("Link Clicked");
             }
 
-
-
             @*if (server_env == "Production") {
                 url = "http://dsccognosprdws1.dsccorp.net:80/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%27%5d&ui.name=Observation%20Collection%20Form&run.outputFormat=PDF&run.prompt=false&p_cfi_id=";
                 url = url + "@Model.obsColFormInstId" + "&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!&ui.backURL=/ibmcognos/cgi-bin/cognosisapi.dll?b_action=xts.run&m=portal/cc.xts&m_folder=i949DC5C8B6684AD2A14B6223F6707FF2";
@@ -336,10 +305,10 @@
         $("#printReviewForm").click(function (e) {
             e.preventDefault();
             var server_env = "@Model.colFormPrintPath";
-            //alert("You are in the " + server_env + " Environment.");            
-            var cgURL = "http://dsccognosprdws1.dsccorp.net:80/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run";            
+            //alert("You are in the " + server_env + " Environment.");
+            var cgURL = "http://dsccognosprdws1.dsccorp.net:80/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=run";
             var cgRptPath = "";  // ui.object=%2fcontent%2ffolder%5b%40name%3d%27SDK%20Testing%27%5d%2freport%5b%40name%3d%27Observation%20Collection%20Form%20-%20Dev%27%5d&ui.name=Observation%20Collection%20Form%20-%20Dev
-            var cgRptOptions = "&run.outputFormat=PDF&run.prompt=false&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!";            
+            var cgRptOptions = "&run.outputFormat=PDF&run.prompt=false&ui=h1&cv.header=false&cv.toolbar=false&CAMNamespace=DSCLogistics&CAMUsername=cog_sdk&CAMPassword=Cog4u2!";
             var urlParams = "&p_cfi_id=" + "@Model.obsColFormInstId";
             var cgbackURL = "&ui.backURL=%2fibmcognos%2fcgi-bin%2fcognosisapi.dll%3fb_action%3dxts.run%26m%3dportal%2fcc.xts%26m_folder%3d";
             var folderId = "";    //Parent Folder - Example:  "iCB0D41DDB02D428D8A78DB5821709948";
@@ -368,9 +337,9 @@
                 window.open(reportURL);
             }
 
-
         });
 
 
     });
+
 </script>

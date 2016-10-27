@@ -33,7 +33,7 @@ namespace OBSPRO
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
-                    "~/Scripts/jquery-ui-{version}.js"
+                      "~/Scripts/jquery-ui-{version}.js"
             ));
 
         }
