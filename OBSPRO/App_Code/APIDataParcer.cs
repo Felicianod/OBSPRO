@@ -355,6 +355,7 @@ namespace OBSPRO.App_Code
             return all_obs;
         }
 
+
         public string completeObs(int obsInstID)
         {
 
@@ -366,7 +367,8 @@ namespace OBSPRO.App_Code
                 //Verify that the API call succeeded
                 result = ((string)parsed_result["result"]).ToUpper().Equals("SUCCESS") ? "Success" : ((string)parsed_result["message"]);
             }
-            catch{ }
+            catch(Exception e)
+            { result = e.Message; }
             return result;
         } 
 

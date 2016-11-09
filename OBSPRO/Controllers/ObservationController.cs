@@ -73,6 +73,7 @@ namespace OBSPRO.Controllers
         }
 
 
+        //this method is to call api to mark observation as reviewed
         [HttpPost]
         public string completeObsReview(int obsInstID)
         {
