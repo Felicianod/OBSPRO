@@ -60,14 +60,14 @@ namespace OBSPRO.App_Code
                     case "Ready for Review":
                         dashboard.user_ready_obs.Add(obs);
                         break;
-                    case "COMPLETE":
+                    case "REVIEWED":
                         dashboard.user_complete_obs.Add(obs);
                         break;
                 }
             }
             dashboard.user_open_obs = dashboard.user_open_obs.OrderByDescending(x => x.obs_start_time).ToList();
             dashboard.user_ready_obs = dashboard.user_ready_obs.OrderByDescending(x => x.obs_compl_time).ToList();
-
+            dashboard.user_complete_obs = dashboard.user_complete_obs.OrderByDescending(x => x.obs_compl_time).ToList();
             return dashboard;
         }
         //This method returns dashboard data for super user 
