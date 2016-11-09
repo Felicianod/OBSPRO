@@ -73,6 +73,12 @@ namespace OBSPRO.Controllers
         }
 
 
+        [HttpPost]
+        public string completeObsReview(int obsInstID)
+        {
+            return apiParcer.completeObs(obsInstID);
+        }
+        
         // GET: Observation/Create
         public ActionResult Create()
         {

@@ -355,6 +355,22 @@ namespace OBSPRO.App_Code
             return all_obs;
         }
 
+        public string completeObs(int obsInstID)
+        {
+
+            JObject parsed_result;
+            string result = "Error";
+            try
+            {
+                parsed_result = JObject.Parse(api.completeObsReview(obsInstID));
+                //Verify that the API call succeeded
+                result = ((string)parsed_result["result"]).ToUpper().Equals("SUCCESS") ? "Success" : ((string)parsed_result["message"]);
+            }
+            catch{ }
+            return result;
+        } 
+
+       
         //This method returns all observations for super user  
         //public List<Observation> getAllObservations(string frmStatus, string searchString, string sortBy)
         //{
