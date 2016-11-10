@@ -126,6 +126,35 @@ namespace OBSPRO.App_Code
             }
         }
 
+        public string completeObsReview(int OBSInstID)
+        {
+            string endPoint = "obscompletereview";
+            WebRequest request = WebRequest.Create(api_url + endPoint);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            string parsedContent = "{\"obs_inst_id\":" + OBSInstID + "}";
+            Byte[] bytes = encoding.GetBytes(parsedContent);
+            string JsonString = String.Empty;
+            try
+            {
+                Stream newStream = request.GetRequestStream();
+                newStream.Write(bytes, 0, bytes.Length);
+                newStream.Close();
+                WebResponse response = request.GetResponse();
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+                    JsonString = reader.ReadToEnd();
+                    return JsonString;
+                }
+            }
+            catch (Exception e)
+            {
+                return "ERROR: " + e.Message;
+            }
+        }
+
         public string getObserverRole(string userName)
         {
             string endPoint = "observerrole";
