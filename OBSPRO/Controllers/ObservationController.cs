@@ -75,8 +75,10 @@ namespace OBSPRO.Controllers
 
         //this method is to call api to mark observation as reviewed
         [HttpPost]
-        public string completeObsReview(int obsInstID)
+        public string completeObsReview(int? id)
         {
+            int obsInstID = id ?? 0;
+            if (obsInstID == 0) { return "Failed"; }
             return apiParcer.completeObs(obsInstID);
         }
         

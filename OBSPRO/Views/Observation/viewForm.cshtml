@@ -48,6 +48,11 @@
     //}
 
 </script>
+
+<div id="pageVars">
+    <input type="hidden" id="obsInstId" value="@Model.obsInstId"/>
+</div>
+
 <div style="max-width:1248px; margin:80px 0px 0px 50px; ">
     @*<section id="formHeader " style="margin:0; padding:0; position:fixed; top:95px; z-index:999; width:1250px; "></section>*@
     <section id="formHeader " style="margin:0; padding:0; position:fixed; top:85px; z-index:999; width:1250px; ">
@@ -239,7 +244,7 @@
 <br />
 
 <div id="popupCompleteReview" class="modal fade" role="dialog">
-    <div class="modal-dialog" style="width:50%; min-width:700px">
+    <div class="modal-dialog" style="width:45%; min-width:700px">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header" style="color:white; background-color:#b62525">
@@ -285,10 +290,14 @@
                     <div class="checkbox" style="text-align:center">
                         <label><input id="chkIsReviewed" type="checkbox" value="">Mark as reviewed</label>
                     </div>
+                    <br />
+                    <div id="saveResultMessage" style="text-align:center">
+
+                    </div>
                 </div>
             </div>
             <div class="modal-footer" id="popupFormFooter" style="text-align:center">
-                <button type="button" class="btn btn-primary" id="btnSave" @*data-dismiss="modal"*@ style="width:120px" disabled>SAVE</button>
+                <button type="button" class="btn btn-primary" id="btnReviewSave" @*data-dismiss="modal"*@ style="width:120px" disabled>SAVE</button>
             </div>
         </div>
     </div>
@@ -302,10 +311,6 @@
         $("#formBody").css("height", ($(window).height() - $("#formHeader").outerHeight() - 260));
 
         //---------------------------------------------------------------------------
-        $('#chkIsReviewed').change(function () {
-            if ($(this).prop('checked')) { $('#btnSave').prop('disabled', false); }
-            else                         { $('#btnSave').prop('disabled', true); }
-        });
 
         $("#printColForm").click(function (e) {
             e.preventDefault();
@@ -402,6 +407,36 @@
         $("#completeReviewForm").click(function (e) {
             $('#popupCompleteReview').modal('show');
             //if (reload == 'Y') { $('#reloadPage').val('Y'); }
+        });
+
+        $('#chkIsReviewed').change(function () {
+            if ($(this).prop('checked')) { $('#btnReviewSave').prop('disabled', false); }
+            else { $('#btnReviewSave').prop('disabled', true); }
+        });
+
+        $("#btnReviewSave").click(function (e) {
+            var obsInstanceId = $('#obsInstId').val();
+            //alert("Updating Status of Observation Intance Id: '" + obsInstanceId + "' as 'Reviewed'");
+
+            $('#saveResultMessage').html("Please wait. Updating form status...");
+
+            //Call ajax to Mark the observation as Reviewed and relaod the page if successful.
+            $.ajax({
+                url: '/Observation/completeObsReview/' + obsInstanceId,
+                method: "POST",
+                cache: false,
+                dataType: "text",
+                //data: { uFName: pFName, uLName: pLName, uLoginName: pLoginName, email: pEmail, uRole: pRole, uBuildings: pBuildings, uId: pId, turnOff: pTurnOff },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#saveResultMessage').html("Update Failed!" + errorThrown);
+                }
+            }).done(function (ajaxResult) {
+                if (ajaxResult == "Success") {
+                    location.reload();
+                }
+                else { $('#saveResultMessage').html(ajaxResult); }
+            });
+
         });
 
     });
