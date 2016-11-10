@@ -33,12 +33,6 @@
     //    element.show();
     //}
 
-    //function closeDialog() {
-    //    $('#overlay').hide();
-    //    $('#content').hide();
-    //    $('#contentB').hide();
-    //    //$('#dialog').hide().html('');
-    //}
 
     //function centerMe(element) {
     //    //pass element name to be centered on screen
@@ -64,10 +58,13 @@
                     @*<div class="col-sm-1">
                         <span style="float:left"></span>
                     </div>*@
-                    <div class="col-sm-12 hideMe" style="margin:0 auto; padding:4px; font-size: x-large">
+                    <div class="col-sm-9 hideMe" style="margin:0 auto; padding:4px; font-size: x-large; text-align:left; padding-left:15px">
                         <span style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></span>
                         @*<h3 style="padding:0px; margin:0px"><b>@Model.colFormTitle</b></h3>*@
                         @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
+                    </div>
+                    <div class="col-sm-3" style="padding:0px; text-align:left;font-size:18px; padding-top:7px">
+                        <span style="">Status:&nbsp;&nbsp;@Model.colFormStatus</span>
                     </div>
                     @*<div class="col-sm-2" style="padding:0px">
                         <div class="row" style="margin-right:2px; padding:0px">
@@ -80,7 +77,7 @@
             </div>
             <div class="panel-body content " style="padding:4px; border:1px solid #c6c6c6">
                 <div class="row" style="padding:0px; margin:0; width:100%; ">
-                    <div class="col-sm-5 nomargin" style="margin:0; ">
+                    <div class="col-sm-4 nomargin" style="margin:0; ">
                         <div class="row headerColRow" >
                             <div class="col-sm-5 boldLabel" > <span style="float:right">Employee Observed:</span></div>
                             <div class="col-sm-7 dataLabel" > <span style="float: left;">@Model.observedEmployeeFullName</span></div>
@@ -94,14 +91,22 @@
                             <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.lc_id</span></div>
                         </div>
                     </div>
-                    <div class="col-sm-3 nomargin" style="margin:0; ">
-                        <div  style="width:180px">
-                            <div class="row headerColRow" style="font-weight:bold; text-align:center">
-                                <span>Status:</span>
-                                <span style="color: blue">@Model.colFormStatus</span>
-                            </div>
+                    <div class="col-sm-4 nomargin" style="margin:0;">
+                        <div  style="">
+                            @if (Model.colFormStatus.Equals("Ready for Review"))
+                            {
+                                <div class="row headerColRow" style="text-align:center">
+                                    <a id="completeReviewForm" href="#">
+                                        <span class="glyphicon glyphicon-list-alt" style="text-decoration:underline"></span>
+                                        <span style="margin-left:10px">Complete Employee Review</span>
+                                    </a>
+                                </div>
+                            }
                             <div class="row headerColRow" style="text-align:center">
-                                <a id="printColForm" href="#"><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Collection Form</span></a>
+                                <a id="printColForm" href="#">
+                                    <span class="glyphicon glyphicon-print" style="text-decoration:underline"></span>
+                                    <span style="margin-left:10px">Print Collection Form</span>
+                                </a>
                             </div>
                             @if (Model.colFormStatus.Equals("Ready for Review"))
                             {
@@ -191,14 +196,8 @@
                             <ul class="list-inline">
                               @foreach (var ans in quest.answers)
                               {
-                                 if (ans.isSelected)
-                                 {
-                                    <li><span class="badge" style="padding:6px">@ans.answerText</span></li>
-                                 }
-                                 else
-                                 {
-                                    <li>@ans.answerText</li>
-                                 }
+                                 if (ans.isSelected) { <li><span class="badge" style="padding:6px">@ans.answerText</span></li> }
+                                 else { <li>@ans.answerText</li> }
                               }
                             </ul>
                          }
@@ -239,6 +238,61 @@
 
 <br />
 
+<div id="popupCompleteReview" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width:50%; min-width:700px">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="color:white; background-color:#b62525">
+                @*background-color:#904545*@
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center">Observation Review Confirmation</h4>
+            </div>
+            <div class="modal-body" id="popupFormBody" >
+                <div class="row " id="popupFormBodyData" style="margin-top:40px; margin-bottom:30px; ">
+                    <div class="row" style="padding:0px; margin:0; width:100%; ">
+                        <div class="col-sm-6 nomargin" style="margin:0; ">
+                            <div class="row headerColRow">
+                                <div class="col-sm-5 boldLabel"> <span style="float:right">Employee Observed:</span></div>
+                                <div class="col-sm-7 dataLabel"> <span style="float: left;">@Model.observedEmployeeFullName</span></div>
+                            </div>
+                            <div class="row headerColRow">
+                                <div class="col-sm-5 boldLabel"> <span style="float: right; ">Observed ADP ID:</span></div>
+                                <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.observedADPID</span></div>
+                            </div>
+                            <div class="row headerColRow">
+                                <div class="col-sm-5 boldLabel"> <span style="float: right; ">Logistics Center:</span></div>
+                                <div class="col-sm-7 dataLabel"> <span style="float: left; ">@Model.lc_id</span></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 nomargin" style="margin:0;">
+                            <div class="row headerColRow">
+                                <div class="col-sm-5 boldLabel"> <span style="float: right;">Form Title:</span></div>
+                                <div class="col-sm-7 dataLabel"> <span style="float: left;">@Model.colFormTitle</span></div>
+                            </div>
+                            <div class="row headerColRow">
+                                <div class="col-sm-5 boldLabel"> <span style="float: right;">Observer:</span></div>
+                                <div class="col-sm-7 dataLabel"> <span style="float: left;">@Model.observerEmployeeFullName</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br />
+                    <div style="width:90%; margin:0 auto; border:2px solid black; border-radius:4px; padding:7px; text-align:left;">
+                        <span style="font-weight:bold">Notice - </span>
+                        <span>Proin sodales quam non eros blandit, et suscipit metus dictum. Vestibulis malesuades diam augue, eu gravida est congue nec. Proin nec mi non risus vehicula congue...</span>
+                    </div>
+                    <br /><br />
+                    <div class="checkbox" style="text-align:center">
+                        <label><input id="chkIsReviewed" type="checkbox" value="">Mark as reviewed</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="popupFormFooter" style="text-align:center">
+                <button type="button" class="btn btn-primary" id="btnSave" @*data-dismiss="modal"*@ style="width:120px" disabled>SAVE</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -248,6 +302,11 @@
         $("#formBody").css("height", ($(window).height() - $("#formHeader").outerHeight() - 260));
 
         //---------------------------------------------------------------------------
+        $('#chkIsReviewed').change(function () {
+            if ($(this).prop('checked')) { $('#btnSave').prop('disabled', false); }
+            else                         { $('#btnSave').prop('disabled', true); }
+        });
+
         $("#printColForm").click(function (e) {
             e.preventDefault();
             var server_env = "@Model.colFormPrintPath";
@@ -340,6 +399,10 @@
 
         });
 
+        $("#completeReviewForm").click(function (e) {
+            $('#popupCompleteReview').modal('show');
+            //if (reload == 'Y') { $('#reloadPage').val('Y'); }
+        });
 
     });
 
