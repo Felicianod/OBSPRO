@@ -1,0 +1,69 @@
+﻿@model IEnumerable<OBSPRO.Models.Observation>
+@{ int loopCounter = 0;}
+<table class="table table-condensed table-hover table-responsive">
+    <thead>
+        <tr>
+            <th style="width:45%">Form Title</th>
+            <th style="width:130px; text-align:center; ">Location</th>
+          @if ((bool)ViewData["isSuperUser"])
+          {
+            <th style="width:150px; text-align:center">Observer</th>
+          }
+            <th style="width:150px; text-align:center">Employee Observed</th>
+            @*<th>OBS Status</th>*@
+            <th style="text-align:center">ADP Id</th>
+            @if ((bool)ViewData["isStarted"])
+            {
+                <th style="text-align:center">Observation Started</th>
+            }
+            else
+            {
+                <th style="text-align:center">Observation Completed</th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model.Count() == 0)
+        { // No records Found
+            <tr>
+                <td colspan="7" style="text-align:center;">
+                    <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var observation in Model)
+            {
+                var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
+                var dateCompleted = Convert.ToDateTime(observation.obs_compl_time).ToString("MMM dd, yyyy hh:mm tt");
+
+                if (dateCompleted.Substring(0, 12).Equals("Jan 01, 0001")) { dateCompleted = "-"; }
+                <tr>
+                    <td style="width:45%">@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
+                    <td style="width:130px; text-align:center; ">@observation.location</td>
+                    @if ((bool)ViewData["isSuperUser"])
+                    {
+                        <td style="text-align:center">@observation.observer_first_name @observation.observer_last_name</td>
+                    }
+                    <td style="text-align:center">@observation.observed_first_name @observation.observed_last_name</td>
+                    @*<td>@observation.status</td>*@
+                    <td style="text-align:center">@observation.observed_adp_id</td>
+                    @*<td style="text-align:center">@observation.observed_id</td>*@
+                  @if ((bool)ViewData["isStarted"])
+                  {
+                    <td style="text-align:center">@dateStarted</td>
+                  }
+                  else
+                  {
+                <td style="text-align:center">@dateCompleted</td>}
+                    
+                </tr>
+                    loopCounter++;
+                    if (loopCounter >= 5 || loopCounter == Model.Count()) { loopCounter = 0; break; }
+            }
+        }
+    </tbody>
+
+</table>

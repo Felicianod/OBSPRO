@@ -38,56 +38,8 @@
             </div>
             <!-- PANEL BODY -->
             <div class="panel-body collapse in" id="panelSection01">
-                <table class="table table-condensed table-hover table-responsive">
-                    <thead>
-                        <tr>
-                            @*<th>form id</th>*@
-                            <th style="width:45%">Form Title</th>
-                            <th style="width:130px;  text-align:center; ">Location</th>
-                            @if (Model.isSuperUser)
-                            {
-                                <th>Observer</th>
-                            }
-                            <th>Employee Observed</th>
-                            @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP Id</th>
-                            <th style="text-align:center">Observation Started</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.user_open_obs.Count() == 0)
-                        { // No records Found
-                            <tr>
-                                <td colspan="7" style="text-align:center;">
-                                    <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            foreach (var observation in Model.user_open_obs)
-                            {
-                                var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
-                                <tr>
-                                    @*<td>@observation.form_inst_id </td>*@
-                                    <td style="width:45%">@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                    <td style="width:130px; text-align:center; ">@observation.location</td>
-                                    @if (Model.isSuperUser)
-                                    {
-                                        <td>@observation.observer_first_name @observation.observer_last_name</td>
-                                    }
-                                    <td>@observation.observed_first_name @observation.observed_last_name</td>
-                                    @*<td>@observation.status</td>*@
-                                    <td style="text-align:center">@observation.observed_adp_id</td>
-                                    @*<td style="text-align:center">@observation.observed_id</td>*@
-                                    <td style="text-align:center">@dateStarted</td>
-                                </tr>
-                                    loopCounter++;
-                                    if (loopCounter >= 5 || loopCounter == Model.user_open_obs.Count) { loopCounter = 0; break; }
-                            }
-                        }
-                    </tbody>
-                </table>
+                @Html.Partial("_RecentTopObs_View", Model.user_open_obs, new ViewDataDictionary { { "isSuperUser", Model.isSuperUser }, { "isStarted", true }})
+
                 @if (Model.user_open_obs.Count() > 5)
                 {
                     // Allow full list Display Option
@@ -96,6 +48,7 @@
             </div>
         </div>
     </div> <!-- _______________ END OF COLLAPSIBLE PANEL SECTION ___________________ -->
+
     @*- - - - - - - - - - - - - - - READY FOR REVIEW Collapsible Panel Section  - - - - - - - - - - - - - - - - - - - - -*@
     <div class="row personal-info">
         <div class="panel panel-info">
@@ -116,59 +69,9 @@
             </div>
             <!-- PANEL BODY -->
             <div class="panel-body collapse in" id="panelSection02">
-                <table class="table table-condensed table-hover table-responsive">
-                    <thead>
-                        <tr>
-                            @*<th>Form Id</th>*@
-                            <th style="width:45%">Form Title</th>
-                            <th style="width:130px;  text-align:center; ">Location</th>
-                            @if (Model.isSuperUser)
-                            {
-                            <th>Observer</th> }
-                            <th>Employee Observed</th>
-                            @*<th>OBS Status</th>*@
-                            <th style="text-align:center">ADP Id</th>
-                            @*<th style="text-align:center">Started Observation at</th>*@
-                            <th style="text-align:center">Observation Completed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.user_ready_obs.Count() == 0)
-                        { // No records Found
-                            <tr>
-                                <td colspan="7" style="text-align:center;">
-                                    <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            foreach (var observation in Model.user_ready_obs)
-                            {
-                                var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy hh:mm tt");
-                                var dateCompleted = Convert.ToDateTime(observation.obs_compl_time).ToString("MMM dd, yyyy hh:mm tt");
+                
+                @Html.Partial("_RecentTopObs_View", Model.user_ready_obs, new ViewDataDictionary { { "isSuperUser", Model.isSuperUser }, { "isStarted", false } })
 
-                                if (dateCompleted.Substring(0, 12).Equals("Jan 01, 0001")) { dateCompleted = "-"; }                                
-                                <tr>
-                                    @*<td>@observation.form_inst_id </td>*@
-                                    <td style="width:45%">@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                    <td style="width:130px; text-align:center; ">@observation.location</td>
-                                    @if (Model.isSuperUser)
-                                    {
-                                        <td>@observation.observer_first_name @observation.observer_last_name</td>
-                                    }
-                                    <td>@observation.observed_first_name @observation.observed_last_name</td>
-                                    @*<td>@observation.status</td>*@
-                                    <td style="text-align:center">@observation.observed_adp_id</td>
-                                    @*<td style="text-align:center">@dateStarted</td>*@
-                                    <td style="text-align:center">@dateCompleted</td>
-                                </tr>
-                                    loopCounter++;
-                                    if (loopCounter >= 5 || loopCounter == Model.user_ready_obs.Count) { loopCounter = 0; break; }
-                            }
-                        }
-                    </tbody>
-                </table>
                 @if (Model.user_ready_obs.Count() > 5)
                 {
                     // Allow full list Display Option
@@ -196,55 +99,9 @@
             </div>
             <!-- PANEL BODY -->
             <div class="panel-body collapse in" id="panelSection03">
-                <table class="table table-condensed table-hover table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Form Title</th>
-                            <th style="width:130px;  text-align:center; ">Location</th>
-                            @if (Model.isSuperUser)
-                            {
-                            <th>Observer</th> }
-                            <th>Employee Observed</th>
-                            <th style="text-align:center">ADP Id</th>
-                            <th style="text-align:center">Observation Started</th>
-                            <th style="text-align:center">Observation Completed</th>
-                            @*<th style="text-align:center">Reviewed at</th>*@
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.user_complete_obs.Count() == 0)
-                        { // No records Found
-                            <tr>
-                                <td colspan="7" style="text-align:center;">
-                                    <div class="alert-warning" style="padding:4px; font-size:large; margin-top:10px">There are No Forms to Display</div>
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            foreach (var observation in Model.user_complete_obs)
-                            {
-                                var dateStarted = Convert.ToDateTime(observation.obs_start_time).ToString("MMM dd, yyyy  @ [hh:mm tt]");
-                                var dateCompleted = Convert.ToDateTime(observation.obs_compl_time).ToString("MMM dd, yyyy hh:mm tt");
-                                <tr>
-                                    <td>@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                    <td style="width:130px; text-align:center; ">@observation.location</td>
-                                    @if (Model.isSuperUser)
-                                    {
-                                        <td>@observation.observer_first_name @observation.observer_last_name</td>
-                                    }
-                                    <td>@observation.observed_first_name @observation.observed_last_name</td>
-                                    <td style="text-align:center">@observation.observed_adp_id</td>
-                                    <td style="text-align:center">@observation.obs_start_time.ToString()</td>
-                                    <td style="text-align:center">@dateCompleted</td>
-                                    <td style="text-align:center"></td>
-                                </tr>
-                                    loopCounter++;
-                                    if (loopCounter >= 5 || loopCounter == Model.user_complete_obs.Count) { loopCounter = 0; break; }
-                            }
-                        }
-                    </tbody>
-                </table>
+
+                @Html.Partial("_RecentTopObs_View", Model.user_complete_obs, new ViewDataDictionary { { "isSuperUser", Model.isSuperUser }, { "isStarted", false } })
+
                 @if (Model.user_complete_obs.Count() > 5)
                 {
                     // Allow full list Display Option
