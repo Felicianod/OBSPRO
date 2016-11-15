@@ -122,7 +122,7 @@
                             <tr>
                                 @*<td>@observation.form_inst_id </td>*@
                                 <td style="width:30%">@Html.ActionLink(observation.form_title, "viewForm", "Observation", new { id = @observation.form_inst_id }, null)</td>
-                                <td >@observation.status</td>
+                                <td >@observation.status.Replace("REVIEWED", "Reviewed")</td>
                                 <td >@observation.observer_first_name  @observation.observer_last_name</td>
                                 <td >@observation.observed_first_name @observation.observed_last_name</td>
                                 <td >@observation.observed_adp_id</td>

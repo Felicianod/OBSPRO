@@ -69,7 +69,7 @@
                         @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
                     </div>
                     <div class="col-sm-3" style="padding:0px; text-align:left;font-size:18px; padding-top:7px">
-                        <span style="">Status:&nbsp;&nbsp;@Model.colFormStatus</span>
+                        <span style="">Status:&nbsp;&nbsp;@Model.colFormStatus.Replace("REVIEWED","Reviewed")</span>
                     </div>
                     @*<div class="col-sm-2" style="padding:0px">
                         <div class="row" style="margin-right:2px; padding:0px">
@@ -113,7 +113,7 @@
                                     <span style="margin-left:10px">Print Collection Form</span>
                                 </a>
                             </div>
-                            @if (Model.colFormStatus.Equals("Ready for Review"))
+                            @if (Model.colFormStatus.Equals("Ready for Review") || Model.colFormStatus.Equals("REVIEWED"))
                             {
                                 <div class="row headerColRow" style="text-align:center">
                                     <a id="printReviewForm" href="#" download><span class="glyphicon glyphicon-print" style="text-decoration:underline"></span><span style="margin-left:10px">Print Review Form</span></a>
@@ -282,9 +282,12 @@
                     </div>
                     <hr />
                     <br />
-                    <div style="width:90%; margin:0 auto; border:2px solid black; border-radius:4px; padding:7px; text-align:left;">
+                    <div style="width:90%; margin:0 auto; border:2px solid black; border-radius:4px; padding:20px; text-align:left;">
                         <span style="font-weight:bold">Notice - </span>
-                        <span>Proin sodales quam non eros blandit, et suscipit metus dictum. Vestibulis malesuades diam augue, eu gravida est congue nec. Proin nec mi non risus vehicula congue...</span>
+                        <span>The review of this Best Practices Observation is complete. By checking the box below, 
+                              I confirm the Employee Observation Review Form has been printed and signed by the employee 
+                              (@Model.observedEmployeeFullName) and myself (@Model.observerEmployeeFullName).
+                        </span>
                     </div>
                     <br /><br />
                     <div class="checkbox" style="text-align:center">
