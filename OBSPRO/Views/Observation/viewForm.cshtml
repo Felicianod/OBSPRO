@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-sm-4 nomargin" style="margin:0;">
                         <div  style="">
-                            @if (Model.colFormStatus.Equals("Ready for Review"))
+                            @*@if (Model.colFormStatus.Equals("Ready for Review"))
                             {
                                 <div class="row headerColRow" style="text-align:center">
                                     <a id="completeReviewForm" href="#">
@@ -106,8 +106,8 @@
                                         <span style="margin-left:10px">Complete Employee Review</span>
                                     </a>
                                 </div>
-                            }
-                            <div class="row headerColRow" style="text-align:center">
+                            }*@
+                            <div class="row headerColRow" style="text-align:center; margin-top:8px">
                                 <a id="printColForm" href="#">
                                     <span class="glyphicon glyphicon-print" style="text-decoration:underline"></span>
                                     <span style="margin-left:10px">Print Collection Form</span>
@@ -307,6 +307,29 @@
 </div>
 
 <script>
+    function frmMarkAsReviewed(reportPath) {
+        var obsInstanceId = $('#obsInstId').val();
+        //alert("Updating Status of Observation Intance Id: '" + obsInstanceId + "' as 'Reviewed'");
+
+        //Call ajax to Mark the observation as Reviewed and reload the page if successful.
+        $.ajax({
+            url: '/Observation/completeObsReview/' + obsInstanceId,
+            method: "POST",
+            cache: false,
+            dataType: "text",
+            //data: { uFName: pFName, uLName: pLName, uLoginName: pLoginName, email: pEmail, uRole: pRole, uBuildings: pBuildings, uId: pId, turnOff: pTurnOff },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Update Failed!" + errorThrown);
+            }
+        }).done(function (ajaxResult) {
+            if (ajaxResult == "Success") {
+                window.open(reportPath);
+                //location.reload();
+            }
+            else { alert(ajaxResult); }
+        });
+    }
+
     $(document).ready(function () {
         //Adjust or Set the correct Margin Height of the Form Body
         //$("#formBody").css("margin-top", $("#formHeader").outerHeight() - 12 + 50);
@@ -402,7 +425,11 @@
             if (!(folderId == "")) {
                 //A valid Environemnt was found
                 reportURL = cgURL + cgRptPath + urlParams + cgRptOptions + cgbackURL + folderId;
-                window.open(reportURL);
+                // If the Form Status is "Ready for Review" Mark the collection Form as Reviewed
+                if ("@Model.colFormStatus" == "Ready for Review") {
+                    frmMarkAsReviewed(reportURL);
+                }
+                else { window.open(reportURL); }
             }
 
         });
