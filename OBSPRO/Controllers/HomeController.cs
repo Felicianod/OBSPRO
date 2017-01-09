@@ -21,6 +21,7 @@ namespace OBSPRO.Controllers
             if (!usr.isDefined)
             {
                 //User is not defined so Session has expired. Kick user back to Login Page
+                ViewBag.errorMessage = "User is Not Defined. Contact Service Desk";
                 return RedirectToAction("Login", "Login", null);
             }
 

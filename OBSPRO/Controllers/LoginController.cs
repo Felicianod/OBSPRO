@@ -52,7 +52,7 @@ namespace OBSPRO.Controllers
                 if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
                     && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
                 { return Redirect(ReturnUrl); }
-                else { return RedirectToAction("Index", "Home"); }
+                else { return RedirectToAction("Index", "Home");  }
               
             }
             else
@@ -91,6 +91,8 @@ namespace OBSPRO.Controllers
                     Session.Add("last_name", "Delgado");
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", "feliciano.delgado@dsc-logistics.com");
+                    Session.Add("emp_id", "99999");
+                    Session.Add("role", "Admin");
                 }
                 else
                 {
@@ -98,6 +100,8 @@ namespace OBSPRO.Controllers
                     Session.Add("last_name", "Abduguev");
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", "rasul.abduguev@dsc-logistics.com");
+                    Session.Add("emp_id", "99999");
+                    Session.Add("role", "Admin");
                 }
 
                 return true; 
@@ -128,10 +132,17 @@ namespace OBSPRO.Controllers
                 //use JsonObject to retrieve json data   
                 if (JsonObject["result"] == "SUCCESS")
                 {
+                    if (loginModel.Username.Substring(0, 1).Equals("#"))
+                    {
+                        loginModel.Username = loginModel.Username.Substring(1);
+                    }
+                    
                     Session.Add("first_name", JsonObject["DSCAuthenticationSrv"]["first_name"]);
                     Session.Add("last_name", JsonObject["DSCAuthenticationSrv"]["last_name"]);
                     Session.Add("username", loginModel.Username);
                     Session.Add("email", JsonObject["DSCAuthenticationSrv"]["email"]);
+                    Session.Add("emp_id", "99999");
+
                     string role = parcer.getUserRole(loginModel.Username);
                     if (!String.IsNullOrEmpty(role))
                     {

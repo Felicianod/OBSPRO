@@ -72,3 +72,13 @@ function obsAlert(myMessage) {
     });
 };
 
+function showAlert(msg, msgStyle, reload) {
+    var msgClass = "alert-" + msgStyle;
+    if (reload == 'Y') { $('#reloadPage').val('Y'); }
+    if (msgStyle == null || msgStyle == "") { msgClass = ""; }
+    $("#msgFormBodyData").removeClass("alert-warning");
+    $("#msgFormBodyData").removeClass("alert-danger");
+    if (msgStyle) { $("#msgFormBodyData").addClass(msgClass); }
+    $("#msgFormBodyData").html(msg);
+    $('#msgForm').modal('show');
+}
