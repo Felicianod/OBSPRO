@@ -69,7 +69,7 @@
                         @if (!Model.colFormSubtitle.Equals("")) { <span>( @Model.colFormSubtitle )</span>}
                     </div>
                     <div class="col-sm-3" style="padding:0px; text-align:left;font-size:18px; padding-top:7px">
-                        <span style="">Status:&nbsp;&nbsp;@Model.colFormStatus.Replace("REVIEWED","Reviewed")</span>
+                        <span style="">Status:&nbsp;&nbsp;</span><span id="frmStatus">@Model.colFormStatus.Replace("REVIEWED", "Reviewed")</span>
                     </div>
                     @*<div class="col-sm-2" style="padding:0px">
                         <div class="row" style="margin-right:2px; padding:0px">
@@ -307,11 +307,12 @@
 </div>
 
 <script>
-    function frmMarkAsReviewed(reportPath) {
-        var obsInstanceId = $('#obsInstId').val();
+    function frmMarkAsReviewed(obsInstanceId) {
+        //Old parameter "reportPath"
+        //var obsInstanceId = $('#obsInstId').val();
         //alert("Updating Status of Observation Intance Id: '" + obsInstanceId + "' as 'Reviewed'");
 
-        //Call ajax to Mark the observation as Reviewed and reload the page if successful.
+        //Call ajax to Mark the observation as Reviewed //and reload the page if successful.
         $.ajax({
             url: '/Observation/completeObsReview/' + obsInstanceId,
             method: "POST",
@@ -322,11 +323,13 @@
                 alert("Update Failed!" + errorThrown);
             }
         }).done(function (ajaxResult) {
-            if (ajaxResult == "Success") {
-                window.open(reportPath);
-                //location.reload();
-            }
-            else { alert(ajaxResult); }
+            //Change the Status in hte displayed form to "Reviewed"
+            $('#frmStatus').html("Reviewed");
+            //if (ajaxResult == "Success") {
+            //    window.open(reportPath);
+            //    //location.reload();
+            //}
+            //else { alert(ajaxResult); }
         });
     }
 
@@ -427,9 +430,11 @@
                 reportURL = cgURL + cgRptPath + urlParams + cgRptOptions + cgbackURL + folderId;
                 // If the Form Status is "Ready for Review" Mark the collection Form as Reviewed
                 if ("@Model.colFormStatus" == "Ready for Review") {
-                    frmMarkAsReviewed(reportURL);
+                    frmMarkAsReviewed($('#obsInstId').val());
                 }
-                else { window.open(reportURL); }
+
+                //Finally Display the Review Form in a new tab
+                window.open(reportURL);
             }
 
         });
